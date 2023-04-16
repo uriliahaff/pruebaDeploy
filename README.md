@@ -1,7 +1,7 @@
 # Proyecto
 | Nro | Titulo | Fecha de entrega |
 | --- | ------ | ---------------- |
-| 1   | [Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño](https://github.com/dds-utn/2023-tpa-mama-grupo-17/edit/main/README.md#modelado-en-objetos--parte-i-puesta-a-punto-del-entorno-de-desarrollo-y-primera-iteraci%C3%B3n-del-dise%C3%B1o) | 25-04-2023      |
+| 1   | [Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño](https://github.com/dds-utn/2023-tpa-mama-grupo-17#modelado-en-objetos--parte-i-puesta-a-punto-del-entorno-de-desarrollo-y-primera-iteraci%C3%B3n-del-dise%C3%B1o) | 25-04-2023      |
 | 2   | Modelado en Objetos – Parte II: Incrementando funcionalidades | 29/5 al 2 de junio      |
 | 3   | Modelado en Objetos – Parte III: Incrementando funcionalidades | 3 al 8 de julio      |
 | 4   | Servicios y Persistencia de Datos | 21 al 25 de agosto      |
