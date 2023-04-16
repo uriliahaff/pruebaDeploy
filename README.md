@@ -1,4 +1,28 @@
 # Proyecto
+| Nro | Titulo | Fecha de entrega |
+| --- | ------ | ---------------- |
+| 1   | [Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño](https://github.com/dds-utn/2023-tpa-mama-grupo-17/edit/main/README.md#modelado-en-objetos--parte-i-puesta-a-punto-del-entorno-de-desarrollo-y-primera-iteraci%C3%B3n-del-dise%C3%B1o) | 25-04-2023      |
+| 2   | Modelado en Objetos – Parte II: Incrementando funcionalidades | 29/5 al 2 de junio      |
+| 3   | Modelado en Objetos – Parte III: Incrementando funcionalidades | 3 al 8 de julio      |
+| 4   | Servicios y Persistencia de Datos | 21 al 25 de agosto      |
+| 5   | Servicios y Maquetado Web | 25 al 30 de septiembre   |
+| 6   | Arquitectura Web con Cliente Pesado | 23 al 28 de octubre     |
+| 7   | Arquitectura Web con Cliente Liviano | 20 al 25 de noviembre       |
+
+## Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño 
+
+### Entregables requeridos
+
+#### Modelo de Casos de Uso
+
+
+ ![Modelo de Casos de Uso](https://i.ibb.co/Bnj0k0M/cu.png) 
+
+
+#### Modelo de Objetos
+#### Documento
+#### Implementacion
+
 # java-base-project
 
 Esta es una plantilla de proyecto diseñada para: 
