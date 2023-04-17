@@ -16,7 +16,7 @@
 #### Modelo de Casos de Uso
 
 
- ![Modelo de Casos de Uso](https://i.ibb.co/Bnj0k0M/cu.png) 
+ ![Modelo de Casos de Uso](https://i.ibb.co/KjWwcn9/cu.png) 
 
 
 #### Modelo de Objetos
