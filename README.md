@@ -28,6 +28,16 @@ Para moverse a través de las ciudades, estas personas suelen investigar a los l
 
 <p>La situación mencionada en el párrafo anterior, y otras que seguramente el lector está visualizando, son las que trabajaremos en el presente trabajo práctico.</p>
 
+<h4 style="color: lightgrey;">Nuestro Sistema</h4>
+
+<p>A partir de la problemática identificada y presentada en la sección anterior, se presentan los requerimientos para el diseño y construcción de un Sistema de Monitoreo de Estado de Servicios.</p>
+
+<h4 style="color: lightgrey;">Las entregas</h4>
+
+<p>Serán 7 entregas, algunas orientadas específicamente a la inclusión de funcionalidades, mientras que otras se abocarán a la inclusión de algunos aspectos del diseño y herramientas tecnológicas para la implementación del mismo.</p>
+
+<p>Las entregas previstas se muestran a continuación, aunque pueden sufrir algunas modificaciones en su alcance o fechas:</p>
+
 | Nro | Titulo | Fecha de entrega |
 | --- | ------ | ---------------- |
 | 1   | [Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño](https://github.com/dds-utn/2023-tpa-mama-grupo-17#modelado-en-objetos--parte-i-puesta-a-punto-del-entorno-de-desarrollo-y-primera-iteraci%C3%B3n-del-dise%C3%B1o) | 25-04-2023      |
