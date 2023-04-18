@@ -1,4 +1,25 @@
 # Proyecto
+
+
+<h3 align="center" >
+  Monitoreo de Estado de Servicios de Transporte Público y de Establecimientos. 
+  <br> <br> <br>
+  Sistema de Apoyo a Comunidades con Movilidad Reducida 
+  <br> <br>
+</h3>
+<p align ="center">  Trabajo Práctico Anual Integrador
+  <br>
+  -2023-
+ </p>
+
+<h3 align="center">Contexto general</h3>
+
+<h4>Problematica</h4>
+<p>
+Las personas con movilidad reducida (permanente o temporal) a menudo enfrentan desafíos significativos en términos de movilidad en una ciudad. Además debemos considerar a las personas que llevan niños pequeños que también pueden verse afectados. <br>
+Algunos de los problemas comunes de movilidad incluyen:
+</p>
+
 | Nro | Titulo | Fecha de entrega |
 | --- | ------ | ---------------- |
 | 1   | [Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño](https://github.com/dds-utn/2023-tpa-mama-grupo-17#modelado-en-objetos--parte-i-puesta-a-punto-del-entorno-de-desarrollo-y-primera-iteraci%C3%B3n-del-dise%C3%B1o) | 25-04-2023      |
@@ -15,9 +36,9 @@
 
 #### Modelo de Casos de Uso
 
-
- ![Modelo de Casos de Uso](https://i.ibb.co/XWxnkSh/cu.png) 
-
+<p align="center">
+  <img src="https://i.ibb.co/XWxnkSh/cu.png" alt="Modelo de Casos de Uso" />
+</p>
 
 #### Modelo de Objetos
 #### Documento
