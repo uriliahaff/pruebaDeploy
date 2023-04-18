@@ -14,7 +14,7 @@
 
 <h3 align="center">Contexto general</h3>
 
-<h4>Problematica</h4>
+<h4 style="color: lightgrey;">Problematica</h4>
 <p>
 Las personas con movilidad reducida (permanente o temporal) a menudo enfrentan desafíos significativos en términos de movilidad en una ciudad. Además debemos considerar a las personas que llevan niños pequeños que también pueden verse afectados. <br>
 </p>
@@ -25,6 +25,8 @@ Las personas con movilidad reducida (permanente o temporal) a menudo enfrentan d
 
 <p>
 Para moverse a través de las ciudades, estas personas suelen investigar a los lugares donde concurrirán pero muchas veces la información hallada no concuerda con la realidad. Por ejemplo, Martina necesita llevar a su bebé de 3 meses al pediatra que queda en la estación de Facultad de Medicina de la línea D de Subte de Buenos Aires. Al bajar en dicha estación se encuentra con que el ascensor no funciona y por lo tanto debe pedir ayuda para subir la escalera con el cochecito.</p>
+
+<p>La situación mencionada en el párrafo anterior, y otras que seguramente el lector está visualizando, son las que trabajaremos en el presente trabajo práctico.</p>
 
 | Nro | Titulo | Fecha de entrega |
 | --- | ------ | ---------------- |
