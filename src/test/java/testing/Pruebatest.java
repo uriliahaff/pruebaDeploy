@@ -31,4 +31,22 @@ public class Pruebatest {
         return true;
     }
 
+    public boolean cumpleLongitud(String password){
+        return password.length() >= 12 ;
+    }
+
+    public boolean cumpleComplejidad(String password){
+        //TODO
+        return true;
+    }
+
+    public boolean cumplePoliticasDeContrasenas(String password){
+        return cumpleLongitud(password) && cumpleComplejidad(password);
+    }
+
+    public boolean cumpleOWASP(String password){
+        return (isPasswordInFile(password)
+                && cumplePoliticasDeContrasenas(password));
+    }
+
 }
