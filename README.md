@@ -17,8 +17,14 @@
 <h4>Problematica</h4>
 <p>
 Las personas con movilidad reducida (permanente o temporal) a menudo enfrentan desafíos significativos en términos de movilidad en una ciudad. Además debemos considerar a las personas que llevan niños pequeños que también pueden verse afectados. <br>
-Algunos de los problemas comunes de movilidad incluyen:
 </p>
+<p>Algunos de los problemas comunes de movilidad incluyen: </p>
+<p><strong>Accesibilidad:</strong> Muchas ciudades no están diseñadas para ser accesibles. Las aceras estrechas, los obstáculos en las calles y la falta de rampas para sillas de ruedas pueden dificultar que las personas con movilidad reducida se desplacen de manera segura y efectiva. </p> 
+<p><strong>Transporte público:</strong> Los autobuses y trenes pueden ser difíciles de subir y bajar, y pueden no estar equipados con rampas o elevadores. Incluso si el transporte público es accesible, puede ser difícil para las personas con discapacidades físicas encontrar información sobre rutas y horarios. </p>
+<p><strong>Edificios inaccesibles:</strong> Las instalaciones de los edificios en las ciudades pueden tener escaleras y puertas estrechas, y los baños pueden ser inaccesibles o no estar disponibles. </p>
+
+<p>
+Para moverse a través de las ciudades, estas personas suelen investigar a los lugares donde concurrirán pero muchas veces la información hallada no concuerda con la realidad. Por ejemplo, Martina necesita llevar a su bebé de 3 meses al pediatra que queda en la estación de Facultad de Medicina de la línea D de Subte de Buenos Aires. Al bajar en dicha estación se encuentra con que el ascensor no funciona y por lo tanto debe pedir ayuda para subir la escalera con el cochecito.</p>
 
 | Nro | Titulo | Fecha de entrega |
 | --- | ------ | ---------------- |
