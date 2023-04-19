@@ -123,6 +123,11 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
 ```
 *_Se utiliza el documento 🔗🗎 [10kpasswords.txt](../main/src/main/resources/10kpasswords.txt) que contiene las la lista del Top 10.000 de peores contraseñas para comparar_
 
+
+---
+---
+---
+
 # java-base-project
 
 Esta es una plantilla de proyecto diseñada para: 
