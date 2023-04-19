@@ -1,12 +1,12 @@
 # Proyecto
 
-
 <h3 align="center" >
   Monitoreo de Estado de Servicios de Transporte Público y de Establecimientos. 
   <br> <br> <br>
   Sistema de Apoyo a Comunidades con Movilidad Reducida 
   <br> <br>
 </h3>
+
 <p align ="center">  Trabajo Práctico Anual Integrador
   <br>
   -2023-
@@ -15,16 +15,18 @@
 <h3 align="center">Contexto general</h3>
 
 <h4 style="color: lightgrey;">Problematica</h4>
-<p>
-Las personas con movilidad reducida (permanente o temporal) a menudo enfrentan desafíos significativos en términos de movilidad en una ciudad. Además debemos considerar a las personas que llevan niños pequeños que también pueden verse afectados. <br>
-</p>
+
+<p>Las personas con movilidad reducida (permanente o temporal) a menudo enfrentan desafíos significativos en términos de movilidad en una ciudad. Además debemos considerar a las personas que llevan niños pequeños que también pueden verse afectados. <br> </p>
+
 <p>Algunos de los problemas comunes de movilidad incluyen: </p>
+
 <p><strong>Accesibilidad:</strong> Muchas ciudades no están diseñadas para ser accesibles. Las aceras estrechas, los obstáculos en las calles y la falta de rampas para sillas de ruedas pueden dificultar que las personas con movilidad reducida se desplacen de manera segura y efectiva. </p> 
+
 <p><strong>Transporte público:</strong> Los autobuses y trenes pueden ser difíciles de subir y bajar, y pueden no estar equipados con rampas o elevadores. Incluso si el transporte público es accesible, puede ser difícil para las personas con discapacidades físicas encontrar información sobre rutas y horarios. </p>
+
 <p><strong>Edificios inaccesibles:</strong> Las instalaciones de los edificios en las ciudades pueden tener escaleras y puertas estrechas, y los baños pueden ser inaccesibles o no estar disponibles. </p>
 
-<p>
-Para moverse a través de las ciudades, estas personas suelen investigar a los lugares donde concurrirán pero muchas veces la información hallada no concuerda con la realidad. Por ejemplo, Martina necesita llevar a su bebé de 3 meses al pediatra que queda en la estación de Facultad de Medicina de la línea D de Subte de Buenos Aires. Al bajar en dicha estación se encuentra con que el ascensor no funciona y por lo tanto debe pedir ayuda para subir la escalera con el cochecito.</p>
+<p>Para moverse a través de las ciudades, estas personas suelen investigar a los lugares donde concurrirán pero muchas veces la información hallada no concuerda con la realidad. Por ejemplo, Martina necesita llevar a su bebé de 3 meses al pediatra que queda en la estación de Facultad de Medicina de la línea D de Subte de Buenos Aires. Al bajar en dicha estación se encuentra con que el ascensor no funciona y por lo tanto debe pedir ayuda para subir la escalera con el cochecito.</p>
 
 <p>La situación mencionada en el párrafo anterior, y otras que seguramente el lector está visualizando, son las que trabajaremos en el presente trabajo práctico.</p>
 
@@ -119,6 +121,7 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
         return true;
     }
 ```
+*_Se utiliza el documento 🔗🗎 [10kpasswords.txt](../main/src/main/resources) que contiene las la lista del Top 10.000 de peores contraseñas para comparar_
 
 # java-base-project
 
