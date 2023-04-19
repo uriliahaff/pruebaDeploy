@@ -47,8 +47,9 @@ public class Usuario {
     }
 
     public boolean cumpleComplejidad(String password){
-        password.matches("^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[!@#&()–[{}]:;',?/*~$^+=<>])");
-        return true;
+        String regex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).+$";
+
+        return password.matches(regex);
     }
 
     public boolean cumplePoliticasDeContrasenas(String password){
