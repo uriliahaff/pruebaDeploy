@@ -68,9 +68,13 @@ Para moverse a través de las ciudades, estas personas suelen investigar a los l
 > - Alinear la política de longitud, complejidad y rotación de contraseñas con las recomendaciones de la Sección 5.1.1.2 para Secretos Memorizados de la Guía NIST 800-63.
 > - Limite o incremente el tiempo de respuesta de cada intento fallido de inicio de sesión
 
+Los siguientes metodos pertenecen a la clase ```Usuario() ```
+
 ```java
-var s = "JavaScript syntax highlighting";
-alert(s);
+    public boolean cumpleOWASP(String password){
+        return (isPasswordInFile(password)
+                && cumplePoliticasDeContrasenas(password));
+    }
 ```
 
 # java-base-project
