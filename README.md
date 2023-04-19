@@ -121,7 +121,7 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
         return true;
     }
 ```
-*_Se utiliza el documento 🔗🗎 [10kpasswords.txt](../main/src/main/resources) que contiene las la lista del Top 10.000 de peores contraseñas para comparar_
+*_Se utiliza el documento 🔗🗎 [10kpasswords.txt](../main/src/main/resources/10kpasswords.txt) que contiene las la lista del Top 10.000 de peores contraseñas para comparar_
 
 # java-base-project
 
