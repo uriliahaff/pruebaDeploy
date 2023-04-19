@@ -54,6 +54,16 @@ Para moverse a través de las ciudades, estas personas suelen investigar a los l
 
 #### Modelo de Casos de Uso
 
+> Requerimientos generales
+> 1. Se debe permitir la administración de servicios públicos (en adelante se llama “administración” a las acciones de alta, baja y modificación)
+> 2. Se debe permitir la administración de servicios
+> 3. Se debe permitir la administración de prestación de servicios
+> 4. Se debe permitir la administración de comunidades y miembros
+
+> Requerimientos de seguridad
+> - El sistema debe permitir el registro de usuarios. Por el momento sólo se requiere guardar usuario y contraseña.
+
+
 <p align="center">
   <img src="https://i.ibb.co/XWxnkSh/cu.png" alt="Modelo de Casos de Uso" />
 </p>
