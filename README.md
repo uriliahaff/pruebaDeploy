@@ -54,13 +54,38 @@ Para moverse a través de las ciudades, estas personas suelen investigar a los l
 
 #### Modelo de Casos de Uso
 
+> Requerimientos generales
+> 1. Se debe permitir la administración de servicios públicos (en adelante se llama “administración” a las acciones de alta, baja y modificación)
+> 2. Se debe permitir la administración de servicios
+> 3. Se debe permitir la administración de prestación de servicios
+> 4. Se debe permitir la administración de comunidades y miembros
+
+> Requerimientos de seguridad
+> - El sistema debe permitir el registro de usuarios. Por el momento sólo se requiere guardar usuario y contraseña.
+
+
 <p align="center">
   <img src="https://i.ibb.co/XWxnkSh/cu.png" alt="Modelo de Casos de Uso" />
 </p>
 
 #### Modelo de Objetos
 #### Documento
+
 #### Implementacion
+> Siguiendo las recomendaciones del OWASP (Proyecto Abierto de Seguridad en Aplicaciones Web), que se ha constituido en un estándar de facto para la seguridad, se pide:
+> - No utilice credenciales por defecto en su software, particularmente en el caso de administradores. 
+> - Implemente controles contra contraseñas débiles. Cuando el usuario ingrese una nueva clave, la misma puede verificarse contra la lista del Top 10.000 de peores contraseñas.
+> - Alinear la política de longitud, complejidad y rotación de contraseñas con las recomendaciones de la Sección 5.1.1.2 para Secretos Memorizados de la Guía NIST 800-63.
+> - Limite o incremente el tiempo de respuesta de cada intento fallido de inicio de sesión
+
+Los siguientes metodos pertenecen a la clase ```Usuario() ```
+
+```java
+    public boolean cumpleOWASP(String password){
+        return (isPasswordInFile(password)
+                && cumplePoliticasDeContrasenas(password));
+    }
+```
 
 # java-base-project
 
