@@ -87,6 +87,39 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
     }
 ```
 
+```java
+    public boolean cumplePoliticasDeContrasenas(String password){
+        return cumpleLongitud(password) && cumpleComplejidad(password);
+    }
+```
+```java
+    public boolean cumpleComplejidad(String password){
+        String regex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).+$";
+
+        return password.matches(regex);
+    }
+```
+```java
+    public boolean cumpleLongitud(String password){
+        return password.length() >= 12 ;
+    }
+```
+```java
+    public boolean isPasswordInFile(String password) {
+        try (InputStream inputStream = ClassLoader.getSystemResourceAsStream("10kpasswords.txt");
+             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (password.equals(line))
+                    return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+```
+
 # java-base-project
 
 Esta es una plantilla de proyecto diseñada para: 
