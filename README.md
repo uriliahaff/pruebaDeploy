@@ -60,7 +60,18 @@ Para moverse a través de las ciudades, estas personas suelen investigar a los l
 
 #### Modelo de Objetos
 #### Documento
+
 #### Implementacion
+> Siguiendo las recomendaciones del OWASP (Proyecto Abierto de Seguridad en Aplicaciones Web), que se ha constituido en un estándar de facto para la seguridad, se pide:
+> - No utilice credenciales por defecto en su software, particularmente en el caso de administradores. 
+> - Implemente controles contra contraseñas débiles. Cuando el usuario ingrese una nueva clave, la misma puede verificarse contra la lista del Top 10.000 de peores contraseñas.
+> - Alinear la política de longitud, complejidad y rotación de contraseñas con las recomendaciones de la Sección 5.1.1.2 para Secretos Memorizados de la Guía NIST 800-63.
+> - Limite o incremente el tiempo de respuesta de cada intento fallido de inicio de sesión
+
+```java
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
 
 # java-base-project
 
