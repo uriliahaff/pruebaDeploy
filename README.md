@@ -82,6 +82,9 @@
 
 #### Documento
 
+ 🔗🗎<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/Justificacion.pdf"> Documento </a>
+
+
 #### Implementacion
 > Siguiendo las recomendaciones del OWASP (Proyecto Abierto de Seguridad en Aplicaciones Web), que se ha constituido en un estándar de facto para la seguridad, se pide:
 > - No utilice credenciales por defecto en su software, particularmente en el caso de administradores. 
