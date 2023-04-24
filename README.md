@@ -75,6 +75,11 @@
 
 
 #### Modelo de Objetos
+<p align="center">
+  <img src="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/dd.png?raw=true" alt="Modelo de Casos de Uso" />
+</p>
+ 🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/dd.png?raw=true"> Diagrama </a>
+
 #### Documento
 
 #### Implementacion
