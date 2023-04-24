@@ -69,7 +69,7 @@
 <p align="center">
   <img src="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/cu.png?raw=true" alt="Modelo de Casos de Uso" />
 </p>
- 🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/cu.png"> Imagen </a>
+ 🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/tree/main/Entregas/Entrega%201"> Imagen </a>
 
 
 
@@ -78,7 +78,7 @@
 <p align="center">
   <img src="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/dd.png?raw=true" alt="Modelo de Casos de Uso" />
 </p>
- 🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/dd.png?raw=true"> Diagrama </a>
+ 🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/tree/main/Entregas/Entrega%201"> Diagrama </a>
 
 #### Documento
 
