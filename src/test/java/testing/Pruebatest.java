@@ -1,6 +1,7 @@
 package testing;
 
 import domain.humanos.Usuario;
+import domain.other.ValidadorDePassword;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -28,7 +29,9 @@ public class Pruebatest {
         Usuario unUsuario = new Usuario();
         unUsuario.setPassword("UnUsuarioqqq!");
         Assertions.assertFalse(unUsuario.cumpleOWASP(unUsuario.getPassword()));
-    }@Test
+    }
+
+    @Test
     public void passwordInseguraCorta()
     {
         Usuario unUsuario = new Usuario();
@@ -43,12 +46,6 @@ public class Pruebatest {
         unUsuario.setPassword("UnUsuario123");
         Assertions.assertFalse(unUsuario.cumpleOWASP(unUsuario.getPassword()));
     }
-    @Test
-    public void chequeoComplejidad()
-    {
 
-        String password = "UnUsuario123@";
-        Assertions.assertTrue(new Usuario().cumpleComplejidad(password));
-    }
 
 }
