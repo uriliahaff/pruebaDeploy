@@ -43,7 +43,7 @@
 | Nro | Titulo | Fecha de entrega |
 | --- | ------ | ---------------- |
 | 1   | [Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño](https://github.com/dds-utn/2023-tpa-mama-grupo-17#modelado-en-objetos--parte-i-puesta-a-punto-del-entorno-de-desarrollo-y-primera-iteraci%C3%B3n-del-dise%C3%B1o) | 25-04-2023      |
-| 2   | Modelado en Objetos – Parte II: Incrementando funcionalidades | 29/5 al 2 de junio      |
+| 2   | [Modelado en Objetos – Parte II: Incrementando funcionalidades]() | 29/5 al 2 de junio      |
 | 3   | Modelado en Objetos – Parte III: Incrementando funcionalidades | 3 al 8 de julio      |
 | 4   | Servicios y Persistencia de Datos | 21 al 25 de agosto      |
 | 5   | Servicios y Maquetado Web | 25 al 30 de septiembre   |
@@ -135,18 +135,36 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
 ```
 *_Se utiliza el documento 🔗🗎 [10kpasswords.txt](../main/src/main/resources/10kpasswords.txt) que contiene las la lista del Top 10.000 de peores contraseñas para comparar_
 
-## Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño 
+## Modelado en Objetos – Parte II: Incrementando funcionalidades
 
 ### Entregables requeridos
 
 #### Modelo de Casos de Uso
+> Requerimientos generales
+> 1. Se debe permitir la administración de entidades
+> 2. Se debe permitir la administración de establecimientos
+> 3. Se debe permitir la asignación de personas a servicios de interés
+> 4. Se debe permitir la asociación de localizaciones a personas
+> 5. Se debe permitir la asociación de localizaciones a entidades
+> 6. Se debe permitir la administración de entidades prestadoras y organismos de control
+
+<p align="center">
+  <img src="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%202/CU.png" alt="Modelo de Casos de Uso" />
+</p>
+ 🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/tree/main/Entregas/Entrega%202"> Imagen </a>
+
 #### Modelo de Objetos
+<p align="center">
+  <img src="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%202/ddo.png" alt="Modelo de Objetos" />
+</p>
+ 🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/tree/main/Entregas/Entrega%202"> Diagrama </a>
+
 #### Implementación de la carga masiva de datos de entidades prestadoras y organismos de control
 #### Implementación de la integración con el servicio GeoRef API
 #### Documento con diseño archivo csv
 #### Documento con las decisiones de diseño tomadas y su justificación
 
- 🔗🗎<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/Justificacion.pdf"> Documento </a>
+ 🔗🗎<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%202/Justificacion.pdf"> Documento </a>
 
 # java-base-project
 
