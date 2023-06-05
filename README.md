@@ -80,7 +80,7 @@
 </p>
  🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/tree/main/Entregas/Entrega%201"> Diagrama </a>
 
-#### Documento
+#### Documento con las decisiones de diseño tomadas y su justificación
 
  🔗🗎<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/Justificacion.pdf"> Documento </a>
 
@@ -135,11 +135,18 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
 ```
 *_Se utiliza el documento 🔗🗎 [10kpasswords.txt](../main/src/main/resources/10kpasswords.txt) que contiene las la lista del Top 10.000 de peores contraseñas para comparar_
 
-##  Modelado en Objetos – Parte II: Incrementando funcionalidades
+## Modelado en Objetos – Parte I: Puesta a punto del entorno de desarrollo y primera iteración del diseño 
 
----
----
----
+### Entregables requeridos
+
+#### Modelo de Casos de Uso
+#### Modelo de Objetos
+#### Implementación de la carga masiva de datos de entidades prestadoras y organismos de control
+#### Implementación de la integración con el servicio GeoRef API
+#### Documento con diseño archivo csv
+#### Documento con las decisiones de diseño tomadas y su justificación
+
+ 🔗🗎<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%201/Justificacion.pdf"> Documento </a>
 
 # java-base-project
 
