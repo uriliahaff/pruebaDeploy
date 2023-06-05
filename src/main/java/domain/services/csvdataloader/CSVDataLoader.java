@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVDataLoader {
-    public static void main(String[] args) {
-        String csvFile = "ruta/del/archivo.csv"; // Ruta del archivo CSV
+    public static List<Entidad> leerArchivo() {
+        String csvFile = "...a/archivo.csv"; // Ruta del archivo CSV
         List<Entidad> entities = new ArrayList<>();
 
         try {
@@ -41,6 +41,7 @@ public class CSVDataLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return entities;
     }
 
     // Método para procesar las entidades cargadas
