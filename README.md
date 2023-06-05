@@ -160,8 +160,136 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
  🔗🖼️<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/tree/main/Entregas/Entrega%202"> Diagrama </a>
 
 #### Implementación de la carga masiva de datos de entidades prestadoras y organismos de control
+> Dado que uno de los objetivos del Sistema es ayudar a mejorar la calidad de los servicios públicos, en esta versión se incorporan como usuarios de la plataforma a las empresas o entidades propietarias de los servicios públicos y a los organismos de control (en caso de que existiese por el tipo de servicio). Cada empresa podrá designar una persona a la cual le llegará información resumida sobre las problemáticas de los servicios que se ofrecen. De igual manera, los organismos de control podrán designar una persona con el mismo objetivo. La generación de la información que recibirán estará a cargo de un servicio de software específico que será detallado en la próxima entrega.
+> 
+> La carga de datos de entidades prestadoras y organismos de control debe poder ser realizada en forma masiva a través de la carga de un archivo CSV.
+
+
+Los siguientes metodos pertenecen a la clase ```CSVDataLoader() ```
+
+```java
+   public static List<Entidad> leerArchivo() {
+        String csvFile = "...a/archivo.csv"; // Ruta del archivo CSV
+        List<Entidad> entities = new ArrayList<>();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(csvFile));
+
+            // Omitir la primera línea del encabezado
+            String line = br.readLine();
+
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+
+                // Obtener los campos del archivo CSV
+                int id = Integer.parseInt(data[0]);
+                String nombre = data[1];
+                String tipo = data[2];
+                String email = data[3];
+                String descripcion = data[4];
+
+                // Crear objeto de entidad
+                Entidad entity = new Entidad(id, nombre, tipo, email, descripcion);
+
+                // Agregar entidad a la lista
+                entities.add(entity);
+            }
+
+            br.close();
+
+            // Procesar la lista de entidades cargadas desde el archivo CSV
+            processEntities(entities);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return entities;
+    }
+```
 #### Implementación de la integración con el servicio GeoRef API
+> Las localizaciones posibles de ser asignadas a las personas y a las entidades deben ser obtenidas del servicio GeoRef API (API del Servicio de Normalización de Datos Geográficos de Argentina) de la plataforma de datos abiertos del Gobierno Nacional Argentino. 
+
+Clase ```ServicioGeoref() ```
+
+```java
+  public class ServicioGeoref {
+    private static ServicioGeoref instacia = null;
+    private static final String urlAPI = "https://apis.datos.gob.ar/georef/api/";
+    private Retrofit retrofit;
+    private ServicioGeoref(){
+        this.retrofit = new Retrofit.Builder()
+                .baseUrl(urlAPI)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+    public static ServicioGeoref getInstancia(){
+        if(instacia==null){
+            instacia = new ServicioGeoref();
+        }
+        return instacia;
+    }
+
+    public ListadoDeProvincias listadoDeProvincias() throws IOException {
+        GeorefService georefService = this.retrofit.create(GeorefService.class);
+        Call<ListadoDeProvincias> requestListadoProvinciasArg = georefService.provincias();
+        Response<ListadoDeProvincias> responseListadoProvinciasArg = requestListadoProvinciasArg.execute();
+        return responseListadoProvinciasArg.body();
+    }
+
+    public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(int id) throws IOException {
+        GeorefService georefService = this.retrofit.create(GeorefService.class);
+        Call<ListadoDeMunicipios> requestListadoMunicipiosDeProvincia = georefService.municipios(id);
+        Response<ListadoDeMunicipios> responseListadoMunicipiosDeProvincia = requestListadoMunicipiosDeProvincia.execute();
+        return responseListadoMunicipiosDeProvincia.body();
+    }
+
+}
+```
+Interfaz ```GeorefService ```
+
+```java
+public interface GeorefService {
+    @GET("provincias")
+    Call<ListadoDeProvincias> provincias();
+
+    @GET("provincias")
+    Call<ListadoDeProvincias> provincias(@Query("campos")String campos);
+
+    @GET("municipios")
+    Call<ListadoDeMunicipios> municipios(@Query("provincia")int idProvincia);
+
+    @GET("municipios")
+    Call<ListadoDeMunicipios> municipios(@Query("provincia")int idProvincia, @Query("campos") String campos, @Query("max") int max);
+}
+
+```
+Depedencias 
+
+```xml
+  <dependencies>
+    <dependency>
+      <groupId>com.squareup.retrofit2</groupId>
+      <artifactId>converter-gson</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+  </dependencies>
+
+```
+
 #### Documento con diseño archivo csv
+```csv
+ID,Nombre,Tipo,Email,Descripción
+
+```
+Ejemplo:
+```csv
+"ID,Nombre,Tipo,Email,Descripción"
+"1,Telecom Argentina,Entidad Prestadora,info@telecom.com.ar,""Telecom Argentina es una empresa líder en servicios de telecomunicaciones en Argentina. Ofrece soluciones de Internet, telefonía fija y móvil, así como televisión por cable. Su objetivo es brindar conectividad confiable y de calidad a sus clientes en todo el país."""
+"2,Edesur,Entidad Prestadora,atencionalcliente@edesur.com.ar,""Edesur es una empresa distribuidora de energía eléctrica en la zona sur de la Ciudad de Buenos Aires y el Gran Buenos Aires. Provee servicio a millones de clientes residenciales, comerciales e industriales."""
+"3,Ente Nacional de Comunicaciones (ENACOM),Organismo de Control,info@enacom.gob.ar,""El Ente Nacional de Comunicaciones (ENACOM) es el organismo de control encargado de regular las comunicaciones en Argentina. Su misión es promover la competencia y el acceso equitativo a servicios de telecomunicaciones en todo el país."""
+"4,YPF,Entidad Prestadora,ypf@ypf.com.ar,""YPF es una empresa argentina líder en la industria de hidrocarburos. Se dedica a la exploración, producción, refinación y comercialización de petróleo, gas natural y sus derivados. También ofrece servicios en estaciones de servicio y lubricantes."""
+"5,Metrovías,Entidad Prestadora,atencionpasajeros@metrovias.com.ar,""Metrovías es una empresa encargada de operar el servicio de trenes y subtes en Buenos Aires. Brinda transporte público a millones de pasajeros en la ciudad y sus alrededores, asegurando la movilidad eficiente y segura."""
+```
+
 #### Documento con las decisiones de diseño tomadas y su justificación
 
  🔗🗎<a href="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%202/Justificacion.pdf"> Documento </a>
