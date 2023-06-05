@@ -207,11 +207,14 @@ Los siguientes metodos pertenecen a la clase ```CSVDataLoader() ```
 ```
 #### Implementación de la integración con el servicio GeoRef API
 > Las localizaciones posibles de ser asignadas a las personas y a las entidades deben ser obtenidas del servicio GeoRef API (API del Servicio de Normalización de Datos Geográficos de Argentina) de la plataforma de datos abiertos del Gobierno Nacional Argentino. 
+<p align="center">
+  <img src="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%202/GeoRef.png" alt="Modelo de Objetos" />
+</p>
 
-Clase ```ServicioGeoref() ```
+Clase ```GeoRefConcreteAdapter() ```
 
 ```java
-  public class ServicioGeoref {
+  public class GeoRefConcreteAdapter {
     private static ServicioGeoref instacia = null;
     private static final String urlAPI = "https://apis.datos.gob.ar/georef/api/";
     private Retrofit retrofit;
@@ -244,10 +247,10 @@ Clase ```ServicioGeoref() ```
 
 }
 ```
-Interfaz ```GeorefService ```
+Interfaz ```GeoRefAdapter ```
 
 ```java
-public interface GeorefService {
+public interface GeoRefAdapter {
     @GET("provincias")
     Call<ListadoDeProvincias> provincias();
 
