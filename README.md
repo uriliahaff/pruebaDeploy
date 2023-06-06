@@ -188,8 +188,14 @@ Los siguientes metodos pertenecen a la clase ```CSVDataLoader() ```
                 String email = data[3];
                 String descripcion = data[4];
 
-                // Crear objeto de entidad
-                Entidad entity = new Entidad(id, nombre, tipo, email, descripcion);
+              // Crear objeto de entidad según el tipo
+              if (tipo.equals("Entidad Prestadora")) {
+                  EntidadPrestadora entity = new EntidadPrestadora(id, nombre, tipo, email, descripcion);
+                  entities.add(entity);
+              }   else if (tipo.equals("Organismo de Control")) {
+                 OrganismoDeControl entity = new OrganismoDeControl(id, nombre, tipo, email, descripcion);
+                  entities.add(entity);
+              }
 
                 // Agregar entidad a la lista
                 entities.add(entity);
