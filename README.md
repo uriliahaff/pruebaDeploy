@@ -168,9 +168,9 @@ Los siguientes metodos pertenecen a la clase ```Usuario() ```
 Los siguientes metodos pertenecen a la clase ```CSVDataLoader() ```
 
 ```java
-   public static List<Entidad> leerArchivo() {
+   public static List<OrganizacionExterna> leerArchivo() {
         String csvFile = "...a/archivo.csv"; // Ruta del archivo CSV
-        List<Entidad> entities = new ArrayList<>();
+        List<OrganizacionExterna> entities = new ArrayList<>();
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(csvFile));
