@@ -211,19 +211,51 @@ Los siguientes metodos pertenecen a la clase ```CSVDataLoader() ```
   <img src="https://github.com/dds-utn/2023-tpa-mama-grupo-17/blob/main/Entregas/Entrega%202/GeoRef.png" alt="Modelo de Objetos" />
 </p>
 
+Clase ```Localizacion() ```
+
+```java
+public class Localizacion {
+    private ILocalizacionAdapter localizacionAdapter;
+    private String nombre;
+    public LocalizacionService() {
+        this.localizacionService = new GeoRefAdapter();
+    }
+
+   public List<Provincia> obtenerListadoDeProvincias() {
+        return this.localizacionAdapter.obtenerListadoDeProvincias();
+    }
+
+    public List<Municipio> obtenerMunicipiosDeProvincia(Provincia provincia) {
+        return this.localizacionAdapter.obtenerMunicipiosDeProvincia(provincia);
+    }
+}
+
+```
+Interfaz ```ILocationAdapter ```
+
+```java
+public interface GeoRefAdapter {
+  ListadoDeProvincias listadoDeProvincias();
+  ListadoDeMunicipios listadoDeMunicipiosDeProvincia(int id);
+}
+
+```
+
 Clase ```GeoRefConcreteAdapter() ```
 
 ```java
-  public class GeoRefConcreteAdapter {
-    private static ServicioGeoref instacia = null;
+  public class GeoRefConcreteAdapter implements ILocationAdapter {
+    private static GeoRefAdapter instacia = null;
     private static final String urlAPI = "https://apis.datos.gob.ar/georef/api/";
     private Retrofit retrofit;
+    
     private ServicioGeoref(){
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+    
     public static ServicioGeoref getInstancia(){
         if(instacia==null){
             instacia = new ServicioGeoref();
@@ -232,14 +264,14 @@ Clase ```GeoRefConcreteAdapter() ```
     }
 
     public ListadoDeProvincias listadoDeProvincias() throws IOException {
-        GeorefService georefService = this.retrofit.create(GeorefService.class);
+        GeoRefAdapter georefService = this.retrofit.create(GeoRefAdapter.class);
         Call<ListadoDeProvincias> requestListadoProvinciasArg = georefService.provincias();
         Response<ListadoDeProvincias> responseListadoProvinciasArg = requestListadoProvinciasArg.execute();
         return responseListadoProvinciasArg.body();
     }
 
     public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(int id) throws IOException {
-        GeorefService georefService = this.retrofit.create(GeorefService.class);
+        GeoRefAdapter georefService = this.retrofit.create(GeoRefAdapter.class);
         Call<ListadoDeMunicipios> requestListadoMunicipiosDeProvincia = georefService.municipios(id);
         Response<ListadoDeMunicipios> responseListadoMunicipiosDeProvincia = requestListadoMunicipiosDeProvincia.execute();
         return responseListadoMunicipiosDeProvincia.body();
@@ -247,10 +279,10 @@ Clase ```GeoRefConcreteAdapter() ```
 
 }
 ```
-Interfaz ```GeoRefAdapter ```
+Interfaz ```GeoRefAdapter() ```
 
 ```java
-public interface GeoRefAdapter {
+public interface GeorefService {
     @GET("provincias")
     Call<ListadoDeProvincias> provincias();
 
@@ -260,11 +292,10 @@ public interface GeoRefAdapter {
     @GET("municipios")
     Call<ListadoDeMunicipios> municipios(@Query("provincia")int idProvincia);
 
-    @GET("municipios")
-    Call<ListadoDeMunicipios> municipios(@Query("provincia")int idProvincia, @Query("campos") String campos, @Query("max") int max);
 }
-
 ```
+
+
 Depedencias 
 
 ```xml
