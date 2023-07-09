@@ -1,6 +1,6 @@
 package domain.entidades;
 
-class Entidad {
+public class Entidad {
     private int id;
     private String nombre;
     private String tipo;

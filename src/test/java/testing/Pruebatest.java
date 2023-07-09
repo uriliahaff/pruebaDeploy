@@ -1,7 +1,6 @@
 package testing;
 
-import domain.humanos.Usuario;
-import domain.other.ValidadorDePassword;
+import domain.Usuarios.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

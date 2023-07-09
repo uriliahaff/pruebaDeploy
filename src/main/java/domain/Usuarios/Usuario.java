@@ -1,16 +1,16 @@
-package domain.humanos;
+package domain.Usuarios;
 
 import domain.other.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.List;
 
-public class Usuario {
+public class Usuario{
     private String username;
     private String password;
-    private Persona persona;
+
+    private List<Rol> roles;
+
+    //TODO: Disccutir como correjir esto
     private ValidadorDePassword vp = new ValidadorDePassword();
 
     public Usuario() {

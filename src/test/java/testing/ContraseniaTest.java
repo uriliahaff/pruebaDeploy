@@ -1,6 +1,5 @@
 package testing;
 
-import domain.humanos.Usuario;
 import domain.other.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
