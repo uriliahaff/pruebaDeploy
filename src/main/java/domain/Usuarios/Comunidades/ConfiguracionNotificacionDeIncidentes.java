@@ -1,9 +1,7 @@
 package domain.Usuarios.Comunidades;
 
-import domain.notificaciones.ComponenteNotificador;
+import domain.services.notificationSender.ComponenteNotificador;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ConfiguracionNotificacionDeIncidentes {

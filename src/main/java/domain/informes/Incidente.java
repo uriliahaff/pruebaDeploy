@@ -3,7 +3,7 @@ package domain.informes;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.repositorios.RepositorioComunidades;
-import domain.services.PrestacionDeServicio;
+import domain.servicios.PrestacionDeServicio;
 
 import java.time.LocalDate;
 import java.util.List;

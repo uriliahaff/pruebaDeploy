@@ -2,7 +2,7 @@ package domain.Usuarios.Comunidades;
 
 import domain.Usuarios.Usuario;
 import domain.informes.Incidente;
-import domain.services.Servicio;
+import domain.servicios.Servicio;
 
 import java.util.ArrayList;
 import java.util.List;

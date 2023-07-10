@@ -1,7 +1,7 @@
 package domain.Usuarios.Comunidades;
 
 import domain.Usuarios.Usuario;
-import domain.services.Servicio;
+import domain.servicios.Servicio;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package domain.services;
+package domain.servicios;
 
 public class PrestacionDeServicio {
     private Servicio servicio;
