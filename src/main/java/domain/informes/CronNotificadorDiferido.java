@@ -8,17 +8,26 @@ import java.util.Timer;
 import java.util.stream.Collectors;
 
 public class CronNotificadorDiferido {
-    // Definir el intervalo en milisegundos.
-    //public static final long INTERVAL = 10 * 60 * 1000; // 10 minutos
+    private static CronNotificadorDiferido instance = null;
     private final Timer timer = new Timer();
+
+    private CronNotificadorDiferido() {
+    }
+
+    public static CronNotificadorDiferido getInstance() {
+        if (instance == null) {
+            instance = new CronNotificadorDiferido();
+        }
+        return instance;
+    }
 
     public void agregarNotificacion(Incidente incidente, Miembro miembro)
     {
         String texto = incidente.getDescripcion();
         String titulo = "Al servicio " + incidente.getServicioAfectado().getServicio().getNombre() + " le paso algo";
-        String destinatario = miembro.getCorreoElectronico();
+        //String destinatario = miembro.getCorreoElectronico();
         ConfiguracionNotificacionDeIncidentes config = miembro.getConfiguracionNotificacionDeIncidentes();
-        timer.schedule(new NotificacionDiferida(texto, titulo, destinatario, config), (long) getNextScheduledTime(config.getHorarioPreferencia()) * 60 * 1000);
+        timer.schedule(new NotificacionDiferida(texto, titulo, miembro), (long) getNextScheduledTime(config.getHorarioPreferencia()) * 60 * 1000);
     }
 
 

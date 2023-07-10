@@ -3,8 +3,14 @@ package domain.services.notificadorDeIncidentes;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.informes.Incidente;
 
-public interface CommandoNotificacion {
+public abstract class CommandoNotificacion {
 
-    public void notificarIncidente(Miembro miembro, Incidente incidente);
+    protected Miembro miembro;
+    protected Incidente incidente;
+    public CommandoNotificacion ( Miembro miembro, Incidente incidente){
+        this.miembro = miembro;
+        this.incidente = incidente;
+    }
+    public abstract void notificarIncidente();
 
 }

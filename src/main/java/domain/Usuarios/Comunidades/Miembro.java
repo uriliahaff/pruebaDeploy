@@ -2,6 +2,7 @@ package domain.Usuarios.Comunidades;
 
 import domain.Usuarios.Usuario;
 import domain.informes.Incidente;
+import domain.services.notificadorDeIncidentes.CommandoNotificacion;
 import domain.servicios.Servicio;
 
 import java.util.ArrayList;
@@ -33,8 +34,9 @@ public class Miembro extends Usuario{
         return true;
     }
 
-    public void notificar(Incidente incidente)
+    public CommandoNotificacion getCommandoNotificar(Incidente incidente)
     {
+        return configuracionNotificacionDeIncidentes.generarComando(this,incidente);
         //TODO: Aca tiene que hacer toda la cosa con el comand y no se que
     }
 
