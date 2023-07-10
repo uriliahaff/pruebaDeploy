@@ -11,7 +11,7 @@ public class Miembro extends Usuario{
     private String nombre;
     private String apellido;
     private String correoElectronico;
-
+    private String telefono;
     private ConfiguracionNotificacionDeIncidentes configuracionNotificacionDeIncidentes;
     //TODO: Remover Usuario del Diagrama
     private List<Servicio> serviciosQueAfectan = new ArrayList<>();
@@ -50,4 +50,6 @@ public class Miembro extends Usuario{
     public ConfiguracionNotificacionDeIncidentes getConfiguracionNotificacionDeIncidentes() {
         return configuracionNotificacionDeIncidentes;
     }
+
+    public String getTelefono() {return telefono;}
 }
