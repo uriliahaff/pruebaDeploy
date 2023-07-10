@@ -20,7 +20,11 @@ public class Entidad {
         this.establecimientos = new ArrayList<>();
     }
 
+
+
     // Métodos getter y setter
+
+    public String getNombre(){return nombre;}
 
     @Override
     public String toString() {

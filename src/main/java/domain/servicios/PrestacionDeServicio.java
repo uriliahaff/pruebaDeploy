@@ -1,15 +1,17 @@
 package domain.servicios;
 
+import domain.localizaciones.Establecimiento;
+
 public class PrestacionDeServicio {
     private Servicio servicio;
-    private String localizacion;
-    private enum estado{Servicio, FueraDeServicio}
+    private Establecimiento establecimiento;
+
 
     public Servicio getServicio() {
         return servicio;
     }
 
-    public String getLocalizacion() {
-        return localizacion;
+    public Establecimiento getLocalizacion() {
+        return establecimiento;
     }
 }
