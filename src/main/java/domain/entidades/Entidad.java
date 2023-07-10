@@ -15,7 +15,11 @@ public class Entidad {
         this.descripcion = descripcion;
     }
 
+
+
     // Métodos getter y setter
+
+    public String getNombre(){return nombre;}
 
     @Override
     public String toString() {
