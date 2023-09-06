@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Administrador - Usuarios</title>
+
+    <link href="includes/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <link href="css/admin.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="css/Login.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (Your existing head content) ... -->
+</head>
+<body>
+
+    <!-- Initialize Container -->
+    <div class="container mt-5">
+        
+        <!-- Form Title -->
+        <h2 class="text-center">Incidente</h2>
+        
+        <!-- Create Form -->
+        <form>
+            
+            <!-- Incident Name -->
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Enter incident name">
+            </div>
+            
+            <!-- Open Date -->
+            <div class="form-group">
+                <label for="fechaApertura">Fecha de apertura</label>
+                <input type="date" class="form-control" id="fechaApertura">
+            </div>
+
+            
+            <!-- Address Dropdowns -->
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                
+                <!-- Provincia Dropdown -->
+                <select class="form-control mb-2" id="provincia">
+                    <option value="" disabled selected>Select Provincia</option>
+                    <!-- Placeholders -->
+                    <option>Placeholder 1</option>
+                    <option>Placeholder 2</option>
+                    <option>Placeholder 3</option>
+                </select>
+                
+                <!-- Localidad Dropdown (Inicialmente oculto) -->
+                <select class="form-control mb-2" id="locacion" style="display: none;">
+                    <option value="" disabled selected>Select Localidad</option>
+                    <!-- Placeholders -->
+                    <option>Placeholder A</option>
+                    <option>Placeholder B</option>
+                    <option>Placeholder C</option>
+                </select>
+                
+                <!-- Municipio Dropdown (Inicialmente oculto) -->
+                <select class="form-control mb-2" id="municipio" style="display: none;">
+                    <option value="" disabled selected>Select Municipio</option>
+                    <!-- Placeholders -->
+                    <option>Placeholder X</option>
+                    <option>Placeholder Y</option>
+                    <option>Placeholder Z</option>
+                </select>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Save Incidente</button>
+            
+        </form>
+        
+    </div>
+
+    <!-- JavaScript to control Dropdown visibility -->
+    <script>
+        // Get Dropdown elements
+        const provinciaDropdown = document.getElementById('provincia');
+        const locacionDropdown = document.getElementById('locacion');
+        const municipioDropdown = document.getElementById('municipio');
+        
+        // Listen for changes on Provincia dropdown
+        provinciaDropdown.addEventListener('change', function() {
+            // Show Localidad dropdown
+            locacionDropdown.style.display = 'block';
+        });
+        
+        // Listen for changes on Localidad dropdown
+        locacionDropdown.addEventListener('change', function() {
+            // Show Municipio dropdown
+            municipioDropdown.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
