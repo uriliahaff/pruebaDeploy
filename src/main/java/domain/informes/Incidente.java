@@ -2,11 +2,11 @@ package domain.informes;
 
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
-import domain.repositorios.RepositorioComunidades;
 import domain.services.notificadorDeIncidentes.NotificadorDeIncidentes;
 import domain.servicios.PrestacionDeServicio;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +14,11 @@ public class Incidente {
     private String descripcion;
     private Miembro miembroInformante;
     private PrestacionDeServicio servicioAfectado;
+    private List<Comunidad> communidadesAfectadas = new ArrayList<>();
+
+    public List<Comunidad> getCommunidadesAfectadas() {
+        return communidadesAfectadas;
+    }
 
     private LocalDate fechaInicio;
 
@@ -23,6 +28,7 @@ public class Incidente {
     public Incidente(String descripcion, Miembro miembroInformante, PrestacionDeServicio servicioAfectado, LocalDate fechaInicio) {
         this.descripcion = descripcion;
         this.miembroInformante = miembroInformante;
+        communidadesAfectadas.addAll(miembroInformante.getComunidades());
         this.servicioAfectado = servicioAfectado;
         this.fechaInicio = fechaInicio;
 

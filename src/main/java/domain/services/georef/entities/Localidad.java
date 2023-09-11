@@ -1,6 +1,24 @@
 package domain.services.georef.entities;
 
+import javax.persistence.*;
+
+@Entity
 public class Localidad {
-    public int id;
-    public String nombre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(nullable = false)
+    private String nombre;
+
+    public int getId() {
+        return id;
+    }
+
+    public Localidad() {
+    }
+
+    public Localidad(String nombre) {
+        this.nombre = nombre;
+    }
 }

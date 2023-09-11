@@ -1,7 +1,9 @@
 package domain.rankings;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
-import domain.repositorios.RepositorioComunidades;
+//import domain.repositorios.RepositorioComunidades;
+import domain.localizaciones.Direccion;
+import domain.services.georef.entities.Localidad;
 import domain.services.notificadorDeIncidentes.CommandoNotificacion;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
@@ -39,7 +41,7 @@ public class RankingMayorGradoImpacto implements Ranking {
         Map<String, Integer> gradoImpactoPorEntidad = new HashMap<>();
 
         for (Incidente incidente : incidentes) {
-            String entidad = incidente.getServicioAfectado().getLocalizacion().getEntidad().getNombre();
+            String entidad = "TODO: here";//incidente.getServicioAfectado().getLocalizacion().getEntidad().getNombre();
             int miembrosComunidad = obtenerMiembrosComunidad(incidente);
 
             if (gradoImpactoPorEntidad.containsKey(entidad)) {
@@ -55,8 +57,8 @@ public class RankingMayorGradoImpacto implements Ranking {
 
     private int obtenerMiembrosComunidad(Incidente incidente) { //No se si hay q filtrar comunidades x lugar
         PrestacionDeServicio servicioAfectado = incidente.getServicioAfectado();
-        String lugarAfectado = servicioAfectado.getLocalizacion().toString();
-        Comunidad comunidad = RepositorioComunidades.getInstance().obtenerComunidadPorLugar(lugarAfectado);
+        Direccion lugarAfectado = servicioAfectado.getLocalizacion();
+        Comunidad comunidad = new Comunidad();//RepositorioComunidades.getInstance().obtenerComunidadPorLugar(lugarAfectado);
 
         if (comunidad != null) {
             List<Miembro> miembrosFiltrados = comunidad.miembrosFiltradosPorInteresEnLocalizacion(lugarAfectado);

@@ -20,7 +20,8 @@ public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
 
 
         for (Incidente incidente : incidentes) {
-            String entidad = incidente.getServicioAfectado().getLocalizacion().getEntidad().getNombre();
+            //TODO: here
+            String entidad = incidente.getServicioAfectado().getLocalizacion().toString();//.getEntidad().getNombre();
 
             if (!incidentesPorEntidad.containsKey(entidad)) {
                 incidentesPorEntidad.put(entidad, new ArrayList<>());
