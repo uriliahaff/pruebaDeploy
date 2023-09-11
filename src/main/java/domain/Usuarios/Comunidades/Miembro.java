@@ -21,7 +21,7 @@ public class Miembro extends Usuario{
     @Column
     private String telefono;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
     private ConfiguracionNotificacionDeIncidentes configuracionNotificacionDeIncidentes;
     //TODO: Remover Usuario del Diagrama
 

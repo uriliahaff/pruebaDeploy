@@ -22,7 +22,7 @@ public class NotificadorDeIncidentes {
                 .distinct()
                 .collect(Collectors.toList());
 */
-        List<Miembro> miembrosUnicos = incidente.getCommunidadesAfectadas().stream()
+        List<Miembro> miembrosUnicos = incidente.getComunidadesAfectadas().stream()
                 //.filter(comunidad -> comunidad.deInteres(servicioAfectado.getServicio()))//TODO: Abrir solo para las communidades que le interesa?
                 .flatMap(comunidad -> comunidad.miembrosFiltradosPorInteresEnLocalizacion(servicioAfectado.getLocalizacion()).stream())
                 .distinct()

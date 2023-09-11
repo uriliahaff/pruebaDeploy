@@ -4,15 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "organismo_de_control")
-public class OrganismoDeControl extends Usuario {
+public class OrganismoDeControl extends Usuario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    /*@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    private Usuario usuario;*/
 
     @Column(nullable = false)
     private String correoElectronicoResponsable;
@@ -23,14 +23,15 @@ public class OrganismoDeControl extends Usuario {
     @Column
     private String descripcion;
 
-    // Métodos "getters"
+
+
     public int getId() {
         return id;
     }
 
-    public OrganismoDeControl(String username, String password,Usuario usuario, String correoElectronicoResponsable, String nombre, String descripcion) {
+    public OrganismoDeControl(/*Usuario user,*/String username, String password , String correoElectronicoResponsable, String nombre, String descripcion) {
         super(username,password);
-        this.usuario = usuario;
+        //this.usuario = usuario;
         this.correoElectronicoResponsable = correoElectronicoResponsable;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -38,11 +39,11 @@ public class OrganismoDeControl extends Usuario {
 
     public OrganismoDeControl() {
     }
-
+/*
     public Usuario getUsuario() {
         return usuario;
     }
-
+*/
     public String getCorreoElectronicoResponsable() {
         return correoElectronicoResponsable;
     }

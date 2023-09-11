@@ -5,30 +5,56 @@ import domain.Usuarios.Comunidades.Miembro;
 import domain.services.notificadorDeIncidentes.NotificadorDeIncidentes;
 import domain.servicios.PrestacionDeServicio;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "incidente")
 public class Incidente {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(nullable = false)
     private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "miembro_id", nullable = false)
     private Miembro miembroInformante;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "servicio_id", nullable = false)
     private PrestacionDeServicio servicioAfectado;
-    private List<Comunidad> communidadesAfectadas = new ArrayList<>();
 
-    public List<Comunidad> getCommunidadesAfectadas() {
-        return communidadesAfectadas;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "incidente_comunidad",
+            joinColumns = @JoinColumn(name = "incidente_id"),
+            inverseJoinColumns = @JoinColumn(name = "comunidad_id")
+    )
+    private List<Comunidad> comunidadesAfectadas = new ArrayList<>();
 
+    @Column(nullable = false)
     private LocalDate fechaInicio;
 
+    @Column
     private LocalDate fechaCierre;
 
+    // Getters y Setters
+    public List<Comunidad> getComunidadesAfectadas() {
+        return comunidadesAfectadas;
+    }
+    public Incidente()
+    {}
     //TODO: Cambiar en el filtro la localizacion
     public Incidente(String descripcion, Miembro miembroInformante, PrestacionDeServicio servicioAfectado, LocalDate fechaInicio) {
         this.descripcion = descripcion;
         this.miembroInformante = miembroInformante;
-        communidadesAfectadas.addAll(miembroInformante.getComunidades());
+        getComunidadesAfectadas().addAll(miembroInformante.getComunidades());
         this.servicioAfectado = servicioAfectado;
         this.fechaInicio = fechaInicio;
 

@@ -2,6 +2,7 @@ package testing;
 
 import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Rol;
+import domain.Usuarios.Usuario;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.localizaciones.Direccion;
@@ -27,7 +28,7 @@ public class PersistenceTest {
         entityManager = emf.createEntityManager();
     }
     @Test
-    public void trying()
+    public void tryingToConnect()
     {
         boolean test = true;
         Assertions.assertTrue(test);
@@ -90,7 +91,6 @@ public class PersistenceTest {
         OrganismoDeControl organismo = new OrganismoDeControl(
                 "usuario",
                 "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",
-                null,
                 "correo@ejemplo.com",
                 "Nombre del Organismo",
                 "Descripción del Organismo"
@@ -103,5 +103,36 @@ public class PersistenceTest {
         OrganismoDeControl org = entityManager.find(OrganismoDeControl.class,organismo.getId());
         Assertions.assertEquals(org.getRoles().size(),2);
 
+    }
+
+    @Test
+    public void testEliminarUsuario() {
+        entityManager.getTransaction().begin();
+
+        OrganismoDeControl organismo = new OrganismoDeControl(
+
+                "usuarion",
+                "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",
+                "correo@ejemplo.com",
+                "Nombre del Organismo",
+                "Descripción del Organismo"
+        );
+        int id = organismo.getId();
+
+
+        entityManager.persist(organismo);
+
+        entityManager.getTransaction().commit();
+
+        Usuario usuarioRecuperado = entityManager.find(Usuario.class, organismo.getId());
+        Assertions.assertNotNull(usuarioRecuperado);
+        Assertions.assertEquals("usuarion", usuarioRecuperado.getUsername());
+
+        entityManager.getTransaction().begin();
+        entityManager.remove(usuarioRecuperado);
+        entityManager.getTransaction().commit();
+
+        OrganismoDeControl usuarioEliminado = entityManager.find(OrganismoDeControl.class, id);
+        Assertions.assertNull(usuarioEliminado);
     }
 }
