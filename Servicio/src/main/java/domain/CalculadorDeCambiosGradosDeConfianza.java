@@ -9,29 +9,29 @@ import java.util.Map;
 public class CalculadorDeCambiosGradosDeConfianza {
 
     public List<CambioDePuntaje> calcularGradosdeConfianza(List<Incidente> incidentes) {
-        // Crear una lista para almacenar los cambios de puntaje
+
+        // Lista para almacenar los cambios de puntaje
         List<CambioDePuntaje> cambios = new ArrayList<>();
 
 
         // Iterar a través de los incidentes
         for (Incidente incidente : incidentes) {
-        boolean esFraudulento = false;
+            boolean esFraudulento = false;
 
-
-            // Calcular la diferencia de tiempo entre apertura y cierre
-            long minutosDiferencia = minutosDeDiferencia(LocalDateTime.parse(incidente.getApertura()), LocalDateTime.parse(incidente.getCierre()));
-
-            // Verificar si es una apertura fraudulenta
-            if (minutosDiferencia < 3) {
-                // Se aplican descuentos por apertura o cierre fraudulentos
-                double descuento = 0.2;
-                CambioDePuntaje cambio = new CambioDePuntaje(incidente.getUsuarioApertura(), -descuento);
-                cambios.add(cambio);
-                esFraudulento = true;
-            }
-
-            //Verificar si es un cierre fraudulento
             if (incidente.getUsuarioCierre() != null) {
+
+                // Calcular la diferencia de tiempo entre apertura y cierre
+                long minutosDiferencia = minutosDeDiferencia(LocalDateTime.parse(incidente.getApertura()), LocalDateTime.parse(incidente.getCierre()));
+
+                // Verificar si es una apertura fraudulenta
+                if (minutosDiferencia < 3) {
+                    double descuento = 0.2;
+                    CambioDePuntaje cambio = new CambioDePuntaje(incidente.getUsuarioApertura(), -descuento);
+                    cambios.add(cambio);
+                    esFraudulento = true;
+                }
+
+                //Verificar si es un cierre fraudulento
                 // Buscar otros incidentes similares realizados por cualquier usuario
                 for (Incidente otroIncidente : incidentes) {
                     if (esIncidenteSimilar(incidente, otroIncidente) && !incidente.getUsuarioCierre().equals(otroIncidente.getUsuarioApertura())) {
@@ -48,8 +48,8 @@ public class CalculadorDeCambiosGradosDeConfianza {
                         }
                     }
                 }
-            }
 
+            }
             //Analizar aperturas y cierres
             if(!esFraudulento){
                 CambioDePuntaje cambio = new CambioDePuntaje(incidente.getUsuarioApertura(), 0.5);
@@ -60,10 +60,7 @@ public class CalculadorDeCambiosGradosDeConfianza {
                 }
             }
 
-
-
         }
-
 
         // Devolver la lista de cambios de puntaje
         return cambios;
