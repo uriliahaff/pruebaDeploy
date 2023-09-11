@@ -3612,6 +3612,74 @@
 							"headNameLabel": {
 								"$ref": "AAAAAAGKb5ghxpzxHEI="
 							}
+						},
+						{
+							"_type": "ERDEntityView",
+							"_id": "AAAAAAGKhfot+S28YiE=",
+							"_parent": {
+								"$ref": "AAAAAAFLzntJC6ElOqo="
+							},
+							"model": {
+								"$ref": "AAAAAAGKhfot+S269D0="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAGKhfot+S295p0=",
+									"_parent": {
+										"$ref": "AAAAAAGKhfot+S28YiE="
+									},
+									"font": "Arial;13;1",
+									"left": 680,
+									"top": 821,
+									"width": 126.78271484375,
+									"height": 13,
+									"text": "Incidente"
+								},
+								{
+									"_type": "ERDColumnCompartmentView",
+									"_id": "AAAAAAGKhfot+S2+pMc=",
+									"_parent": {
+										"$ref": "AAAAAAGKhfot+S28YiE="
+									},
+									"model": {
+										"$ref": "AAAAAAGKhfot+S269D0="
+									},
+									"subViews": [
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAGKhfpSWy3LZ80=",
+											"_parent": {
+												"$ref": "AAAAAAGKhfot+S2+pMc="
+											},
+											"model": {
+												"$ref": "AAAAAAGKhfpSSi3IuoQ="
+											},
+											"font": "Arial;13;0",
+											"left": 685,
+											"top": 844,
+											"width": 116.78271484375,
+											"height": 13
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 680,
+									"top": 839,
+									"width": 126.78271484375,
+									"height": 23
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 680,
+							"top": 816,
+							"width": 126.78271484375,
+							"height": 46,
+							"nameLabel": {
+								"$ref": "AAAAAAGKhfot+S295p0="
+							},
+							"columnCompartment": {
+								"$ref": "AAAAAAGKhfot+S2+pMc="
+							}
 						}
 					]
 				},
@@ -5268,6 +5336,27 @@
 							"type": "INTERGER",
 							"length": 0,
 							"foreignKey": true
+						}
+					]
+				},
+				{
+					"_type": "ERDEntity",
+					"_id": "AAAAAAGKhfot+S269D0=",
+					"_parent": {
+						"$ref": "AAAAAAFLzntJC6EktCk="
+					},
+					"name": "Incidente",
+					"columns": [
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAGKhfpSSi3IuoQ=",
+							"_parent": {
+								"$ref": "AAAAAAGKhfot+S269D0="
+							},
+							"name": "id",
+							"type": "INTERGER",
+							"length": 0,
+							"primaryKey": true
 						}
 					]
 				}
