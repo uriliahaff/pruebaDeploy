@@ -24,8 +24,9 @@ public class PersistenceTest {
     private EntityManager entityManager;
     @BeforeEach
     public void init() {
-        emf = Persistence.createEntityManagerFactory("simple-persistence-unit");
-        entityManager = emf.createEntityManager();
+        //emf = Persistence.createEntityManagerFactory("simple-persistence-unit");
+        //entityManager = emf.createEntityManager()
+        entityManager = EntityManagerProvider.getInstance().getEntityManager();
     }
     @Test
     public void tryingToConnect()

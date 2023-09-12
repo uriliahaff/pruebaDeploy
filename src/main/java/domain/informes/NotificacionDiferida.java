@@ -5,6 +5,8 @@ import domain.Usuarios.Comunidades.Miembro;
 import domain.services.notificationSender.EnviadorDeNotificaciones;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.TimerTask;
 
 @Entity
@@ -25,15 +27,19 @@ public class NotificacionDiferida extends TimerTask {
     @JoinColumn(name = "miembro_id", nullable = false)
     private Miembro destinatario;
 
-    // Constructor predeterminado
+    @Column
+    private LocalDate fechaDeEnvio;
+
     public NotificacionDiferida() {
     }
 
-    public NotificacionDiferida(String texto, String titulo, Miembro destinatario) {
+    public NotificacionDiferida(String texto, String titulo, Miembro destinatario, LocalDate fechaDeEnvio) {
         this.texto = texto;
         this.titulo = titulo;
         this.destinatario = destinatario;
+        this.fechaDeEnvio = fechaDeEnvio;
     }
+
 
     public void run()
     {

@@ -2,12 +2,14 @@ package domain.informes;
 
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
+import domain.other.EntityManagerProvider;
 import domain.services.notificadorDeIncidentes.NotificadorDeIncidentes;
 import domain.servicios.PrestacionDeServicio;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,8 +60,8 @@ public class Incidente {
         this.servicioAfectado = servicioAfectado;
         this.fechaInicio = fechaInicio;
 
-
-        HistorialIncidentes.getInstance().agregarIncidente(this);
+        this.save();
+        //HistorialIncidentes.getInstance().agregarIncidente(this);
         NotificadorDeIncidentes.notificarIncidente(this);
         //TODO: Aca hay que generar la notificacion para cada miembro
         //miembrosUnicos.forEach(miembro -> );
@@ -86,4 +88,22 @@ public class Incidente {
         return servicioAfectado;
     }
 
+    public void cerrarIncidente(LocalDate date)
+    {
+        fechaCierre=date;
+        this.update();
+    }
+    public void update() {
+        EntityManager em = EntityManagerProvider.getInstance().getEntityManager();
+        em.getTransaction().begin();
+        em.merge(this);
+        em.getTransaction().commit();
+    }
+
+    public void save() {
+        EntityManager em = EntityManagerProvider.getInstance().getEntityManager();
+        em.getTransaction().begin();
+        em.persist(this);
+        em.getTransaction().commit();
+    }
 }
