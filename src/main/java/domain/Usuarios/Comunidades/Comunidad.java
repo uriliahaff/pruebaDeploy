@@ -42,6 +42,9 @@ public class Comunidad {
     )
     private List<Servicio> intereses;
 
+    @Column
+    private double gradoDeConfianza;
+
     public void altaMiembro(Miembro miembro)
     {
         miembros.add(miembro);

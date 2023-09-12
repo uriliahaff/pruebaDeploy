@@ -18,7 +18,9 @@ public class Usuario{
         return id;
     }
 
+    @Column
     private String username;
+    @Column
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -28,6 +30,11 @@ public class Usuario{
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
     private List<Rol> roles;
+
+    @Column
+    private double gradoDeConfianza;
+    @Column
+    private boolean estatus;
 
     @Transient
     private ValidadorDePassword vp = new ValidadorDePassword();
@@ -76,5 +83,11 @@ public class Usuario{
     public boolean cumpleOWASP(String password){
         return this.vp.validarContrasenia(password);
     }
+
+    public void activar(){this.estatus=true;}
+
+    public void desactivar(){this.estatus=false;}
+
+    public void cambiarGradoDeConfianza(double nuevoValor){this.gradoDeConfianza = nuevoValor;}
 
 }
