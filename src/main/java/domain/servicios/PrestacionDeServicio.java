@@ -9,30 +9,38 @@ import domain.localizaciones.Direccion;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "prestacion_de_servicio")
 public class PrestacionDeServicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private int id;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "servicio_id", nullable = false)
     private Servicio servicio;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "establecimiento_id", nullable = false)
     private Establecimiento establecimiento;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "estado", nullable = false)
     private Estado estado;
 
+    public PrestacionDeServicio(){}
+    public PrestacionDeServicio(Servicio servicio, Establecimiento establecimiento, Estado estado) {
+        this.servicio = servicio;
+        this.establecimiento = establecimiento;
+        this.estado = estado;
+    }
     // Getter and Setter for id
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

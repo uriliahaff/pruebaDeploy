@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "entidad_prestadora")
-public class EntidadPrestadora extends Usuario{
+public class EntidadPrestadora{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,17 +16,17 @@ public class EntidadPrestadora extends Usuario{
     @JoinColumn(name = "entidad_id", nullable = false)
     private Entidad entidad;
 
-    /*@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;*/
+    private Usuario usuario;
 
-    @Column(nullable = false)
+    @Column(name = "correo_electronico_responsable", nullable = false)
     private String correoElectronicoResponsable;
 
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column
+    @Column(name = "descripcion")
     private String descripcion;
 
     public EntidadPrestadora() {
@@ -41,9 +41,6 @@ public class EntidadPrestadora extends Usuario{
         return entidad;
     }
 
-    /*public Usuario getUsuario() {
-        return usuario;
-    }*/
 
     public String getCorreoElectronicoResponsable() {
         return correoElectronicoResponsable;

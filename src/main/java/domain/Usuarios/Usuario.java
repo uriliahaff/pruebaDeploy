@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "usuario")
 public class Usuario{
 
     @Id
@@ -18,9 +18,9 @@ public class Usuario{
         return id;
     }
 
-    @Column
+    @Column(name = "username", nullable = false)
     private String username;
-    @Column
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -31,9 +31,12 @@ public class Usuario{
     )
     private List<Rol> roles;
 
-    @Column
+
+    @Column(name = "grado_de_confianza")
     private double gradoDeConfianza;
-    @Column
+
+
+    @Column(name = "estatus")
     private boolean estatus;
 
     @Transient

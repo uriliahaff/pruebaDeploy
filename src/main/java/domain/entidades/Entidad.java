@@ -10,27 +10,26 @@ public class Entidad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    public int getId() {
-        return id;
-    }
-
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "tipo_entidad_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "tipo_entidad_id", nullable = false)
     private TipoEntidad tipo;
 
-    @Column
+    @Column(name = "email")
     private String email;
 
-    @Column
+    @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToMany(mappedBy = "entidad")
+    @OneToMany(mappedBy = "entidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Establecimiento> establecimientos;
 
+    public Entidad(){}
     public Entidad(String nombre, String tipo, String email, String descripcion) {
 
         this.nombre = nombre;

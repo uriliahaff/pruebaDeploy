@@ -16,8 +16,8 @@ public class ConfiguracionNotificacionDeIncidentes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String medioPreferido;
+    @Convert(converter = ComponenteNotificadorConverter.class)
+    private ComponenteNotificador medioPreferido;
 
     @ElementCollection
     @CollectionTable(name = "horario_preferencia")
@@ -27,12 +27,13 @@ public class ConfiguracionNotificacionDeIncidentes {
     private float toleranciaEnMinutos = 5.0f;
 
     public ComponenteNotificador getMedioPreferido() {
-        try {
+        /*try {
             return (ComponenteNotificador) Class.forName(this.medioPreferido).newInstance();
         } catch (Exception e) {
             // Aquí debes manejar las excepciones adecuadamente
             return null;
-        }
+        }*/
+        return this.medioPreferido;
     }
 
 

@@ -11,19 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Miembro extends Usuario{
-    @Column
+@Table(name = "miembro")
+public class Miembro {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Column
+
+    @Column(name = "apellido", nullable = false)
     private String apellido;
-    @Column
+
+    @Column(name = "correoElectronico", nullable = false)
     private String correoElectronico;
-    @Column
+
+    @Column(name = "telefono", nullable = false)
+
     private String telefono;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "configuracion_id")
     private ConfiguracionNotificacionDeIncidentes configuracionNotificacionDeIncidentes;
-    //TODO: Remover Usuario del Diagrama
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "miembro_id")
@@ -37,6 +48,25 @@ public class Miembro extends Usuario{
     @JoinColumn(name = "miembro_id")
     private List<Direccion> lugaresDeInteres = new ArrayList<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    // Constructor vacío para Hibernate
+    public Miembro() {
+    }
+
+    // Constructor completo
+    public Miembro(String nombre, String apellido, String correoElectronico, String telefono,
+                   ConfiguracionNotificacionDeIncidentes configuracionNotificacionDeIncidentes,
+                   Usuario usuario) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correoElectronico = correoElectronico;
+        this.telefono = telefono;
+        this.configuracionNotificacionDeIncidentes = configuracionNotificacionDeIncidentes;
+        this.usuario = usuario;
+    }
 
     public List<Comunidad> getComunidades() {
         return comunidades;

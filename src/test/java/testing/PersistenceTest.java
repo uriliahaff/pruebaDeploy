@@ -1,5 +1,7 @@
 package testing;
 
+import domain.Repositorios.RepositorioEstablecimiento;
+import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PersistenceTest {
@@ -36,7 +39,6 @@ public class PersistenceTest {
     }
     @Test
     public void testAgregarEstablecimiento() {
-        entityManager.getTransaction().begin();
         // Crear una nueva instancia de Establecimiento
         Establecimiento nuevoEstablecimiento = new Establecimiento("Nombre 12", "Descripcion", new Direccion(new Provincia("loc1"),new Municipio("loc2"),new Localidad("loc3")));
 
@@ -50,7 +52,8 @@ public class PersistenceTest {
         Assertions.assertNotNull(encontrado);
         Assertions.assertEquals(nuevoEstablecimiento.getNombre(), encontrado.getNombre());
         Assertions.assertEquals(nuevoEstablecimiento.getDescripcion(), encontrado.getDescripcion());
-    }@Test
+    }
+    @Test
     public void testAgregarEstablecimientoconDireccion() {
         entityManager.getTransaction().begin();
         Localidad loc1 = new Localidad("loc 1");
@@ -86,7 +89,7 @@ public class PersistenceTest {
     @Test
     public void testOrganismoDeControl()
     {
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         Rol rol1 = new Rol("Admin", new ArrayList<>());
         Rol rol2 = new Rol("SuperAdmin", new ArrayList<>());
         OrganismoDeControl organismo = new OrganismoDeControl(
@@ -96,19 +99,19 @@ public class PersistenceTest {
                 "Nombre del Organismo",
                 "Descripción del Organismo"
         );
-        organismo.addRol(rol1);
-        organismo.addRol(rol2);
-        entityManager.persist(organismo);
-        entityManager.getTransaction().commit();
+        organismo.getUsuario().addRol(rol1);
+        organismo.getUsuario().addRol(rol2);
+        new RepositorioUsuario().saveOrganismoDeControl(organismo);
+       // entityManager.persist(organismo);
+        //entityManager.getTransaction().commit();
 
         OrganismoDeControl org = entityManager.find(OrganismoDeControl.class,organismo.getId());
-        Assertions.assertEquals(org.getRoles().size(),2);
+        Assertions.assertEquals(org.getUsuario().getRoles().size(),2);
 
     }
 
     @Test
     public void testEliminarUsuario() {
-        entityManager.getTransaction().begin();
 
         OrganismoDeControl organismo = new OrganismoDeControl(
 
@@ -120,20 +123,67 @@ public class PersistenceTest {
         );
         int id = organismo.getId();
 
+        new RepositorioUsuario().saveOrganismoDeControl(organismo);
 
-        entityManager.persist(organismo);
-
-        entityManager.getTransaction().commit();
-
-        Usuario usuarioRecuperado = entityManager.find(Usuario.class, organismo.getId());
+        Usuario usuarioRecuperado = new RepositorioUsuario().findUsuarioById(organismo.getId());//entityManager.find(Usuario.class, organismo.getId());
         Assertions.assertNotNull(usuarioRecuperado);
         Assertions.assertEquals("usuarion", usuarioRecuperado.getUsername());
 
+        new RepositorioUsuario().delete(usuarioRecuperado.getId());
+
+        OrganismoDeControl usuarioEliminado = new RepositorioUsuario().findOrganismoDeControlById(organismo.getId());//entityManager.find(OrganismoDeControl.class, id);
+        Assertions.assertNull(usuarioEliminado);
+    }
+
+
+    @Test
+    public void testFindEstablecimientosByDireccion() {
+
         entityManager.getTransaction().begin();
-        entityManager.remove(usuarioRecuperado);
+        RepositorioEstablecimiento repositorioEstablecimiento = new RepositorioEstablecimiento();
+        // Crear Provincias
+        Provincia caba = new Provincia("CABA");
+        entityManager.persist(caba);
+
+        // Crear Municipios
+        Municipio palermo = new Municipio("Palermo");
+        entityManager.persist(palermo);
+
+        Municipio almagro = new Municipio("Almagro");
+        entityManager.persist(almagro);
+
+        // Crear Localidades
+        Localidad martin = new Localidad("Martin");
+        entityManager.persist(martin);
+
+        // Crear Direcciones
+        Direccion direccion1 = new Direccion(caba, palermo, martin);
+        entityManager.persist(direccion1);
+
+        Direccion direccion2 = new Direccion(caba, palermo);
+        entityManager.persist(direccion2);
+
+        Direccion direccion3 = new Direccion(caba, almagro);
+        entityManager.persist(direccion3);
         entityManager.getTransaction().commit();
 
-        OrganismoDeControl usuarioEliminado = entityManager.find(OrganismoDeControl.class, id);
-        Assertions.assertNull(usuarioEliminado);
+        // Crear Establecimientos
+        Establecimiento establecimiento1 = new Establecimiento("Establecimiento1", "Descripcion1", direccion1);
+        repositorioEstablecimiento.save(establecimiento1);
+
+        Establecimiento establecimiento2 = new Establecimiento("Establecimiento2", "Descripcion2", direccion2);
+        repositorioEstablecimiento.save(establecimiento2);
+
+        Establecimiento establecimiento3 = new Establecimiento("Establecimiento3", "Descripcion3", direccion3);
+        repositorioEstablecimiento.save(establecimiento3);
+        // Ahora llamamos a tu método para buscar establecimientos
+        List<Establecimiento> result = repositorioEstablecimiento.findEstablecimientosByDireccion(caba, palermo, martin);
+
+        // Verificamos que el resultado es el esperado
+        Assertions.assertEquals(2, result.size());  // Debería devolver dos establecimientos: "Establecimiento1" y "Establecimiento2"
+
+        // Asegurar que los establecimientos correctos se devuelvan (puedes hacer esto de varias maneras, aquí hay una)
+        Assertions.assertTrue(result.stream().anyMatch(est -> est.getNombre().equals("Establecimiento1")));
+        Assertions.assertTrue(result.stream().anyMatch(est -> est.getNombre().equals("Establecimiento2")));
     }
 }

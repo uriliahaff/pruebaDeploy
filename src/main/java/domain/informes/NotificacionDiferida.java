@@ -15,19 +15,20 @@ public class NotificacionDiferida extends TimerTask {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(nullable = false)
+    @Column(name = "texto", nullable = false)
     private String texto;
 
-    @Column(nullable = false)
+    @Column(name = "titulo", nullable = false)
     private String titulo;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "miembro_id", nullable = false)
     private Miembro destinatario;
 
-    @Column
+    @Column(name = "fecha_de_envio")
     private LocalDate fechaDeEnvio;
 
     public NotificacionDiferida() {

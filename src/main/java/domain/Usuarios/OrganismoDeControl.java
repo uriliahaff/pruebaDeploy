@@ -4,23 +4,23 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "organismo_de_control")
-public class OrganismoDeControl extends Usuario{
+public class OrganismoDeControl{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    /*@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario;*/
+    private Usuario usuario;
 
-    @Column(nullable = false)
+    @Column(name = "correoElectronicoResponsable",nullable = false)
     private String correoElectronicoResponsable;
 
-    @Column(nullable = false)
+    @Column(name = "nombre",nullable = false)
     private String nombre;
 
-    @Column
+    @Column(name = "descripcion")
     private String descripcion;
 
 
@@ -30,7 +30,7 @@ public class OrganismoDeControl extends Usuario{
     }
 
     public OrganismoDeControl(/*Usuario user,*/String username, String password , String correoElectronicoResponsable, String nombre, String descripcion) {
-        super(username,password);
+        this.usuario = new Usuario(username,password);
         //this.usuario = usuario;
         this.correoElectronicoResponsable = correoElectronicoResponsable;
         this.nombre = nombre;
@@ -39,11 +39,11 @@ public class OrganismoDeControl extends Usuario{
 
     public OrganismoDeControl() {
     }
-/*
+
     public Usuario getUsuario() {
         return usuario;
     }
-*/
+
     public String getCorreoElectronicoResponsable() {
         return correoElectronicoResponsable;
     }

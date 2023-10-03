@@ -21,7 +21,7 @@ public class Incidente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(name = "descripcion",nullable = false)
     private String descripcion;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -40,10 +40,10 @@ public class Incidente {
     )
     private List<Comunidad> comunidadesAfectadas = new ArrayList<>();
 
-    @Column(nullable = false)
+    @Column(name = "fechaInicio",nullable = false)
     private LocalDate fechaInicio;
 
-    @Column
+    @Column(name = "fechaCierre")
     private LocalDate fechaCierre;
 
     // Getters y Setters
@@ -60,11 +60,9 @@ public class Incidente {
         this.servicioAfectado = servicioAfectado;
         this.fechaInicio = fechaInicio;
 
-        this.save();
-        //HistorialIncidentes.getInstance().agregarIncidente(this);
+
         NotificadorDeIncidentes.notificarIncidente(this);
         //TODO: Aca hay que generar la notificacion para cada miembro
-        //miembrosUnicos.forEach(miembro -> );
     }
 
 
@@ -90,20 +88,7 @@ public class Incidente {
 
     public void cerrarIncidente(LocalDate date)
     {
-        fechaCierre=date;
-        this.update();
-    }
-    public void update() {
-        EntityManager em = EntityManagerProvider.getInstance().getEntityManager();
-        em.getTransaction().begin();
-        em.merge(this);
-        em.getTransaction().commit();
+        this.fechaCierre=date;
     }
 
-    public void save() {
-        EntityManager em = EntityManagerProvider.getInstance().getEntityManager();
-        em.getTransaction().begin();
-        em.persist(this);
-        em.getTransaction().commit();
-    }
 }

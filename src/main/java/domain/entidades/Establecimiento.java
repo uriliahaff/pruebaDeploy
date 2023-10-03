@@ -10,43 +10,54 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Table(name = "establecimiento")
 public class Establecimiento {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     public int getId() {
         return id;
     }
 
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Column
+
+    @Column(name = "descripcion")
     private String descripcion;
 
-    @Transient
+    @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> servicios;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "entidad_id")
     private Entidad entidad;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "direccion_id")
     private Direccion direccion;
+
+    public Establecimiento(){}
     public Establecimiento(String nombre,String descripcion,Provincia provincia,Localidad localidad,Municipio municipio){
         this.nombre= nombre;
         this.descripcion=descripcion;
 
         this.direccion = new Direccion(provincia, municipio, localidad);
         this.servicios = new ArrayList<>();
-    }public Establecimiento(String nombre,String descripcion, Direccion direccion){
+
+    }
+    public Establecimiento(String nombre,String descripcion, Direccion direccion){
         this.nombre= nombre;
         this.descripcion=descripcion;
 
         this.direccion = direccion;
         this.servicios = new ArrayList<>();
+
     }
 
     public String getNombre() {
@@ -63,5 +74,6 @@ public class Establecimiento {
 
     public void agregarServicio(PrestacionDeServicio servicio) {
         servicios.add(servicio); // Agregar un servicio a la lista de servicios
+
     }
 }
