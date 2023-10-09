@@ -36,7 +36,7 @@ public class Miembro {
     @JoinColumn(name = "configuracion_id")
     private ConfiguracionNotificacionDeIncidentes configuracionNotificacionDeIncidentes;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "miembro_id")
     private List<Servicio> serviciosQueAfectan = new ArrayList<>();
 

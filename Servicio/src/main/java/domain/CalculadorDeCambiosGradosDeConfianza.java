@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CalculadorDeCambiosGradosDeConfianza {
 
-    public List<CambioDePuntaje> calcularGradosdeConfianza(List<Incidente> incidentes) {
+    public static List<CambioDePuntaje> calcularGradosdeConfianza(List<Incidente> incidentes) {
 
         // Lista para almacenar los cambios de puntaje
         List<CambioDePuntaje> cambios = new ArrayList<>();
@@ -66,11 +66,11 @@ public class CalculadorDeCambiosGradosDeConfianza {
         return cambios;
     }
 
-    public long minutosDeDiferencia(LocalDateTime apertura, LocalDateTime cierre){
+    public static long minutosDeDiferencia(LocalDateTime apertura, LocalDateTime cierre){
         return java.time.Duration.between(apertura, cierre).toMinutes();
     }
 
-    public boolean esIncidenteSimilar(Incidente incidente, Incidente otroIncidente){
+    public static boolean esIncidenteSimilar(Incidente incidente, Incidente otroIncidente){
        return incidente.getPrestacionDeServicio() == otroIncidente.getPrestacionDeServicio();
 
     }
