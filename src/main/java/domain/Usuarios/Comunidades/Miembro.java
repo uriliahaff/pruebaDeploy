@@ -37,15 +37,26 @@ public class Miembro {
     private ConfiguracionNotificacionDeIncidentes configuracionNotificacionDeIncidentes;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "miembro_id")
+    @JoinTable(
+            name = "miembro_servicio",
+            joinColumns = @JoinColumn(name = "miembro_id"),
+            inverseJoinColumns = @JoinColumn(name = "servicio_id")
+    )
     private List<Servicio> serviciosQueAfectan = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "miembro_id")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "miembro_comunidad",
+            joinColumns = @JoinColumn(name = "miembro_id"),
+            inverseJoinColumns = @JoinColumn(name = "comunidad_id")
+    )
     private List<Comunidad> comunidades = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "miembro_id")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "miembro_direccion",
+            joinColumns = @JoinColumn(name = "miembro_id"),
+            inverseJoinColumns = @JoinColumn(name = "direccion_id")
+    )
     private List<Direccion> lugaresDeInteres = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -107,4 +118,9 @@ public class Miembro {
     }
 
     public String getTelefono() {return telefono;}
+
+    public void addComunidad(Comunidad comunidad)
+    {
+        this.comunidades.add(comunidad);
+    }
 }

@@ -36,6 +36,12 @@ public class ConfiguracionNotificacionDeIncidentes {
         return this.medioPreferido;
     }
 
+    public ConfiguracionNotificacionDeIncidentes() {
+    }
+
+    public ConfiguracionNotificacionDeIncidentes(ComponenteNotificador medioPreferido) {
+        this.medioPreferido = medioPreferido;
+    }
 
     public List<Float> getHorarioPreferencia() {
         return horarioPreferencia;
