@@ -1,0 +1,12 @@
+.containerCardRanking{
+    background-color: white;
+    box-shadow: 10px black;
+}
+
+.linkRanking{
+    text-decoration: none;
+}
+
+.linkRanking:hover{
+    text-decoration: none;
+}

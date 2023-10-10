@@ -126,7 +126,7 @@ adn:
   changes:
     - '3.2'
     - 5.0.0
-  label: App.net
+  label: sever.App.net
   search:
     terms: []
   styles:
@@ -577,7 +577,7 @@ ankh:
 app-store:
   changes:
     - 5.0.0
-  label: App Store
+  label: sever.App Store
   search:
     terms: []
   styles:
@@ -587,7 +587,7 @@ app-store:
 app-store-ios:
   changes:
     - 5.0.0
-  label: iOS App Store
+  label: iOS sever.App Store
   search:
     terms: []
   styles:
@@ -16187,7 +16187,7 @@ server:
   changes:
     - '4.3'
     - 5.0.0
-  label: Server
+  label: sever.Server
   search:
     terms:
       - computer
@@ -21207,7 +21207,7 @@ whatsapp:
   changes:
     - '4.3'
     - 5.0.0
-  label: What's App
+  label: What's sever.App
   search:
     terms: []
   styles:
@@ -21217,7 +21217,7 @@ whatsapp:
 whatsapp-square:
   changes:
     - 5.0.0
-  label: What's App Square
+  label: What's sever.App Square
   search:
     terms: []
   styles:
