@@ -8,7 +8,7 @@ public class FactoryController {
         Object controller = null;
 
         switch (nombre){
-            case "login": controller = new LoginController(); break;
+            case "login": controller = new LoginController(new RepositorioUsuario()); break;
         }
         return controller;
     }

@@ -13,8 +13,8 @@ public class LoginController {
 
     private RepositorioUsuario repositorioDeUsuario;
 
-    public LoginController(){
-
+    public LoginController(RepositorioUsuario repo){
+        this.repositorioDeUsuario = repo;
     }
     public void index(Context context){
         Map<String, Object> model = new HashMap<>();
