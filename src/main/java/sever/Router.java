@@ -28,8 +28,11 @@ public class Router {
         ctx.result("Hola "+ctx.sessionAttribute("nombre"));
         });
 
+        Server.app().routes(()->{
+            Server.app().get("/login",((LoginController) FactoryController.controller("login"))::index);
+            Server.app().post("/login",((LoginController) FactoryController.controller("login"))::loginAttempt);
+        });
 
-        Server.app().get("/login",((LoginController) FactoryController.controller("login"))::index);
         //  Server.app().get("/entidadesPrestadoras", new EntidadesPrestadorasController()::index);
 
 

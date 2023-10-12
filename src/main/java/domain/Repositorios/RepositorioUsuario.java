@@ -6,10 +6,7 @@ import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Usuario;
 import domain.other.EntityManagerProvider;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 
 public class RepositorioUsuario {
 
@@ -41,6 +38,15 @@ public class RepositorioUsuario {
     public Usuario findUsuarioById(int id) {
         return entityManager.find(Usuario.class, id);
     }
+    public Usuario findUsuarioByUsername(String username) {
+        try {
+            return entityManager.createQuery("SELECT u FROM Usuario u WHERE u.username LIKE :username", Usuario.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encuentra ningún usuario con el nombre de usuario dado
+            return null;
+        }    }
 
     public Miembro findMiembroById(int id) {
         return entityManager.find(Miembro.class, id);

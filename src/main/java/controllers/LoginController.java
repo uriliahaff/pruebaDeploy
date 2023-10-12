@@ -24,4 +24,24 @@ public class LoginController {
         context.render("login.hbs");
     }
 
+    public void loginAttempt(Context context){
+        Usuario usuario = repositorioDeUsuario.findUsuarioByUsername(context.formParam("username"));
+        String username = context.formParam("username");
+        String password = context.formParam("password");
+        System.out.println("Nombre de usuario: " + username);
+        System.out.println("Contraseña: " + password);
+
+        if(usuario != null){
+            if(usuario.getPassword() == context.formParam("password")){
+                context.render("correcto.hbs");
+            }
+        } else{
+            context.render("incorrecto.hbs");
+
+        }
+
+
+
+    }
+
 }
