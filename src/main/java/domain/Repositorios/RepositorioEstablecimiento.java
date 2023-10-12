@@ -23,6 +23,10 @@ public class RepositorioEstablecimiento {
         entityManager.persist(establecimiento);
         entityManager.getTransaction().commit();
     }
+    public Establecimiento find(int ID)
+    {
+        return entityManager.find(Establecimiento.class,ID);
+    }
 
     public void update(Establecimiento establecimiento) {
         entityManager.getTransaction().begin();

@@ -40,7 +40,7 @@ public class RepositorioUsuario {
     }
     public Usuario findUsuarioByUsername(String username) {
         try {
-            return entityManager.createQuery("SELECT u FROM Usuario u WHERE u.username LIKE :username", Usuario.class)
+            return entityManager.createQuery("SELECT u FROM Usuario u WHERE u.username = :username", Usuario.class)
                     .setParameter("username", username)
                     .getSingleResult();
         } catch (NoResultException e) {

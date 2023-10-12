@@ -43,10 +43,12 @@ public class PersistenceTest {
         Establecimiento nuevoEstablecimiento = new Establecimiento("Nombre 12", "Descripcion", new Direccion(new Provincia("loc1"),new Municipio("loc2"),new Localidad("loc3")));
 
         // Persistir la entidad
-        entityManager.persist(nuevoEstablecimiento);
-        entityManager.getTransaction().commit();
+       // entityManager.persist(nuevoEstablecimiento);
+        //entityManager.getTransaction().commit();
+        RepositorioEstablecimiento repositorioEstablecimiento = new RepositorioEstablecimiento();
+        repositorioEstablecimiento.save(nuevoEstablecimiento);
         // Buscar por ID
-        Establecimiento encontrado = entityManager.find(Establecimiento.class,nuevoEstablecimiento.getId());
+        Establecimiento encontrado = repositorioEstablecimiento.find(nuevoEstablecimiento.getId());//entityManager.find(Establecimiento.class,nuevoEstablecimiento.getId());
 
         // Verificar que los datos son correctos
         Assertions.assertNotNull(encontrado);
@@ -55,7 +57,7 @@ public class PersistenceTest {
     }
     @Test
     public void testAgregarEstablecimientoconDireccion() {
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         Localidad loc1 = new Localidad("loc 1");
         Localidad loc2 = new Localidad("loc 2");
         Municipio mun = new Municipio("mun1");
@@ -71,14 +73,16 @@ public class PersistenceTest {
                 "Nombre 12"
                 , "Descripcion"
                 , direccion2);
-
+        RepositorioEstablecimiento repositorioEstablecimiento = new RepositorioEstablecimiento();
+        repositorioEstablecimiento.save(nuevoEstablecimiento1);
+        repositorioEstablecimiento.save(nuevoEstablecimiento2);
         // Persistir la entidad
-        entityManager.persist(nuevoEstablecimiento1);
-        entityManager.persist(nuevoEstablecimiento2);
-        entityManager.getTransaction().commit();
+        //entityManager.persist(nuevoEstablecimiento1);
+        //entityManager.persist(nuevoEstablecimiento2);
+        //entityManager.getTransaction().commit();
         // Buscar por ID
-        Establecimiento encontrado1 = entityManager.find(Establecimiento.class,nuevoEstablecimiento1.getId());
-        Establecimiento encontrado2 = entityManager.find(Establecimiento.class,nuevoEstablecimiento2.getId());
+        Establecimiento encontrado1 = repositorioEstablecimiento.find(nuevoEstablecimiento1.getId());//entityManager.find(Establecimiento.class,nuevoEstablecimiento1.getId());
+        Establecimiento encontrado2 =  repositorioEstablecimiento.find(nuevoEstablecimiento2.getId());//entityManager.find(Establecimiento.class,nuevoEstablecimiento2.getId());
 
         // Verificar que los datos son correctos
         Assertions.assertNotNull(encontrado1);
@@ -132,6 +136,47 @@ public class PersistenceTest {
         new RepositorioUsuario().delete(usuarioRecuperado.getId());
 
         OrganismoDeControl usuarioEliminado = new RepositorioUsuario().findOrganismoDeControlById(organismo.getId());//entityManager.find(OrganismoDeControl.class, id);
+        Assertions.assertNull(usuarioEliminado);
+    }
+
+    @Test
+    public void testBuscarUsuario() {
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+        OrganismoDeControl organismo = new OrganismoDeControl(
+
+                "usuarion123455",
+                "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",
+                "correo@ejemplo.com",
+                "Nombre del Organismo",
+                "Descripción del Organismo"
+        );OrganismoDeControl organismo2 = new OrganismoDeControl(
+
+                "usuarion12345",
+                "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",
+                "correo@ejemplo.com",
+                "Nombre del Organismo",
+                "Descripción del Organismo"
+        );OrganismoDeControl organismo3 = new OrganismoDeControl(
+
+                "usuarion1234555",
+                "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",
+                "correo@ejemplo.com",
+                "Nombre del Organismo",
+                "Descripción del Organismo"
+        );
+        String nombre = organismo.getUsuario().getUsername();
+
+        repositorioUsuario.saveOrganismoDeControl(organismo);
+        repositorioUsuario.saveOrganismoDeControl(organismo2);
+        repositorioUsuario.saveOrganismoDeControl(organismo3);
+
+        Usuario usuarioRecuperado = repositorioUsuario.findUsuarioByUsername(nombre);//entityManager.find(Usuario.class, organismo.getId());
+        Assertions.assertNotNull(usuarioRecuperado);
+        Assertions.assertEquals("usuarion123455", usuarioRecuperado.getUsername());
+        //Aca quiero checkear que no encuentre nombres parecidos
+        repositorioUsuario.delete(usuarioRecuperado.getId());
+
+        Usuario usuarioEliminado = repositorioUsuario.findUsuarioByUsername(organismo.getUsuario().getUsername());//entityManager.find(OrganismoDeControl.class, id);
         Assertions.assertNull(usuarioEliminado);
     }
 
