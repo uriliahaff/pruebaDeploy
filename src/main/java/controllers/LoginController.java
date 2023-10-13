@@ -35,7 +35,8 @@ public class LoginController {
         if(usuario != null){
             if(usuario.getPassword().equals(password)){
                 context.render("correcto.hbs");
-
+                context.attribute("id", usuario.getId());
+                context.attribute("username", usuario.getUsername());
             }
             else{
                 context.render("login.hbs");

@@ -116,7 +116,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Uriel Liahaff</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{username}}</span>
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -226,14 +226,15 @@
             <div class="modal-body">
               <p>Cargar archivo .CSV</p>
 
-              <div class="mb-3">
-                <input class="form-control" accept=".csv" type="file" id="formFile">
-              </div>
+            <form method="post" action="/cargarCSVEntidades" enctype="multipart/form-data">
+                 <div class="mb-3">
+                    <input class="form-control" accept=".csv" type="file" id="archivo" name="archivo">
+                 </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-arrow-left mr-1"></i>Atras</button>
-              <button type="button" class="btn btn-success"><i class="fa fa-check mr-1"></i>Cargar</button>
-            </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check mr-1"></i>Cargar</button>
+                    </div>
+                </form>
           </div>
         </div>
       </div>

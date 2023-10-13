@@ -34,6 +34,8 @@ public class Router {
             Server.app().post("/login",((LoginController) FactoryController.controller("login"))::loginAttempt);
             Server.app().get("/cargaEntidades",((EntidadesOrganismosController) FactoryController.controller("entidades"))::indexEntidades);
             Server.app().get("/cargaOrganismos",((EntidadesOrganismosController) FactoryController.controller("organismos"))::indexOrganismos);
+            Server.app().post("/cargarCSVEntidades",((EntidadesOrganismosController) FactoryController.controller("entidades"))::cargarMasivaEntidades);
+
 
         });
 
