@@ -26,18 +26,22 @@ public class LoginController {
 
     public void loginAttempt(Context context){
         Usuario usuario = repositorioDeUsuario.findUsuarioByUsername(context.formParam("username"));
-        String username = context.formParam("username");
         String password = context.formParam("password");
+     /*   String username = context.formParam("username");
         System.out.println("Nombre de usuario: " + username);
         System.out.println("Contraseña: " + password);
+        System.out.println("Contraseña: " + usuario.getPassword());*/
 
         if(usuario != null){
-            if(usuario.getPassword() == context.formParam("password")){
+            if(usuario.getPassword().equals(password)){
                 context.render("correcto.hbs");
+
+            }
+            else{
+                context.render("login.hbs");
             }
         } else{
-            context.render("incorrecto.hbs");
-
+            context.render("login.hbs");
         }
 
 

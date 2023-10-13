@@ -1,5 +1,8 @@
 package domain.Usuarios;
 
+import domain.entidades.Entidad;
+import domain.servicios.Servicio;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +12,10 @@ public class OrganismoDeControl{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "servicio_id", nullable = false)
+    private Servicio servicio;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")

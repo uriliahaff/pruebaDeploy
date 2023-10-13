@@ -1,5 +1,6 @@
 package sever;
 
+import controllers.EntidadesOrganismosController;
 import controllers.FactoryController;
 import controllers.LoginController;
 import domain.Repositorios.RepositorioUsuario;
@@ -31,6 +32,9 @@ public class Router {
         Server.app().routes(()->{
             Server.app().get("/login",((LoginController) FactoryController.controller("login"))::index);
             Server.app().post("/login",((LoginController) FactoryController.controller("login"))::loginAttempt);
+            Server.app().get("/cargaEntidades",((EntidadesOrganismosController) FactoryController.controller("entidades"))::indexEntidades);
+            Server.app().get("/cargaOrganismos",((EntidadesOrganismosController) FactoryController.controller("organismos"))::indexOrganismos);
+
         });
 
         //  Server.app().get("/entidadesPrestadoras", new EntidadesPrestadorasController()::index);

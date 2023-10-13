@@ -1,5 +1,6 @@
 package controllers;
 
+import domain.Repositorios.RepositorioEntidadPrestadoraOrganismoControl;
 import domain.Repositorios.RepositorioUsuario;
 
 public class FactoryController {
@@ -9,6 +10,9 @@ public class FactoryController {
 
         switch (nombre){
             case "login": controller = new LoginController(new RepositorioUsuario()); break;
+            case "entidades": controller = new EntidadesOrganismosController(new RepositorioEntidadPrestadoraOrganismoControl()); break;
+            case "organismos": controller = new EntidadesOrganismosController(new RepositorioEntidadPrestadoraOrganismoControl()); break;
+
         }
         return controller;
     }
