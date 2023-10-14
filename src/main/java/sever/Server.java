@@ -34,6 +34,7 @@ public class Server {
                 staticFiles.hostedPath = "/";
                 staticFiles.directory = "/public";
             });
+
         };
     }
 

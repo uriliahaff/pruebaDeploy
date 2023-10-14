@@ -1,6 +1,7 @@
 package domain.services.csvdataloader;
 
 import domain.Usuarios.EntidadPrestadora;
+import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Usuario;
 
 import java.io.*;
@@ -16,6 +17,17 @@ public class CSVDataLoader {
 
 
         return entidadesPrestadoras;
+
+    }
+
+    public List<OrganismoDeControl> leerArchivoOrganismo(InputStream inputStream) {
+        List<OrganismoDeControl> organismosControl = new ArrayList<>();
+
+
+        // CODIGO ACA
+
+
+        return organismosControl;
 
     }
 }

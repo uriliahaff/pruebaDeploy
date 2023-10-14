@@ -12,6 +12,8 @@ public class FactoryController {
             case "login": controller = new LoginController(new RepositorioUsuario()); break;
             case "entidades": controller = new EntidadesOrganismosController(new RepositorioEntidadPrestadoraOrganismoControl()); break;
             case "organismos": controller = new EntidadesOrganismosController(new RepositorioEntidadPrestadoraOrganismoControl()); break;
+            case "usuarios": controller = new UsuariosController(new RepositorioUsuario()); break;
+            case "rankings": controller = new RankingController(); break;
 
         }
         return controller;

@@ -59,6 +59,26 @@ public class EntidadesOrganismosController {
                 throw new RuntimeException(e);
             }
 
+        }
+    }
+
+    public void cargarMasivaOrganismos(Context context) {
+        // CARGA MASIVA
+        UploadedFile archivo = context.uploadedFile("archivo");
+
+        if (archivo != null) {
+            try (InputStream inputStream = archivo.content()) {
+                CSVDataLoader csvDataLoader = new CSVDataLoader();
+                List<OrganismoDeControl> entidadesACargar = csvDataLoader.leerArchivoOrganismo(inputStream);
+
+                // Realizar la lógica de persistencia (guardar en la base de datos, etc.)
+                // repositorioDeEntidadesPrestadoras.guardarEntidadesPrestadoras(entidadesACargar);
+
+                context.redirect("/cargaOrganismos");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         }
     }
