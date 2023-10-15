@@ -2,6 +2,8 @@ package domain.Usuarios;
 
 
 import domain.entidades.Entidad;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,19 +16,24 @@ public class EntidadPrestadora{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "entidad_id", nullable = false)
+    @Setter
     private Entidad entidad;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id", nullable = false)
+    @Setter
     private Usuario usuario;
 
     @Column(name = "correo_electronico_responsable", nullable = false)
+    @Setter
     private String correoElectronicoResponsable;
 
     @Column(name = "nombre", nullable = false)
+    @Setter
     private String nombre;
 
     @Column(name = "descripcion")
+    @Setter
     private String descripcion;
 
     public EntidadPrestadora() {

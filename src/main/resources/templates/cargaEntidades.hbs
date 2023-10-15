@@ -45,7 +45,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -84,8 +84,8 @@
             <div class="sidebar-heading">
                 Herramientas
             </div>
-            <li class="nav-item active">
-                <a class="nav-link" href="rankings.html">
+            <li class="nav-item">
+                <a class="nav-link" href="/rankings">
                     <i class="fas fa-fw fa-chart-line"></i>
                     <span>Rankings</span></a>
             </li>
@@ -177,7 +177,7 @@
                                                 <td></td>
                                                 <td>{{this.descripcion}}</td>
                                                 <td>{{this.correoElectronicoResponsable}}</td>
-                                                <td></td>
+                                                <td>{{this.usuario.username}}</td>
                                                 <td></td>
                                              </tr>
                                          {{/each}}

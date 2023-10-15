@@ -27,6 +27,7 @@ public class Router {
             Server.app().post("/eliminarUsuario/{id}",((UsuariosController) FactoryController.controller("usuarios"))::delete);
             Server.app().get("/rankings",((RankingController) FactoryController.controller("rankings"))::index);
             Server.app().get("/ranking/{id}",((RankingController) FactoryController.controller("rankings"))::ranking);
+            Server.app().get("/incidentes",((IncidenteController) FactoryController.controller("incidentes"))::index);
 
 
         });

@@ -1,6 +1,7 @@
 package domain.Repositorios;
 
 import domain.Procesos.EntidadesManager;
+import domain.Usuarios.Usuario;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.other.EntityManagerProvider;
@@ -31,4 +32,10 @@ public class RepositorioEntidad
         }
         entityManager.getTransaction().commit();
     }
+
+    public Entidad findEntidadById(int id) {
+        return entityManager.find(Entidad.class, id);
+    }
+
+
 }

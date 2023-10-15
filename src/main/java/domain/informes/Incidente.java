@@ -5,6 +5,8 @@ import domain.Usuarios.Comunidades.Miembro;
 import domain.other.EntityManagerProvider;
 import domain.services.notificadorDeIncidentes.NotificadorDeIncidentes;
 import domain.servicios.PrestacionDeServicio;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,6 +21,8 @@ public class Incidente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private int id;
 
     @Column(name = "descripcion",nullable = false)

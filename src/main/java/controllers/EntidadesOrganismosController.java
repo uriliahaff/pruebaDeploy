@@ -49,10 +49,9 @@ public class EntidadesOrganismosController {
         if (archivo != null) {
             try (InputStream inputStream = archivo.content()) {
                 CSVDataLoader csvDataLoader = new CSVDataLoader();
-                List<EntidadPrestadora> entidadesACargar = csvDataLoader.leerArchivo(inputStream);
+                List<EntidadPrestadora> entidadesACargar = csvDataLoader.leerArchivoEntidades(inputStream);
 
-                // Realizar la lógica de persistencia (guardar en la base de datos, etc.)
-                // repositorioDeEntidadesPrestadoras.guardarEntidadesPrestadoras(entidadesACargar);
+                repositorioDeEntidadesPrestadoras.guardarEntidadesPrestadoras(entidadesACargar);
 
                 context.redirect("/cargaEntidades");
 
