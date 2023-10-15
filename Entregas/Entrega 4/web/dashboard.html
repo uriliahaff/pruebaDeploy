@@ -11,16 +11,16 @@
 
     <title>Administrador - Usuarios</title>
 
-    <link href="/includes/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="includes/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <link href="/css/admin.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="/css/usuarios.css" rel="stylesheet">
+    <link href="css/usuarios.css" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -59,24 +59,24 @@
             </div>
 
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="usuarios.html">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Usuarios</span></a>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="/cargaEntidades">
+                <a class="nav-link" href="entidadesPrestadoras.html">
                     <i class="fas fa-fw fa-building"></i>
                     <span>Entidades Prestadoras</span></a>
             </li>
 
-
+            
             <li class="nav-item ">
-                <a class="nav-link" href="/cargaOrganismos">
+                <a class="nav-link" href="usuarios.html">
                     <i class="fas fa-fw fa-building"></i>
                     <span>Organismos de Control</span></a>
             </li>
-
+           
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -90,7 +90,7 @@
                     <span>Rankings</span></a>
             </li>
 
-
+            
 
         </ul>
         <!-- End of Sidebar -->
@@ -118,7 +118,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{username}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Uriel Liahaff</span>
+                                <img class="img-profile rounded-circle"
+                                    src="images/profile.jpg">
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -133,7 +135,7 @@
                                     Configuracion
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar sesion
                                 </a>
@@ -145,56 +147,7 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Usuarios</h1>
-                    <p class="mb-4">Administración de Usuarios  <i>(todos sus tipos)</i></p>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
-                        </div>
-                        <div class="card-body tabla">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Username</th>
-                                            <th>Roles</th>
-                                            <th></th>
-
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {{#each usuarios}}
-                                             <tr>
-                                                <td>{{this.username}}</td>
-                                                <td>
-                                                {{#each this.roles}}
-                                                <span class="badge badge-primary">{{this.nombre}}</span>
-
-                                                {{/each}}
-                                                </td>
-                                                <td>
-                                                <a role="button" class="btn btn-warning" href="/usuarios/{{this.id}}/editar"><i class="fa fa-pen"></i></a>
-                                                <form action="/eliminarUsuario/{{this.id}}" method="POST" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </form>
-                                                </td>
-                                             </tr>
-                                         {{/each}}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -221,57 +174,20 @@
     </a>
 
 
-        <!-- Edit Modal-->
-    <div class="modal" id="editModal" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Editar usuario</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-arrow-left mr-1"></i>Atras</button>
-              <button type="button" class="btn btn-success"><i class="fa fa-check mr-1"></i>Guardar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-              <!-- Delete Modal-->
-    <div class="modal" id="deleteModal" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Eliminar usuario</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Esta seguro que desea eliminar el usuario?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-arrow-left mr-1"></i>Atras</button>
-              <button type="button" class="btn btn-danger"><i class="fa fa-trash mr-1"></i>Eliminar</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
 
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/includes/jquery/jquery.min.js"></script>
-    <script src="/includes/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="includes/jquery/jquery.min.js"></script>
+    <script src="includes/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/includes/jquery-easing/jquery.easing.min.js"></script>
+    <script src="includes/jquery-easing/jquery.easing.min.js"></script>
 
 
     <!-- Page level plugins -->
-    <script src="/includes/datatables/jquery.dataTables.min.js"></script>
-    <script src="/includes/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="includes/datatables/jquery.dataTables.min.js"></script>
+    <script src="includes/datatables/dataTables.bootstrap4.min.js"></script>
 
 
 </body>

@@ -3,6 +3,7 @@ package domain.Repositorios;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
+import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
 import domain.other.EntityManagerProvider;
 
@@ -129,6 +130,10 @@ public class RepositorioUsuario {
 
     public List buscarTodosUsuarios() {
         return entityManager.createQuery("from " + Usuario.class.getName()).getResultList();
+    }
+
+    public List<Rol> buscarTodosRoles() {
+        return entityManager.createQuery("from " + Rol.class.getName()).getResultList();
     }
 
 }

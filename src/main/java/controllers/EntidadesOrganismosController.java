@@ -28,7 +28,7 @@ public class EntidadesOrganismosController {
         Map<String, Object> model = new HashMap<>();
         List<EntidadPrestadora> entidades = this.repositorioDeEntidadesPrestadoras.buscarTodosEntidades();
         model.put("entidades", entidades);
-        model.put("username", context.attribute("username"));
+        model.put("username", context.cookie("username"));
 
         context.render("cargaEntidades.hbs", model);
     }
@@ -37,6 +37,7 @@ public class EntidadesOrganismosController {
         Map<String, Object> model = new HashMap<>();
         List<OrganismoDeControl> organismos = this.repositorioDeEntidadesPrestadoras.buscarTodosOrganismos();
         model.put("organismos", organismos);
+        model.put("username", context.cookie("username"));
 
         context.render("cargaOrganismos.hbs", model);
     }

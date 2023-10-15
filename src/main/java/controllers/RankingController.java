@@ -12,9 +12,17 @@ public class RankingController {
     public void index(Context context){
         Map<String, Object> model = new HashMap<>();
 
-        model.put("username", context.attribute("username"));
+        model.put("username", context.cookie("username"));
 
         context.render("rankings.hbs", model);
+    }
+
+    public void ranking(Context context){
+        Map<String, Object> model = new HashMap<>();
+
+        model.put("username", context.cookie("username"));
+
+        context.render("ranking.hbs", model);
     }
 
 
