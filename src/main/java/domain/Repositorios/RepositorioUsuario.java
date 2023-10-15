@@ -7,14 +7,16 @@ import domain.Usuarios.Usuario;
 import domain.other.EntityManagerProvider;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.List;
 
 public class RepositorioUsuario {
 
-    private EntityManager entityManager;
+    private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();;
 
-    public RepositorioUsuario() {
+    /*public RepositorioUsuario() {
         this.entityManager = EntityManagerProvider.getInstance().getEntityManager();
-    }
+    }*/
 
     // Métodos generales para guardar y actualizar
     private <T> void saveEntity(T entity) {
@@ -125,4 +127,16 @@ public class RepositorioUsuario {
         }
         return false;
     }
+    public static List<Miembro> findMiembrosByIds(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        TypedQuery<Miembro> query = entityManager.createQuery(
+                "SELECT u FROM Miembro u WHERE u.id IN :ids", Miembro.class
+        );
+        query.setParameter("ids", ids);
+        return query.getResultList();
+    }
+
 }

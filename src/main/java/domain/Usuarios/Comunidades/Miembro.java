@@ -123,4 +123,12 @@ public class Miembro {
     {
         this.comunidades.add(comunidad);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
 }

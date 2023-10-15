@@ -149,14 +149,16 @@ public class PersistenceTest {
                 "correo@ejemplo.com",
                 "Nombre del Organismo",
                 "Descripción del Organismo"
-        );OrganismoDeControl organismo2 = new OrganismoDeControl(
+        );
+        OrganismoDeControl organismo2 = new OrganismoDeControl(
 
                 "usuarion12345",
                 "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",
                 "correo@ejemplo.com",
                 "Nombre del Organismo",
                 "Descripción del Organismo"
-        );OrganismoDeControl organismo3 = new OrganismoDeControl(
+        );
+        OrganismoDeControl organismo3 = new OrganismoDeControl(
 
                 "usuarion1234555",
                 "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",

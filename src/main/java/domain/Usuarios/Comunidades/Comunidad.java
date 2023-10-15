@@ -6,6 +6,7 @@ import domain.servicios.Servicio;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -84,6 +85,13 @@ public class Comunidad {
     public void setMiembros(List<Miembro> miembros) {
         this.miembros = miembros;
     }
+    public void agregarMiembros(Miembro... nuevosMiembros) {
+        this.miembros.addAll(Arrays.asList(nuevosMiembros));
+    }
+    public void agregarInteres(Servicio servicio)
+    {
+        this.intereses.add(servicio);
+    }
 
     public List<Usuario> getAdmins() {
         return admins;
@@ -122,6 +130,33 @@ public class Comunidad {
     {
         return intereses.contains(servicio);
     }
+
+    public String getDescripcionConfianza() {
+        if (gradoDeConfianza < 2) {
+            return "No confiable";
+        } else if (gradoDeConfianza >= 2 && gradoDeConfianza < 3) {
+            return "Con reservas";
+        } else if (gradoDeConfianza >= 3 && gradoDeConfianza < 5) {
+            return "Confiable Nivel 1";
+        } else {
+            return "Confiable Nivel 2";
+        }
+    }
+    public int getGradoDeConfianzaPorDescripcion(String descripcion) {
+        switch (descripcion) {
+            case "No confiable":
+                return 0; // o cualquier valor entre 0 y 2 excluyendo el 2
+            case "Con reservas":
+                return 2; // o 3, dependiendo de tu necesidad
+            case "Confiable Nivel 1":
+                return 3; // o cualquier valor entre 3 (excluido) y 5 (incluido)
+            case "Confiable Nivel 2":
+                return 5; // o cualquier valor mayor que 5
+            default:
+                throw new IllegalArgumentException("Descripción no válida");
+        }
+    }
+
 
 
 }

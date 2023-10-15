@@ -1,5 +1,6 @@
 package domain.Repositorios;
 
+import domain.Usuarios.Comunidades.Miembro;
 import domain.entidades.Establecimiento;
 import domain.localizaciones.Direccion;
 import domain.other.EntityManagerProvider;
@@ -7,15 +8,16 @@ import domain.services.georef.entities.*;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;
+import java.util.Collections;
 import java.util.List;
 
 public class RepositorioEstablecimiento {
 
-    private EntityManager entityManager;
+    private static EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
 
     public RepositorioEstablecimiento()
     {
-        this.entityManager= EntityManagerProvider.getInstance().getEntityManager();
+        //this.entityManager= EntityManagerProvider.getInstance().getEntityManager();
     }
 
     public void save(Establecimiento establecimiento) {
@@ -68,6 +70,18 @@ public class RepositorioEstablecimiento {
 
         TypedQuery<Establecimiento> typedQuery = entityManager.createQuery(query);
         return typedQuery.getResultList();
+    }
+
+    public static List<Establecimiento> findEstablecimientoByIds(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        TypedQuery<Establecimiento> query = entityManager.createQuery(
+                "SELECT u FROM Establecimiento u WHERE u.id IN :ids", Establecimiento.class
+        );
+        query.setParameter("ids", ids);
+        return query.getResultList();
     }
 
 }

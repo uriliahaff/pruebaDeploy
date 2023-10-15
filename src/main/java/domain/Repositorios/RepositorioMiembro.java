@@ -1,9 +1,6 @@
 package domain.Repositorios;
 
-import domain.Procesos.EntidadesManager;
 import domain.Usuarios.Comunidades.Miembro;
-import domain.entidades.Entidad;
-import domain.entidades.Establecimiento;
 import domain.other.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
@@ -11,44 +8,48 @@ import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
 
-public class RepositorioEntidad
-{
+
+public class RepositorioMiembro {
     private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
 
-    public void save(Entidad entidad) {
+    public void save(Miembro miembro) {
         entityManager.getTransaction().begin();
-        entityManager.persist(entidad);
+        entityManager.persist(miembro);
         entityManager.getTransaction().commit();
     }
 
-    public void update(Entidad entidad) {
+    public void update(Miembro miembro) {
         entityManager.getTransaction().begin();
-        entityManager.merge(entidad);
+        entityManager.merge(miembro);
         entityManager.getTransaction().commit();
     }
 
-    public void delete(Entidad entidad) {
-    entityManager.getTransaction().begin();
-    entityManager.remove(entidad);
-    entityManager.getTransaction().commit();
-}
+    public void delete(Miembro miembro) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(miembro);
+        entityManager.getTransaction().commit();
+    }
 
     public void delete(int id) {
         entityManager.getTransaction().begin();
-        Entidad entidad = entityManager.find(Entidad.class, id);
-        if (entidad != null) {
-            entityManager.remove(entidad);
+        Miembro miembro = entityManager.find(Miembro.class, id);
+        if (miembro != null) {
+            entityManager.remove(miembro);
         }
         entityManager.getTransaction().commit();
     }
 
-    public static List<Entidad> findAllEntidadByIds(List<Integer> ids) {
+    public Miembro find(int id) {
+        return entityManager.find(Miembro.class, id);
+    }
+
+    public List<Miembro> findAllMiembroByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
         }
 
-        TypedQuery<Entidad> query = entityManager.createQuery(
-                "SELECT u FROM Entidad u WHERE u.id IN :ids", Entidad.class
+        TypedQuery<Miembro> query = entityManager.createQuery(
+                "SELECT m FROM Miembro m WHERE m.id IN :ids", Miembro.class
         );
         query.setParameter("ids", ids);
         return query.getResultList();

@@ -1,9 +1,8 @@
 package domain.Repositorios;
 
-import domain.Procesos.EntidadesManager;
+import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.entidades.Entidad;
-import domain.entidades.Establecimiento;
 import domain.other.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
@@ -11,44 +10,34 @@ import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
 
-public class RepositorioEntidad
+public class RepositorioComunidad
 {
     private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
 
-    public void save(Entidad entidad) {
+    public void save(Comunidad comunidad) {
         entityManager.getTransaction().begin();
-        entityManager.persist(entidad);
+        entityManager.persist(comunidad);
         entityManager.getTransaction().commit();
     }
 
-    public void update(Entidad entidad) {
+    public void update(Comunidad comunidad) {
         entityManager.getTransaction().begin();
-        entityManager.merge(entidad);
+        entityManager.merge(comunidad);
         entityManager.getTransaction().commit();
     }
 
-    public void delete(Entidad entidad) {
-    entityManager.getTransaction().begin();
-    entityManager.remove(entidad);
-    entityManager.getTransaction().commit();
-}
-
-    public void delete(int id) {
+    public void delete(Comunidad comunidad) {
         entityManager.getTransaction().begin();
-        Entidad entidad = entityManager.find(Entidad.class, id);
-        if (entidad != null) {
-            entityManager.remove(entidad);
-        }
+        entityManager.remove(comunidad);
         entityManager.getTransaction().commit();
     }
-
-    public static List<Entidad> findAllEntidadByIds(List<Integer> ids) {
+    public static List<Comunidad> findComunidadByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
         }
 
-        TypedQuery<Entidad> query = entityManager.createQuery(
-                "SELECT u FROM Entidad u WHERE u.id IN :ids", Entidad.class
+        TypedQuery<Comunidad> query = entityManager.createQuery(
+                "SELECT u FROM Comunidad u WHERE u.id IN :ids", Comunidad.class
         );
         query.setParameter("ids", ids);
         return query.getResultList();

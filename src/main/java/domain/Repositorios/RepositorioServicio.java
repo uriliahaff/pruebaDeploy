@@ -1,35 +1,34 @@
 package domain.Repositorios;
 
-import domain.Procesos.EntidadesManager;
-import domain.Usuarios.Comunidades.Miembro;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.other.EntityManagerProvider;
+import domain.servicios.Servicio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
 
-public class RepositorioEntidad
+public class RepositorioServicio
 {
     private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
 
-    public void save(Entidad entidad) {
+    public void save(Servicio servicio) {
         entityManager.getTransaction().begin();
-        entityManager.persist(entidad);
+        entityManager.persist(servicio);
         entityManager.getTransaction().commit();
     }
 
-    public void update(Entidad entidad) {
+    public void update(Servicio servicio) {
         entityManager.getTransaction().begin();
-        entityManager.merge(entidad);
+        entityManager.merge(servicio);
         entityManager.getTransaction().commit();
     }
 
-    public void delete(Entidad entidad) {
+    public void delete(Servicio servicio) {
     entityManager.getTransaction().begin();
-    entityManager.remove(entidad);
+    entityManager.remove(servicio);
     entityManager.getTransaction().commit();
 }
 
@@ -42,13 +41,13 @@ public class RepositorioEntidad
         entityManager.getTransaction().commit();
     }
 
-    public static List<Entidad> findAllEntidadByIds(List<Integer> ids) {
+    public static List<Servicio> findServicioByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
         }
 
-        TypedQuery<Entidad> query = entityManager.createQuery(
-                "SELECT u FROM Entidad u WHERE u.id IN :ids", Entidad.class
+        TypedQuery<Servicio> query = entityManager.createQuery(
+                "SELECT u FROM Servicio u WHERE u.id IN :ids", Servicio.class
         );
         query.setParameter("ids", ids);
         return query.getResultList();
