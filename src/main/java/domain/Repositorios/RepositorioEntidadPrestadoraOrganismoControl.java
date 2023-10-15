@@ -5,6 +5,7 @@ import domain.Usuarios.OrganismoDeControl;
 import domain.other.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioEntidadPrestadoraOrganismoControl {
@@ -19,6 +20,19 @@ public class RepositorioEntidadPrestadoraOrganismoControl {
         return entityManager.createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
     }
 
+    public void guardarEntidadesPrestadoras(List<EntidadPrestadora> entidades){
+        for (EntidadPrestadora entidad : entidades) {
+            saveEntity(entidad);
+        }
+    }
+
+
+    private <T> void saveEntity(T entity) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(entity);
+        transaction.commit();
+    }
 
 
 }

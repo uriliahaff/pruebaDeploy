@@ -28,7 +28,7 @@ public class EntidadesOrganismosController {
         Map<String, Object> model = new HashMap<>();
         List<EntidadPrestadora> entidades = this.repositorioDeEntidadesPrestadoras.buscarTodosEntidades();
         model.put("entidades", entidades);
-        model.put("username", context.attribute("username"));
+        model.put("username", context.cookie("username"));
 
         context.render("cargaEntidades.hbs", model);
     }
@@ -37,6 +37,7 @@ public class EntidadesOrganismosController {
         Map<String, Object> model = new HashMap<>();
         List<OrganismoDeControl> organismos = this.repositorioDeEntidadesPrestadoras.buscarTodosOrganismos();
         model.put("organismos", organismos);
+        model.put("username", context.cookie("username"));
 
         context.render("cargaOrganismos.hbs", model);
     }
@@ -48,10 +49,9 @@ public class EntidadesOrganismosController {
         if (archivo != null) {
             try (InputStream inputStream = archivo.content()) {
                 CSVDataLoader csvDataLoader = new CSVDataLoader();
-                List<EntidadPrestadora> entidadesACargar = csvDataLoader.leerArchivo(inputStream);
+                List<EntidadPrestadora> entidadesACargar = csvDataLoader.leerArchivoEntidades(inputStream);
 
-                // Realizar la lógica de persistencia (guardar en la base de datos, etc.)
-                // repositorioDeEntidadesPrestadoras.guardarEntidadesPrestadoras(entidadesACargar);
+                repositorioDeEntidadesPrestadoras.guardarEntidadesPrestadoras(entidadesACargar);
 
                 context.redirect("/cargaEntidades");
 
@@ -59,6 +59,26 @@ public class EntidadesOrganismosController {
                 throw new RuntimeException(e);
             }
 
+        }
+    }
+
+    public void cargarMasivaOrganismos(Context context) {
+        // CARGA MASIVA
+        UploadedFile archivo = context.uploadedFile("archivo");
+
+        if (archivo != null) {
+            try (InputStream inputStream = archivo.content()) {
+                CSVDataLoader csvDataLoader = new CSVDataLoader();
+                List<OrganismoDeControl> entidadesACargar = csvDataLoader.leerArchivoOrganismo(inputStream);
+
+                // Realizar la lógica de persistencia (guardar en la base de datos, etc.)
+                // repositorioDeEntidadesPrestadoras.guardarEntidadesPrestadoras(entidadesACargar);
+
+                context.redirect("/cargaOrganismos");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         }
     }

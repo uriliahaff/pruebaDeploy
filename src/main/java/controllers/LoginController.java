@@ -24,6 +24,15 @@ public class LoginController {
         context.render("login.hbs");
     }
 
+    public void admin(Context context){
+        Map<String, Object> model = new HashMap<>();
+        System.out.println("Username: " + context.attribute("username"));
+
+        model.put("username", context.cookie("username"));
+
+        context.render("dashboard.hbs", model);
+    }
+
     public void loginAttempt(Context context){
         Usuario usuario = repositorioDeUsuario.findUsuarioByUsername(context.formParam("username"));
         String password = context.formParam("password");
@@ -34,19 +43,28 @@ public class LoginController {
 
         if(usuario != null){
             if(usuario.getPassword().equals(password)){
-                context.render("correcto.hbs");
-                context.attribute("id", usuario.getId());
-                context.attribute("username", usuario.getUsername());
+                context.redirect("/");
+                context.cookie("id", String.valueOf(usuario.getId()));
+                context.cookie("username", usuario.getUsername());
+
+                System.out.println("id: " + context.attribute("id"));
+                System.out.println("Username: " + context.attribute("username"));
             }
             else{
-                context.render("login.hbs");
+                context.redirect("/login");
+
             }
         } else{
-            context.render("login.hbs");
+            context.redirect("/login");
+
         }
+    }
 
+    public void logout(Context context){
+        context.cookie("id","",0);
+        context.cookie("username","",0);
 
-
+        context.redirect("/login");
     }
 
 }

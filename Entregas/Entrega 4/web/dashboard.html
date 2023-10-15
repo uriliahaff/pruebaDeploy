@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Administrador - Organismos de Control</title>
+    <title>Administrador - Usuarios</title>
 
     <link href="includes/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -20,7 +20,7 @@
     <link href="css/admin.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="css/entidadesPrestadoras.css" rel="stylesheet">
+    <link href="css/usuarios.css" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -35,6 +35,7 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+            <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
 
                 <div class="sidebar-brand-text mx-3">Administrador</div>
@@ -43,7 +44,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -58,21 +58,21 @@
                 Administrador
             </div>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/usuarios">
+            <li class="nav-item active">
+                <a class="nav-link" href="usuarios.html">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Usuarios</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/cargaEntidades">
+            <li class="nav-item ">
+                <a class="nav-link" href="entidadesPrestadoras.html">
                     <i class="fas fa-fw fa-building"></i>
                     <span>Entidades Prestadoras</span></a>
             </li>
 
             
-            <li class="nav-item active">
-                <a class="nav-link" href="#">
+            <li class="nav-item ">
+                <a class="nav-link" href="usuarios.html">
                     <i class="fas fa-fw fa-building"></i>
                     <span>Organismos de Control</span></a>
             </li>
@@ -84,11 +84,13 @@
             <div class="sidebar-heading">
                 Herramientas
             </div>
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link" href="rankings.html">
                     <i class="fas fa-fw fa-chart-line"></i>
                     <span>Rankings</span></a>
             </li>
+
+            
 
         </ul>
         <!-- End of Sidebar -->
@@ -117,6 +119,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Uriel Liahaff</span>
+                                <img class="img-profile rounded-circle"
+                                    src="images/profile.jpg">
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -131,7 +135,7 @@
                                     Configuracion
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar sesion
                                 </a>
@@ -143,51 +147,7 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Organismos de Control</h1>
-                    <p class="mb-4">Carga masiva de datos de orgnanismos de control</p>
-
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Organismos de Control</h6>
-                        </div>
-                        <div class="card-body tabla">
-                            <button type="button" class="btn btn-primary mb-3 btnCSv" data-bs-toggle="modal" data-bs-target="#csvModal"><i class="fa fa-upload mr-1"></i>Cargar CSV</button>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Servicio</th>
-                                            <th>Descripcion</th>
-                                            <th>Correo Electronico</th>
-                                            <th>Administrador</th>
-                                            <th></th>
-
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                          {{#each organismos}}
-                                             <tr>
-                                                <td>{{this.nombre}}</td>
-                                                <td>{{this.servicio.nombre}}</td>
-                                                <td>{{this.descripcion}}</td>
-                                                <td>{{this.correoElectronicoResponsable}}</td>
-                                                <td>{{this.usuario.username}}</td>
-                                                <td></td>
-                                             </tr>
-                                         {{/each}}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
 
             </div>
             <!-- End of Main Content -->
@@ -214,31 +174,6 @@
     </a>
 
 
-        <!-- Data Modal-->
-    <div class="modal" id="csvModal" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Cargar CSV</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Cargar archivo .CSV</p>
-           
-                       <form method="post" action="/cargarCSVOrganismos" enctype="multipart/form-data">
-                            <div class="mb-3">
-                               <input class="form-control" accept=".csv" type="file" id="archivo" name="archivo">
-                            </div>
-
-                               <div class="modal-footer">
-                               <button type="submit" class="btn btn-success"><i class="fa fa-check mr-1"></i>Cargar</button>
-                               </div>
-                           </form>
-          </div>
-        </div>
-      </div>
-
-
 
 
 
@@ -253,7 +188,6 @@
     <!-- Page level plugins -->
     <script src="includes/datatables/jquery.dataTables.min.js"></script>
     <script src="includes/datatables/dataTables.bootstrap4.min.js"></script>
-
 
 
 </body>

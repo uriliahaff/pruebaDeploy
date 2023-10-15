@@ -133,7 +133,7 @@ public class PersistenceTest {
         Assertions.assertNotNull(usuarioRecuperado);
         Assertions.assertEquals("usuarion", usuarioRecuperado.getUsername());
 
-        new RepositorioUsuario().delete(usuarioRecuperado.getId());
+        new RepositorioUsuario().delete(usuarioRecuperado);
 
         OrganismoDeControl usuarioEliminado = new RepositorioUsuario().findOrganismoDeControlById(organismo.getId());//entityManager.find(OrganismoDeControl.class, id);
         Assertions.assertNull(usuarioEliminado);
@@ -176,7 +176,7 @@ public class PersistenceTest {
         Assertions.assertNotNull(usuarioRecuperado);
         Assertions.assertEquals("usuarion123455", usuarioRecuperado.getUsername());
         //Aca quiero checkear que no encuentre nombres parecidos
-        repositorioUsuario.delete(usuarioRecuperado.getId());
+        repositorioUsuario.delete(usuarioRecuperado);
 
         Usuario usuarioEliminado = repositorioUsuario.findUsuarioByUsername(organismo.getUsuario().getUsername());//entityManager.find(OrganismoDeControl.class, id);
         Assertions.assertNull(usuarioEliminado);

@@ -9,6 +9,10 @@ public class TipoEntidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    public TipoEntidad() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -29,7 +29,7 @@ public class RankingMayorGradoImpacto implements Ranking {
         rankingSemana.sort(Comparator.comparing(EntidadGradoImpacto::getGradoImpacto).reversed());
 
         // Imprimir el ranking semanal
-        System.out.println("Ranking semanal por mayor grado de impacto:");
+        System.out.println("ranking.hbs semanal por mayor grado de impacto:");
         int posicion = 1;
         for (EntidadGradoImpacto entidadGrado : rankingSemana) {
             System.out.println(posicion + ". " + entidadGrado.getEntidad() + " - Grado de impacto: " + entidadGrado.getGradoImpacto());

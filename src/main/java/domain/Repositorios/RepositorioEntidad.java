@@ -1,7 +1,9 @@
 package domain.Repositorios;
 
 import domain.Procesos.EntidadesManager;
+import domain.Usuarios.Usuario;
 import domain.Usuarios.Comunidades.Miembro;
+
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.other.EntityManagerProvider;
@@ -42,6 +44,9 @@ public class RepositorioEntidad
         entityManager.getTransaction().commit();
     }
 
+    public Entidad findEntidadesById(int id) {
+        return entityManager.find(Entidad.class, id);
+    }
     public static List<Entidad> findAllEntidadByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
@@ -52,5 +57,9 @@ public class RepositorioEntidad
         );
         query.setParameter("ids", ids);
         return query.getResultList();
+    }
+
+    public Entidad findEntidadById(int id) {
+        return entityManager.find(Entidad.class, id);
     }
 }

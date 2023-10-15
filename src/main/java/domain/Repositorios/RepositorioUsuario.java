@@ -3,16 +3,17 @@ package domain.Repositorios;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
+import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
 import domain.other.EntityManagerProvider;
 
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
-
 public class RepositorioUsuario {
 
     private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();;
+
 
     /*public RepositorioUsuario() {
         this.entityManager = EntityManagerProvider.getInstance().getEntityManager();
@@ -26,11 +27,13 @@ public class RepositorioUsuario {
         transaction.commit();
     }
 
-    private <T> void updateEntity(T entity) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.merge(entity);
-        transaction.commit();
+
+    public void actualizar(Object o) {
+        EntityTransaction tx = entityManager.getTransaction();
+        if(!tx.isActive())
+            tx.begin();
+        entityManager.merge(o);
+        tx.commit();
     }
 
 
@@ -68,7 +71,7 @@ public class RepositorioUsuario {
     }
 
     public void updateUsuario(Usuario usuario) {
-        updateEntity(usuario);
+        actualizar(usuario);
     }
 
     public void saveMiembro(Miembro miembro) {
@@ -76,7 +79,7 @@ public class RepositorioUsuario {
     }
 
     public void updateMiembro(Miembro miembro) {
-        updateEntity(miembro);
+        actualizar(miembro);
     }
 
     public void saveOrganismoDeControl(OrganismoDeControl organismoDeControl) {
@@ -84,7 +87,7 @@ public class RepositorioUsuario {
     }
 
     public void updateOrganismoDeControl(OrganismoDeControl organismoDeControl) {
-        updateEntity(organismoDeControl);
+        actualizar(organismoDeControl);
     }
 
     public void saveEntidadPrestadora(EntidadPrestadora entidadPrestadora) {
@@ -92,27 +95,24 @@ public class RepositorioUsuario {
     }
 
     public void updateEntidadPrestadora(EntidadPrestadora entidadPrestadora) {
-        updateEntity(entidadPrestadora);
+        actualizar(entidadPrestadora);
     }
 
-    public void delete(int id) {
+    public void delete(Usuario usuario) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        Usuario usuario = entityManager.find(Usuario.class, id);
-        if (usuario != null) {
 
             // Intentamos eliminar la entidad asociada correspondiente
             if (
-                    tryDeleteEntity(Miembro.class, "Miembro", id) ||
-                    tryDeleteEntity(OrganismoDeControl.class, "OrganismoDeControl", id) ||
-                    tryDeleteEntity(EntidadPrestadora.class, "EntidadPrestadora", id)
+                    tryDeleteEntity(Miembro.class, "Miembro", usuario.getId()) ||
+                    tryDeleteEntity(OrganismoDeControl.class, "OrganismoDeControl", usuario.getId()) ||
+                    tryDeleteEntity(EntidadPrestadora.class, "EntidadPrestadora", usuario.getId())
             ) {
                 // Se eliminó alguna entidad asociada, podemos continuar
             }
 
             entityManager.remove(usuario);
-        }
 
         transaction.commit();
     }
@@ -127,6 +127,15 @@ public class RepositorioUsuario {
         }
         return false;
     }
+
+    public List buscarTodosUsuarios() {
+        return entityManager.createQuery("from " + Usuario.class.getName()).getResultList();
+    }
+
+    public List<Rol> buscarTodosRoles() {
+        return entityManager.createQuery("from " + Rol.class.getName()).getResultList();
+    }
+
     public static List<Miembro> findMiembrosByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();

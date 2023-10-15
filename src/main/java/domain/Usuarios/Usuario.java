@@ -14,7 +14,7 @@ public class Usuario{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -66,7 +66,7 @@ public class Usuario{
     {
         this.roles.add(rol);
     }
-
+    public void setRoles(List<Rol> roles){this.roles = roles;}
     public String getUsername() {
         return username;
     }
