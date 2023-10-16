@@ -98,6 +98,17 @@ public class RepositorioIncidente {
                 .setParameter("today", today)
                 .getResultList();
     }
+    public List<Incidente> findOpenedLastWeek() {
+        LocalDate today = LocalDate.now();
+        LocalDate lastWeekStart = today.minusDays(7);
+
+        String hql = "FROM Incidente i WHERE i.fechaInicio BETWEEN :lastWeekStart AND :today";
+
+        return entityManager.createQuery(hql, Incidente.class)
+                .setParameter("lastWeekStart", lastWeekStart)
+                .setParameter("today", today)
+                .getResultList();
+    }
 
 
 }
