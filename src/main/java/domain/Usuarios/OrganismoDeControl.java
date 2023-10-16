@@ -13,11 +13,12 @@ public class OrganismoDeControl{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "servicio_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "servicio_id")
     private Servicio servicio;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @MapsId
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -36,6 +37,10 @@ public class OrganismoDeControl{
         return id;
     }
 
+    public Servicio getServicio() {
+        return servicio;
+    }
+
     public OrganismoDeControl(/*Usuario user,*/String username, String password , String correoElectronicoResponsable, String nombre, String descripcion) {
         this.usuario = new Usuario(username,password);
         //this.usuario = usuario;
@@ -46,6 +51,10 @@ public class OrganismoDeControl{
 
     public OrganismoDeControl() {
     }
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
 
     public Usuario getUsuario() {
         return usuario;

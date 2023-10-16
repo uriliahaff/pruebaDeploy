@@ -28,11 +28,11 @@ public class Incidente {
     @Column(name = "descripcion",nullable = false)
     private String descripcion;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "miembro_id", nullable = false)
     private Miembro miembroInformante;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "servicio_id", nullable = false)
     private PrestacionDeServicio servicioAfectado;
 

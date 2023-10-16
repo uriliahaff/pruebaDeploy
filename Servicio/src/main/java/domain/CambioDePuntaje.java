@@ -6,9 +6,8 @@ public class CambioDePuntaje {
     private double puntaje;
 
 
-
-
-    public CambioDePuntaje(Usuario usuarioApertura, double v) {
-
+    public CambioDePuntaje(Usuario usuario, double puntaje) {
+        this.usuario = usuario;
+        this.puntaje = puntaje;
     }
 }

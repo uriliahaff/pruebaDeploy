@@ -47,7 +47,9 @@ public class RepositorioUsuario {
         try {
             return entityManager.createQuery("SELECT u FROM Usuario u WHERE u.username = :username", Usuario.class)
                     .setParameter("username", username)
+                    .setMaxResults(1)
                     .getSingleResult();
+
         } catch (NoResultException e) {
             // Manejar el caso en que no se encuentra ningún usuario con el nombre de usuario dado
             return null;

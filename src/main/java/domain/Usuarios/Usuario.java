@@ -3,6 +3,7 @@ package domain.Usuarios;
 import domain.other.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,5 +93,6 @@ public class Usuario{
     public void desactivar(){this.estatus=false;}
 
     public void cambiarGradoDeConfianza(double nuevoValor){this.gradoDeConfianza = nuevoValor;}
+    public void addConfianza(double gradoDeConfianza) { this.gradoDeConfianza+=gradoDeConfianza;}
 
 }

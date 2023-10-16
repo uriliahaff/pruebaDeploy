@@ -14,7 +14,7 @@ public class RequestManager
         app.get("/",ctx -> ctx.result("Hola Mundo") );
 
         app.post("/calcularGradosDeConfianza", ctx -> {
-            List<Incidente> incidentes = ctx.bodyAsClass(ArrayList.class); // Suponiendo que el cuerpo del mensaje es una lista de Incidentes en formato JSON
+            List<Incidente> incidentes = ctx.bodyAsClass(List.class); // Suponiendo que el cuerpo del mensaje es una lista de Incidentes en formato JSON
             List<CambioDePuntaje> cambios = CalculadorDeCambiosGradosDeConfianza.calcularGradosdeConfianza(incidentes);
             ctx.json(cambios);
         });

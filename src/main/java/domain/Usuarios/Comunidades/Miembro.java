@@ -60,6 +60,7 @@ public class Miembro {
     private List<Direccion> lugaresDeInteres = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 

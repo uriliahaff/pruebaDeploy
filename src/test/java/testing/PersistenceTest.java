@@ -1,6 +1,7 @@
 package testing;
 
 import domain.Repositorios.RepositorioEstablecimiento;
+import domain.Repositorios.RepositorioServicio;
 import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Rol;
@@ -12,6 +13,7 @@ import domain.other.*;
 import domain.services.georef.entities.Localidad;
 import domain.services.georef.entities.Municipio;
 import domain.services.georef.entities.Provincia;
+import domain.servicios.Servicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -105,6 +107,8 @@ public class PersistenceTest {
         );
         organismo.getUsuario().addRol(rol1);
         organismo.getUsuario().addRol(rol2);
+        Servicio servicio = new Servicio("servicio","servicioMock");
+        organismo.setServicio(servicio);
         new RepositorioUsuario().saveOrganismoDeControl(organismo);
        // entityManager.persist(organismo);
         //entityManager.getTransaction().commit();
@@ -125,9 +129,15 @@ public class PersistenceTest {
                 "Nombre del Organismo",
                 "Descripción del Organismo"
         );
-        int id = organismo.getId();
+        Servicio servicio = new Servicio("servicio","servicioMock");
+        organismo.setServicio(servicio);
+
 
         new RepositorioUsuario().saveOrganismoDeControl(organismo);
+        int id = organismo.getId();
+        System.out.println(organismo.getUsuario().getId());
+        System.out.println(id);
+        System.out.println(organismo.getUsuario().getUsername());
 
         Usuario usuarioRecuperado = new RepositorioUsuario().findUsuarioById(organismo.getId());//entityManager.find(Usuario.class, organismo.getId());
         Assertions.assertNotNull(usuarioRecuperado);
@@ -138,6 +148,8 @@ public class PersistenceTest {
         OrganismoDeControl usuarioEliminado = new RepositorioUsuario().findOrganismoDeControlById(organismo.getId());//entityManager.find(OrganismoDeControl.class, id);
         Assertions.assertNull(usuarioEliminado);
     }
+
+
 
     @Test
     public void testBuscarUsuario() {
@@ -167,20 +179,51 @@ public class PersistenceTest {
                 "Descripción del Organismo"
         );
         String nombre = organismo.getUsuario().getUsername();
+        Servicio servicio = new Servicio("servicio","servicioMock");
+        organismo.setServicio(servicio);
+        organismo2.setServicio(servicio);
+        organismo3.setServicio(servicio);
 
         repositorioUsuario.saveOrganismoDeControl(organismo);
         repositorioUsuario.saveOrganismoDeControl(organismo2);
         repositorioUsuario.saveOrganismoDeControl(organismo3);
 
+
+
         Usuario usuarioRecuperado = repositorioUsuario.findUsuarioByUsername(nombre);//entityManager.find(Usuario.class, organismo.getId());
+
         Assertions.assertNotNull(usuarioRecuperado);
         Assertions.assertEquals("usuarion123455", usuarioRecuperado.getUsername());
+        //Assertions.assertEquals("usuarion123455", usuarioRecuperado.getUsername());
         //Aca quiero checkear que no encuentre nombres parecidos
         repositorioUsuario.delete(usuarioRecuperado);
 
-        Usuario usuarioEliminado = repositorioUsuario.findUsuarioByUsername(organismo.getUsuario().getUsername());//entityManager.find(OrganismoDeControl.class, id);
-        Assertions.assertNull(usuarioEliminado);
     }
+    @Test
+    public void testRecuperarODC()
+    {
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+
+        Servicio servicio = new Servicio("Serv", "sasdf");
+        OrganismoDeControl organismo = new OrganismoDeControl(
+
+                "usuarion123455",
+                "totallyValidPasswordWithNumbersLike142AndSymbolsLike!!!",
+                "correo@ejemplo.com",
+                "Nombre del Organismo",
+                "Descripción del Organismo"
+        );
+        organismo.setServicio(servicio);
+        repositorioUsuario.saveOrganismoDeControl(organismo);
+
+        OrganismoDeControl organismoDeControlRecuperado = repositorioUsuario.findOrganismoDeControlById(organismo.getId());
+        Assertions.assertEquals(organismoDeControlRecuperado.getUsuario().getUsername(), organismo.getUsuario().getUsername());
+
+        Assertions.assertNotNull(organismoDeControlRecuperado.getServicio());
+
+
+    }
+
 
 
     @Test

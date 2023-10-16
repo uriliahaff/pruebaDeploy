@@ -19,7 +19,8 @@ public class EntidadPrestadora{
     @Setter
     private Entidad entidad;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @MapsId
     @JoinColumn(name = "usuario_id", nullable = false)
     @Setter
     private Usuario usuario;
