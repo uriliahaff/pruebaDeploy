@@ -10,6 +10,7 @@ import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
 import domain.informes.Incidente;
+import domain.services.notificadorDeIncidentes.NotificadorDeIncidentes;
 import domain.servicios.PrestacionDeServicio;
 import io.javalin.http.Context;
 
@@ -73,6 +74,8 @@ public class IncidenteController {
         Miembro miembro =  miembrosDelUsuario.get(0);
         incidente.cerrarIncidente(fechaActual, miembro);
         this.repositorioDeIncidentes.update(incidente);
+        NotificadorDeIncidentes.notificarIncidente(incidente);
+
         context.redirect("/incidentes");
     }
 
@@ -90,10 +93,12 @@ public class IncidenteController {
 
         //incidente.setFechaInicio(LocalDateTime.parse(fechaActual.format(formatoFecha)));
         incidente.setFechaInicio(fechaActual);
-        //TODO: Arreglar tema comunidades afectadas
-      /* List<Comunidad> comunidadesAfectadas = miembro.getComunidades();
-        incidente.setComunidadesAfectadas(comunidadesAfectadas);*/
+
+       List<Comunidad> comunidadesAfectadas = miembro.getComunidades();
+        incidente.addComunidadesAfectadas(comunidadesAfectadas);
         this.repositorioDeIncidentes.save(incidente);
+        NotificadorDeIncidentes.notificarIncidente(incidente);
+
         context.redirect("/incidentes");
 
     }

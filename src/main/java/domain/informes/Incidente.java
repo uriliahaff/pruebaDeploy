@@ -60,6 +60,10 @@ public class Incidente {
     @Setter
     private List<Comunidad> comunidadesAfectadas = new ArrayList<>();
 
+    public void addComunidadesAfectadas(List<Comunidad> comunidadesAfectadas)
+    {
+        this.comunidadesAfectadas.addAll(comunidadesAfectadas);
+    }
     @Column(name = "fechaInicio",nullable = false)
     @Getter
     @Setter
@@ -85,7 +89,6 @@ public class Incidente {
         this.fechaInicio = fechaInicio;
 
 
-        NotificadorDeIncidentes.notificarIncidente(this);
         //TODO: Aca hay que generar la notificacion para cada miembro
     }
     public Miembro getMiembroAnalizador() {

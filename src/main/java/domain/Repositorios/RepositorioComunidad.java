@@ -39,6 +39,7 @@ public class RepositorioComunidad
         return entityManager.find(Comunidad.class, id);
     }
 
+
     public static List<Comunidad> findComunidadByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
@@ -50,5 +51,17 @@ public class RepositorioComunidad
         query.setParameter("ids", ids);
         return query.getResultList();
     }
+
+    public Comunidad findByName(String nombre) {
+        String jpql = "FROM Comunidad WHERE nombre = :nombreParam";
+        TypedQuery<Comunidad> query = entityManager.createQuery(jpql, Comunidad.class);
+        query.setParameter("nombreParam", nombre);
+
+        List<Comunidad> resultados = query.getResultList();
+
+        // Si hay resultados, retorna el primero. Si no, retorna null.
+        return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
 
 }

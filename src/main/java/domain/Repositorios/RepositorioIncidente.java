@@ -54,11 +54,8 @@ public class RepositorioIncidente {
     }
 
     public List<Incidente> findAllOpen() {
-        List<Incidente> incidentes = entityManager.createQuery("from Incidente", Incidente.class).getResultList();
-        List<Incidente> incidentesAbiertos = incidentes.stream()
-                .filter(incidente -> incidente.getFechaCierre() == null)
-                .collect(Collectors.toList());
-
+        String hql = "FROM Incidente WHERE fechaCierre IS NULL";
+        List<Incidente> incidentesAbiertos = entityManager.createQuery(hql, Incidente.class).getResultList();
         return incidentesAbiertos;
     }
     public List<Incidente> findIncidentesByDireccion(Provincia provincia, Municipio municipio, Localidad localidad) {

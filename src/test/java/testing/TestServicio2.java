@@ -34,6 +34,7 @@ import java.util.List;
 
 public class TestServicio2
 {
+    private Comunidad comunidad1;
     @Test
     public void testGetGradoDeConfianza() throws IOException {
 
@@ -57,7 +58,7 @@ public class TestServicio2
         Direccion direccion3 = new Direccion(caba, almagro);
 
 
-        Comunidad comunidad = new Comunidad("com 1",0);
+        comunidad1 = new Comunidad("com 4",0);
         //String nombre, String apellido, String correoElectronico, String telefono,
         // ConfiguracionNotificacionDeIncidentes configuracionNotificacionDeIncidentes,
         // Usuario usuario
@@ -71,8 +72,8 @@ public class TestServicio2
         );
 
         new RepositorioUsuario().saveMiembro(miembro1);
-        new RepositorioComunidad().save(comunidad);
-        ComunidadManager.agregarMiembro(miembro1,comunidad);
+        new RepositorioComunidad().save(comunidad1);
+        ComunidadManager.agregarMiembro(miembro1,comunidad1);
         Servicio servicio = new Servicio("serv1", "muy servicioso");
         TipoEntidad tipoEntidad = new TipoEntidad("Tren");
         Entidad entidad = EntidadesManager.crearEntidad(
@@ -95,20 +96,29 @@ public class TestServicio2
                 , entidad.getEstablecimientos().get(0).getServicios().get(0)
                 , LocalDateTime.now());
         incidente.cerrarIncidente(LocalDateTime.now().plus(1, ChronoUnit.MINUTES),miembro1);
+        Incidente incidente2 = new Incidente(
+                "algo paso"
+                , miembro1
+                , entidad.getEstablecimientos().get(0).getServicios().get(0)
+                , LocalDateTime.now().plusDays(2));
+        incidente2.cerrarIncidente(LocalDateTime.now().plusDays(2).plus(1, ChronoUnit.MINUTES),miembro1);
         new RepositorioIncidente().save(incidente);
 
         List<Incidente> incidentes = new ArrayList<>();
         incidentes.add(incidente);
+        incidentes.add(incidente2);
         List<CambioDePuntaje>  cambioDePuntajes= new ArrayList<>();
 
 
-            CalculadorConfianzaAdapter calculadorConfianzaAdapter = new CalculadorConfianzaAdapter();
-            cambioDePuntajes = calculadorConfianzaAdapter.obternerCambios(incidentes);
+        CalculadorConfianzaAdapter calculadorConfianzaAdapter = new CalculadorConfianzaAdapter();
+        cambioDePuntajes = calculadorConfianzaAdapter.obternerCambios(incidentes);
 
 
 
-            Assertions.assertEquals(-0.2, cambioDePuntajes.get(0).getCambio());
-            Assertions.assertEquals(miembro1.getUsuario().getId(), cambioDePuntajes.get(0).getUsuario().getId());
+        Assertions.assertEquals(-0.2, cambioDePuntajes.get(0).getCambio());
+        Assertions.assertEquals(miembro1.getUsuario().getId(), cambioDePuntajes.get(0).getUsuario().getId());
+        cambioDePuntajes.forEach(CambioDePuntaje::apply);
+
                 /*
                 new Entidad(
                 "entidad1"
@@ -119,5 +129,16 @@ public class TestServicio2
         Establecimiento establecimiento = new Establecimiento()
         PrestacionDeServicio prestacionDeServicio = new PrestacionDeServicio(servicio, )
         Incidente incidente = new Incidente("paso algo", miembro1, )*/
+    }
+
+    @Test
+    public void testActualizarComunidadValues() throws IOException {
+        CalculadorConfianzaAdapter calculadorConfianzaAdapter = new CalculadorConfianzaAdapter();
+        List<Comunidad> comunidades = new ArrayList<>();
+        comunidades.add(new RepositorioComunidad().findByName("com 4"));
+        System.out.println("Comunidad: "+comunidades.get(0).getMiembros().get(0).getUsuario().getGradoDeConfianza());
+        System.out.println(comunidades.get(0).getMiembros().stream().map(Miembro::getUsuario).mapToDouble(Usuario::getGradoDeConfianza).sum());
+        calculadorConfianzaAdapter.actualizarGradoConfianzaDeComunidades(comunidades);
+        Assertions.assertEquals(-1,comunidades.get(0).getGradoDeConfianza());
     }
 }

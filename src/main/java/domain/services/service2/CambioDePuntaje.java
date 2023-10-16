@@ -19,6 +19,7 @@ public class CambioDePuntaje
     public void apply()
     {
         this.usuario.addConfianza(cambio);
+        new RepositorioUsuario().updateUsuario(this.usuario);
     }
 
     public double getCambio() {

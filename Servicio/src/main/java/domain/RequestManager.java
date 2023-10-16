@@ -27,11 +27,11 @@ public class RequestManager
             ctx.json(cambios);
         });
         app.post("/actualizarGradoConfianzaDeComunidades", ctx -> {
-        List<Comunidad> comunidades = ctx.bodyAsClass(List.class); // Suponiendo que el cuerpo del mensaje es una lista de Incidentes en formato JSON
-        //List<Comunidad> cambios = CalculadorDeCambiosGradosDeConfianza.calcularGradosdeConfianza(incidentes);
+            ObjectMapper mapper = new ObjectMapper();
+            List<Comunidad> comunidades = mapper.readValue(ctx.body(), new TypeReference<List<Comunidad>>(){});
             CalculadorDeCambiosGradosDeConfianza.actualizarGradoConfianzaDeComunidades(comunidades);
-        ctx.json(comunidades);
-    });
+            ctx.json(comunidades);
+        });
 
     }
 

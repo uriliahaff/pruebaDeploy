@@ -25,6 +25,7 @@ public class CalculadorConfianzaAdapter
         RepositorioComunidad repositorioComunidad = new RepositorioComunidad();
         for (ComunidadModel comunidadModel: nuevosPuntajes)
         {
+            System.out.println(comunidadModel.getId()+": "+comunidadModel.getGradoDeConfianza());
             repositorioComunidad.find(comunidadModel.getId()).setGradoDeConfianza(comunidadModel.getGradoDeConfianza());
         }
     }
