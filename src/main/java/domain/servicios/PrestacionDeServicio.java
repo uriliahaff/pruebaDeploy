@@ -17,11 +17,11 @@ public class PrestacionDeServicio {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "servicio_id", nullable = false)
     private Servicio servicio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "establecimiento_id", nullable = false)
     private Establecimiento establecimiento;
 
