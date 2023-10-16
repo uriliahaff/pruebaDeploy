@@ -122,4 +122,9 @@ public class Incidente {
         this.miembroAnalizador = miembroAnalizador;
     }
 
+    public boolean estaAbierto()
+    {
+        return fechaCierre == null;
+    }
+
 }

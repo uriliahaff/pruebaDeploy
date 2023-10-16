@@ -33,6 +33,10 @@ public class Establecimiento {
     @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> servicios;
 
+    public Entidad getEntidad() {
+        return entidad;
+    }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "entidad_id")
     private Entidad entidad;

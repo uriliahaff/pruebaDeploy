@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name = "entidad")
 public class Entidad {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -47,9 +48,12 @@ public class Entidad {
         this.establecimientos = new ArrayList<>();
     }
 
-
-
     // Métodos getter y setter
+
+    public int getId() {
+        return id;
+    }
+
 
     public String getNombre(){return nombre;}
 
@@ -70,4 +74,5 @@ public class Entidad {
     public List<Establecimiento> getEstablecimientos() {
         return establecimientos;
     }
+
 }
