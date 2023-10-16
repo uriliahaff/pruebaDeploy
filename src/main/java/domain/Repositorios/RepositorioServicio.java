@@ -3,7 +3,9 @@ package domain.Repositorios;
 import domain.Usuarios.Usuario;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
+import domain.informes.Incidente;
 import domain.other.EntityManagerProvider;
+import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 
 import javax.persistence.EntityManager;
@@ -58,5 +60,8 @@ public class RepositorioServicio
         return entityManager.find(Servicio.class, id);
     }
 
+    public List<PrestacionDeServicio> buscarTodasLasPrestaciones() {
+        return entityManager.createQuery("from " + PrestacionDeServicio.class.getName()).getResultList();
+    }
 
 }
