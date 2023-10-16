@@ -16,7 +16,10 @@ public class UsuarioModel
         return cambioDePuntaje;
     }
 
-    public UsuarioModel(Miembro usuario) {
+    public UsuarioModel(){}
+
+    public UsuarioModel(Usuario usuario) {
         this.id = usuario.getId();
+        this.cambioDePuntaje = usuario.getGradoDeConfianza();
     }
 }

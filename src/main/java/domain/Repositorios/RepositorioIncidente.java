@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.time.LocalDate;
 import java.util.List;
 
 public class RepositorioIncidente {
@@ -79,5 +80,17 @@ public class RepositorioIncidente {
         TypedQuery<Incidente> typedQuery = entityManager.createQuery(query);
         return typedQuery.getResultList();
     }
+    public List<Incidente> findClosedLastWeek() {
+        LocalDate today = LocalDate.now();
+        LocalDate lastWeekStart = today.minusDays(7);
+
+        String hql = "FROM Incidente i WHERE i.fechaCierre BETWEEN :lastWeekStart AND :today";
+
+        return entityManager.createQuery(hql, Incidente.class)
+                .setParameter("lastWeekStart", lastWeekStart)
+                .setParameter("today", today)
+                .getResultList();
+    }
+
 
 }

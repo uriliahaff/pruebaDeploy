@@ -7,8 +7,12 @@ public class Usuario {
     public Usuario(Integer id) {
         this.id = id;
     }
-    public void cambiarPuntaje(float cambio)
-    {
-        this.cambioDePuntaje+=cambio;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public double getCambioDePuntaje() {
+        return cambioDePuntaje;
     }
 }

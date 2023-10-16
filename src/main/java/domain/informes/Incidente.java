@@ -29,8 +29,13 @@ public class Incidente {
     private String descripcion;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "miembro_id", nullable = false)
+    @JoinColumn(name = "miembro_informante_id", nullable = false)
     private Miembro miembroInformante;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "miembro_analizador_id")
+    private Miembro miembroAnalizador;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "servicio_id", nullable = false)
@@ -68,6 +73,9 @@ public class Incidente {
         NotificadorDeIncidentes.notificarIncidente(this);
         //TODO: Aca hay que generar la notificacion para cada miembro
     }
+    public Miembro getMiembroAnalizador() {
+        return miembroAnalizador;
+    }
 
 
     public LocalDate getFechaInicio() {
@@ -90,9 +98,10 @@ public class Incidente {
         return servicioAfectado;
     }
 
-    public void cerrarIncidente(LocalDate date)
+    public void cerrarIncidente(LocalDate date, Miembro miembroAnalizador)
     {
         this.fechaCierre=date;
+        this.miembroAnalizador = miembroAnalizador;
     }
 
 }

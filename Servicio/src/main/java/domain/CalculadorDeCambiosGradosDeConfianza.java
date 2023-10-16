@@ -75,5 +75,22 @@ public class CalculadorDeCambiosGradosDeConfianza {
 
     }
 
+    public static void actualizarGradoConfianzaDeComunidades(List<Comunidad> comunidades)
+    {
+        for (Comunidad comunidad: comunidades) {
+            double promedio = comunidad.getMiembros().stream()
+                    .mapToDouble(Usuario::getCambioDePuntaje)
+                    .average()
+                    .orElse(0.0);
+
+            long countUsuariosEntre2y3 = comunidad.getMiembros().stream()
+                    .filter(u -> u.getCambioDePuntaje() >= 2 && u.getCambioDePuntaje() <= 3)
+                    .count();
+
+            promedio -= 0.2 * countUsuariosEntre2y3;
+            comunidad.setGradoDeConfianza(promedio);
+        }
+    }
+
 
 }

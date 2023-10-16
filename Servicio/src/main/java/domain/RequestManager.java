@@ -18,6 +18,12 @@ public class RequestManager
             List<CambioDePuntaje> cambios = CalculadorDeCambiosGradosDeConfianza.calcularGradosdeConfianza(incidentes);
             ctx.json(cambios);
         });
+        app.post("/actualizarGradoConfianzaDeComunidades", ctx -> {
+        List<Comunidad> comunidades = ctx.bodyAsClass(List.class); // Suponiendo que el cuerpo del mensaje es una lista de Incidentes en formato JSON
+        //List<Comunidad> cambios = CalculadorDeCambiosGradosDeConfianza.calcularGradosdeConfianza(incidentes);
+            CalculadorDeCambiosGradosDeConfianza.actualizarGradoConfianzaDeComunidades(comunidades);
+        ctx.json(comunidades);
+    });
 
     }
 

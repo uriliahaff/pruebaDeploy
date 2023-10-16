@@ -14,7 +14,7 @@ public class EntidadPrestadora{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "entidad_id", nullable = false)
     @Setter
     private Entidad entidad;

@@ -94,5 +94,8 @@ public class Usuario{
 
     public void cambiarGradoDeConfianza(double nuevoValor){this.gradoDeConfianza = nuevoValor;}
     public void addConfianza(double gradoDeConfianza) { this.gradoDeConfianza+=gradoDeConfianza;}
+    public double getGradoDeConfianza() {
+        return gradoDeConfianza;
+    }
 
 }

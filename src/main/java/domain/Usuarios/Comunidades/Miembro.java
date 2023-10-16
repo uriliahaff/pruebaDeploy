@@ -28,6 +28,10 @@ public class Miembro {
     @Column(name = "correoElectronico", nullable = false)
     private String correoElectronico;
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
     @Column(name = "telefono", nullable = false)
 
     private String telefono;
