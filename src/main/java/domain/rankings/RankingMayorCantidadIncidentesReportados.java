@@ -51,7 +51,8 @@ public class RankingMayorCantidadIncidentesReportados implements Ranking{
             boolean esDuplicado = incidentesUnicos.stream().anyMatch(incidenteRegistrado ->
                     incidenteRegistrado.getServicioAfectado().getId() == incidenteActual.getServicioAfectado().getId() &&
                             Duration.between(incidenteRegistrado.getFechaInicio(), incidenteActual.getFechaInicio()).toHours() <= 24 &&
-                            incidenteRegistrado.estaAbierto()
+                            (incidenteRegistrado.estaAbierto() ||
+                                    incidenteRegistrado.getFechaCierre().isBefore(incidenteActual.getFechaInicio()))
             );
 
             if (!esDuplicado) {
