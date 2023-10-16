@@ -183,7 +183,10 @@
                                                         <td>{{this.descripcion}}</td>
                                                         <td>{{this.servicioAfectado.servicio.nombre}} - {{this.servicioAfectado.establecimiento.nombre}} </td>
                                                         <td>{{this.fechaInicio}}</td>
-                                                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa fa-check mr-2"></i>Resuelto</button></td>
+                                                        <td>
+                                                        <a role="button" class="btn btn-primary" href="/cerrarIncidente/{{this.id}}"><i class="fa fa-check mr-2"></i>Resuelto</a>
+
+                                                        </td>
                                                      </tr>
                                                  {{/each}}
 

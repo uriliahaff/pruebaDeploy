@@ -58,6 +58,17 @@ public class IncidenteController {
         context.render("aperturaIncidente.hbs", model);
     }
 
+    public void cerrarIncidente(Context context){
+
+        Incidente incidente = repositorioDeIncidentes.findById(Integer.parseInt(context.pathParam("id")));
+
+        LocalDate fechaActual = LocalDate.now();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        incidente.setFechaCierre(LocalDate.parse(fechaActual.format(formatoFecha)));
+        this.repositorioDeIncidentes.update(incidente);
+        context.redirect("/incidentes");
+    }
+
     public void abrirIncidente(Context context){
         Incidente incidente = new Incidente();
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
