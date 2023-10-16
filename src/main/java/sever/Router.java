@@ -2,12 +2,23 @@ package sever;
 
 import controllers.*;
 import domain.Repositorios.RepositorioUsuario;
+import io.javalin.http.Context;
 
 public class Router {
 
     public static void init() {
 
-
+        Server.app().before(ctx -> {
+            // Excluir la verificación de autenticación para la ruta /login
+            if (!ctx.path().equals("/login") && !isLoggedIn(ctx)) {
+                // Redirigir o manejar la falta de autenticación según tus necesidades
+                ctx.redirect("/login");
+            }
+            if (ctx.path().equals("/login") && isLoggedIn(ctx)) {
+                // Redirigir o manejar la falta de autenticación según tus necesidades
+                ctx.redirect("/");
+            }
+        });
 
         Server.app().routes(()-> {
 
@@ -38,4 +49,10 @@ public class Router {
 
 
     }
+
+    private static boolean isLoggedIn(Context ctx) {
+        // Verificar la presencia de la cookie de autenticación u otros indicadores de inicio de sesión
+        return ctx.cookie("id") != null;
+    }
+
 }
