@@ -166,7 +166,6 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
                                             <th>Descripcion</th>
                                             <th>Miembro informante</th>
                                             <th>Servicio afectado</th>
@@ -181,7 +180,6 @@
                                     <tbody>
                                          {{#each incidentes}}
                                         <tr>
-                                            <td>{{this.id}}</td>
                                             <td>{{this.descripcion}}</td>
                                             <td></td>
                                             <td></td>
@@ -193,7 +191,7 @@
                                             <td>{{this.fechaInicio}}</td>
                                             <td>{{this.fechaCierre}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa fa-eye"></i></button>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa fa-check mr-2"></i>Resuelto</button>
                                         </td>
                                         </tr>
                                          {{/each}}

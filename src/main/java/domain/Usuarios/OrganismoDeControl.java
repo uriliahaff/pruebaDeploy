@@ -20,8 +20,7 @@ public class OrganismoDeControl{
     private Servicio servicio;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @MapsId
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", nullable = false)
     @Setter
     private Usuario usuario;
 
@@ -60,7 +59,6 @@ public class OrganismoDeControl{
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
-
 
     public Usuario getUsuario() {
         return usuario;
