@@ -8,7 +8,7 @@ public class Router {
 
     public static void init() {
 
-        Server.app().before(ctx -> {
+      /*  Server.app().before(ctx -> {
             // Excluir la verificación de autenticación para la ruta /login
             if (!ctx.path().equals("/login") && !isLoggedIn(ctx)) {
                 // Redirigir o manejar la falta de autenticación según tus necesidades
@@ -19,7 +19,7 @@ public class Router {
                 ctx.redirect("/");
             }
         });
-
+*/
         Server.app().routes(()-> {
 
 
