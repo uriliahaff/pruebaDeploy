@@ -4,9 +4,12 @@ import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.entidades.Entidad;
 import domain.other.EntityManagerProvider;
+import domain.services.service1.ComunidadFusionAdapter;
+import domain.services.service1.PropuestaDeFusion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +34,11 @@ public class RepositorioComunidad
         entityManager.remove(comunidad);
         entityManager.getTransaction().commit();
     }
+
+    public Comunidad find(int id) {
+        return entityManager.find(Comunidad.class, id);
+    }
+
     public static List<Comunidad> findComunidadByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
@@ -42,4 +50,5 @@ public class RepositorioComunidad
         query.setParameter("ids", ids);
         return query.getResultList();
     }
+
 }

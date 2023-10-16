@@ -12,12 +12,12 @@ public class RepositorioEntidadPrestadoraOrganismoControl {
 
     private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
 
-    public List buscarTodosEntidades() {
-        return entityManager.createQuery("from " + EntidadPrestadora.class.getName()).getResultList();
+    public List<EntidadPrestadora> buscarTodosEntidades() {
+        return entityManager.createQuery("SELECT e FROM EntidadPrestadora e", EntidadPrestadora.class).getResultList();
     }
 
-    public List buscarTodosOrganismos() {
-        return entityManager.createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
+    public List<OrganismoDeControl> buscarTodosOrganismos() {
+        return entityManager.createQuery("SELECT o FROM OrganismoDeControl o", OrganismoDeControl.class).getResultList();
     }
 
     public void guardarEntidadesPrestadoras(List<EntidadPrestadora> entidades){

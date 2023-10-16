@@ -44,8 +44,8 @@ public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
             int cantidadIncidentes = 0;
 
             for (Incidente incidente : incidentesEntidad) {
-                LocalDate fechaApertura = incidente.getFechaInicio();
-                LocalDate fechaCierre = incidente.getFechaCierre();
+                LocalDateTime fechaApertura = incidente.getFechaInicio();
+                LocalDateTime fechaCierre = incidente.getFechaCierre();
 
                 if (fechaCierre != null && fechaCierre.isBefore(fechaApertura.plusDays(7))) {
                     long tiempoCierre = fechaCierre.getDayOfYear() - fechaApertura.getDayOfYear();

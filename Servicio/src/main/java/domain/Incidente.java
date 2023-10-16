@@ -9,6 +9,11 @@ public class Incidente {
     private Usuario usuarioApertura;
     private Usuario usuarioAnalizador;
 
+    public Usuario getUsuarioAnalizador() {
+        return usuarioAnalizador;
+    }
+
+    public Incidente(){}
     public String getApertura() {
         return this.apertura;
     }

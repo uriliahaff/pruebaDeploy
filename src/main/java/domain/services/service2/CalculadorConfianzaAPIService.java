@@ -1,6 +1,7 @@
 package domain.services.service2;
 
 import com.google.gson.Gson;
+import domain.services.service2.model.ComunidadModel;
 import domain.services.service1.model.PeticionModel;
 import domain.services.service1.model.PropuestaDeFusionModel;
 import domain.services.service2.model.CambioDePuntajeModel;
@@ -44,6 +45,22 @@ public class CalculadorConfianzaAPIService
             return response.body();
         } else {
             throw new IOException("Error en la respuesta: " + response.code() + " " + response.message());
+        }
+    }
+    public List<ComunidadModel> actualizarGradoConfianzaDeComunidades(List<ComunidadModel> comunidadModels) throws IOException
+    {
+        CalculadorConfianzaAPI calculadorConfianzaAPI = this.retrofit.create(CalculadorConfianzaAPI.class);
+
+        Call<List<ComunidadModel>> call = calculadorConfianzaAPI.actualizarGradoConfianzaDeComunidades(comunidadModels);
+        Response<List<ComunidadModel>> response = call.execute();
+        if(response.isSuccessful())
+        {
+            return response.body();
+        }
+        else
+        {
+            throw new IOException("Error en la respuesta: " + response.code() + " " + response.message());
+
         }
     }
 

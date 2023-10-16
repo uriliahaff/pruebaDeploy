@@ -4,6 +4,15 @@ import java.util.List;
 
 public class Comunidad
 {
+    private int id;
+
+    public Comunidad() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
     private List<Usuario> miembros;
     private double gradoDeConfianza;
 

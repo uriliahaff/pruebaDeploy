@@ -16,7 +16,7 @@ public class Entidad {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "tipo_entidad_id", nullable = false)
     private TipoEntidad tipo;
 
@@ -67,4 +67,7 @@ public class Entidad {
         establecimientos.add(establecimiento); // Agregar un establecimiento a la lista de establecimientos
     }
 
+    public List<Establecimiento> getEstablecimientos() {
+        return establecimientos;
+    }
 }

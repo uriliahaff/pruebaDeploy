@@ -45,6 +45,14 @@ public class EntidadPrestadora{
     public EntidadPrestadora() {
     }
 
+    public EntidadPrestadora(Entidad entidad, Usuario usuario, String correoElectronicoResponsable, String nombre, String descripcion) {
+        this.entidad = entidad;
+        this.usuario = usuario;
+        this.correoElectronicoResponsable = correoElectronicoResponsable;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     // Métodos "getters"
     public int getId() {
         return id;

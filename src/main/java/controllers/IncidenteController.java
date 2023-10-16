@@ -15,6 +15,7 @@ import io.javalin.http.Context;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -64,7 +65,7 @@ public class IncidenteController {
 
         LocalDate fechaActual = LocalDate.now();
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        incidente.setFechaCierre(LocalDate.parse(fechaActual.format(formatoFecha)));
+        incidente.setFechaCierre(LocalDateTime.parse(fechaActual.format(formatoFecha)));
         this.repositorioDeIncidentes.update(incidente);
         context.redirect("/incidentes");
     }
@@ -78,10 +79,10 @@ public class IncidenteController {
         incidente.setMiembroInformante(miembro);
         this.asignarParametros(incidente, context);
 
-        LocalDate fechaActual = LocalDate.now();
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime fechaActual = LocalDateTime.now();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        incidente.setFechaInicio(LocalDate.parse(fechaActual.format(formatoFecha)));
+        incidente.setFechaInicio(LocalDateTime.parse(fechaActual.format(formatoFecha)));
 
         //TODO: Arreglar tema comunidades afectadas
       /* List<Comunidad> comunidadesAfectadas = miembro.getComunidades();

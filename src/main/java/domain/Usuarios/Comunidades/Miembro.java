@@ -65,7 +65,7 @@ public class Miembro {
     )
     private List<Direccion> lugaresDeInteres = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")
     @Getter
     @Setter

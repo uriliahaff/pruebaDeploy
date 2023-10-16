@@ -20,4 +20,12 @@ public class CambioDePuntaje
     {
         this.usuario.addConfianza(cambio);
     }
+
+    public double getCambio() {
+        return cambio;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
 }

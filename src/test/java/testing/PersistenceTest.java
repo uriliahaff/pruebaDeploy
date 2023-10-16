@@ -1,8 +1,10 @@
 package testing;
 
+import domain.Repositorios.RepositorioEntidad;
 import domain.Repositorios.RepositorioEstablecimiento;
 import domain.Repositorios.RepositorioServicio;
 import domain.Repositorios.RepositorioUsuario;
+import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
@@ -132,6 +134,7 @@ public class PersistenceTest {
         Servicio servicio = new Servicio("servicio","servicioMock");
         organismo.setServicio(servicio);
 
+        new RepositorioUsuario().saveUsuario(organismo.getUsuario());
 
         new RepositorioUsuario().saveOrganismoDeControl(organismo);
         int id = organismo.getId();
@@ -139,7 +142,7 @@ public class PersistenceTest {
         System.out.println(id);
         System.out.println(organismo.getUsuario().getUsername());
 
-        Usuario usuarioRecuperado = new RepositorioUsuario().findUsuarioById(organismo.getId());//entityManager.find(Usuario.class, organismo.getId());
+        Usuario usuarioRecuperado = new RepositorioUsuario().findUsuarioById(organismo.getUsuario().getId());//entityManager.find(Usuario.class, organismo.getId());
         Assertions.assertNotNull(usuarioRecuperado);
         Assertions.assertEquals("usuarion", usuarioRecuperado.getUsername());
 
@@ -275,5 +278,21 @@ public class PersistenceTest {
         // Asegurar que los establecimientos correctos se devuelvan (puedes hacer esto de varias maneras, aquí hay una)
         Assertions.assertTrue(result.stream().anyMatch(est -> est.getNombre().equals("Establecimiento1")));
         Assertions.assertTrue(result.stream().anyMatch(est -> est.getNombre().equals("Establecimiento2")));
+    }
+
+    @Test
+    public void getEntidadesPrestadoras()
+    {
+        Entidad entidad = new Entidad("entidad","hola","rth","dfg");
+        new RepositorioEntidad().save(entidad);
+        Usuario usu = new Usuario("Cosa","sdfjlin");
+        new RepositorioUsuario().saveUsuario(usu);
+        EntidadPrestadora entidadPrestadora = new EntidadPrestadora(
+                entidad
+                , usu
+                ,"efdg"
+                ,"efwd",
+                "dsfv");
+        new RepositorioUsuario().saveEntidadPrestadora(entidadPrestadora);
     }
 }

@@ -3,6 +3,7 @@ package domain.Usuarios.Comunidades;
 import domain.Usuarios.Usuario;
 import domain.localizaciones.Direccion;
 import domain.servicios.Servicio;
+import org.hibernate.action.internal.OrphanRemovalAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,13 +20,14 @@ public class Comunidad {
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
-
+/*
     @ManyToMany
     @JoinTable(
             name = "miembro_comunidad",
             joinColumns = @JoinColumn(name = "miembro_id"),
             inverseJoinColumns = @JoinColumn(name = "comunidad_id")
-    )
+    )*/
+    @ManyToMany(mappedBy = "comunidades")
     private List<Miembro> miembros = new ArrayList<>();
 
     @ManyToMany

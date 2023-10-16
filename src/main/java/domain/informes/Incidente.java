@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,12 +63,12 @@ public class Incidente {
     @Column(name = "fechaInicio",nullable = false)
     @Getter
     @Setter
-    private LocalDate fechaInicio;
+    private LocalDateTime fechaInicio;
 
     @Column(name = "fechaCierre")
     @Getter
     @Setter
-    private LocalDate fechaCierre;
+    private LocalDateTime fechaCierre;
 
     // Getters y Setters
     public List<Comunidad> getComunidadesAfectadas() {
@@ -76,7 +77,7 @@ public class Incidente {
     public Incidente()
     {}
     //TODO: Cambiar en el filtro la localizacion
-    public Incidente(String descripcion, Miembro miembroInformante, PrestacionDeServicio servicioAfectado, LocalDate fechaInicio) {
+    public Incidente(String descripcion, Miembro miembroInformante, PrestacionDeServicio servicioAfectado, LocalDateTime fechaInicio) {
         this.descripcion = descripcion;
         this.miembroInformante = miembroInformante;
         getComunidadesAfectadas().addAll(miembroInformante.getComunidades());
@@ -92,11 +93,11 @@ public class Incidente {
     }
 
 
-    public LocalDate getFechaInicio() {
+    public LocalDateTime getFechaInicio() {
         return fechaInicio;
     }
 
-    public LocalDate getFechaCierre() {
+    public LocalDateTime getFechaCierre() {
         return fechaCierre;
     }
 
@@ -112,7 +113,7 @@ public class Incidente {
         return servicioAfectado;
     }
 
-    public void cerrarIncidente(LocalDate date, Miembro miembroAnalizador)
+    public void cerrarIncidente(LocalDateTime date, Miembro miembroAnalizador)
     {
         this.fechaCierre=date;
         this.miembroAnalizador = miembroAnalizador;

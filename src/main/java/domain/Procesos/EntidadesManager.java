@@ -9,12 +9,14 @@ import domain.localizaciones.Direccion;
 public class EntidadesManager
 {
     private static RepositorioEntidad repositorioEntidad = new RepositorioEntidad();
-    public void crearEntidad(String nombre, String tipo, TipoEntidad tipoEntidad, String email, String descripcion)
+    public static Entidad crearEntidad(String nombre, TipoEntidad tipoEntidad, String email, String descripcion)
     {
-        Entidad nuevaEntidad = new Entidad(nombre, tipo, email, descripcion);
+        Entidad nuevaEntidad = new Entidad(nombre, tipoEntidad, email, descripcion);
+        repositorioEntidad.save(nuevaEntidad);
+        return nuevaEntidad;
 
     }
-    public void agregarEstablecimientosAEntidad(Entidad entidad, String nombre, String descripcion, Direccion direccion)
+    public static void agregarEstablecimientosAEntidad(Entidad entidad, String nombre, String descripcion, Direccion direccion)
     {
         Establecimiento nuevoEstablecimiento = new Establecimiento(nombre, descripcion, direccion);
 
@@ -22,7 +24,7 @@ public class EntidadesManager
 
         repositorioEntidad.update(entidad);
     }
-    public void agregarEstablecimientosAEntidad(Entidad entidad, Establecimiento ...establecimiento)
+    public static void agregarEstablecimientosAEntidad(Entidad entidad, Establecimiento ...establecimiento)
     {
         for (Establecimiento est:establecimiento
              ) {

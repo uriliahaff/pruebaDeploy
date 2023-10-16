@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "establecimiento")
 public class Establecimiento {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -41,6 +40,10 @@ public class Establecimiento {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id")
     private Direccion direccion;
+
+    public List<PrestacionDeServicio> getServicios() {
+        return servicios;
+    }
 
     public Establecimiento(){}
     public Establecimiento(String nombre,String descripcion,Provincia provincia,Localidad localidad,Municipio municipio){
