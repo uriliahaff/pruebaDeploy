@@ -153,12 +153,16 @@ public class RepositorioUsuario {
     }
 
     public static List<Miembro> findMiembrosByUserId(Integer idUsuario) {
-        List<Miembro> miembros = entityManager.createQuery("from " + Miembro.class.getName()).getResultList();
+        /*List<Miembro> miembros = entityManager.createQuery("from " + Miembro.class.getName()).getResultList();
 
         List<Miembro> miembrosDelUsuario = miembros.stream()
                 .filter(miembro -> miembro.getUsuario().getId() == idUsuario)
                 .collect(Collectors.toList());
-
+*/
+        String jpql = "SELECT m FROM Miembro m WHERE m.usuario.id = :idUsuario";
+        List<Miembro> miembrosDelUsuario = entityManager.createQuery(jpql, Miembro.class)
+                .setParameter("idUsuario", idUsuario)
+                .getResultList();
         return miembrosDelUsuario;
 
     }

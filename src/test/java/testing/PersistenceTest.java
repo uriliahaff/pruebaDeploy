@@ -1,9 +1,7 @@
 package testing;
 
-import domain.Repositorios.RepositorioEntidad;
-import domain.Repositorios.RepositorioEstablecimiento;
-import domain.Repositorios.RepositorioServicio;
-import domain.Repositorios.RepositorioUsuario;
+import domain.Repositorios.*;
+import domain.Usuarios.Comunidades.Miembro;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Rol;
@@ -117,6 +115,28 @@ public class PersistenceTest {
 
         OrganismoDeControl org = entityManager.find(OrganismoDeControl.class,organismo.getId());
         Assertions.assertEquals(org.getUsuario().getRoles().size(),2);
+
+    }
+    @Test
+    public void testSuperMiembro()
+    {
+
+        Miembro miembro = new Miembro(
+                "miembroAdmin",
+                "admini",
+                "correo",
+                "numeros",
+                null,
+                new Usuario("miembroAdmin","aaa")
+                );
+        miembro.getUsuario().addRol(new RepositorioRol().findRolByNombre("Admin"));
+        miembro.getUsuario().addRol(new RepositorioRol().findRolByNombre("SuperAdmin"));
+        new RepositorioUsuario().saveMiembro(miembro);
+        // entityManager.persist(organismo);
+        //entityManager.getTransaction().commit();
+
+        Miembro miembroRecuperado = entityManager.find(Miembro.class,miembro.getId());
+        Assertions.assertEquals(miembroRecuperado.getUsuario().getRoles().size(),2);
 
     }
 

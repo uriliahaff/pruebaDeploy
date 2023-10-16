@@ -4,6 +4,7 @@ import domain.Repositorios.RepositorioComunidad;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.services.service1.model.PropuestaDeFusionModel;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

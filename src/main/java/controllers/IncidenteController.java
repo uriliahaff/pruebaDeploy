@@ -63,9 +63,15 @@ public class IncidenteController {
 
         Incidente incidente = repositorioDeIncidentes.findById(Integer.parseInt(context.pathParam("id")));
 
-        LocalDate fechaActual = LocalDate.now();
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        incidente.setFechaCierre(LocalDateTime.parse(fechaActual.format(formatoFecha)));
+        LocalDateTime fechaActual = LocalDateTime.now();
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+
+        //DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //incidente.setFechaCierre(LocalDateTime.parse(fechaActual.format(formatoFecha)));
+        Usuario usuarioInformante = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        List<Miembro> miembrosDelUsuario = repositorioUsuario.findMiembrosByUserId(usuarioInformante.getId());
+        Miembro miembro =  miembrosDelUsuario.get(0);
+        incidente.cerrarIncidente(fechaActual, miembro);
         this.repositorioDeIncidentes.update(incidente);
         context.redirect("/incidentes");
     }
@@ -80,10 +86,10 @@ public class IncidenteController {
         this.asignarParametros(incidente, context);
 
         LocalDateTime fechaActual = LocalDateTime.now();
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        incidente.setFechaInicio(LocalDateTime.parse(fechaActual.format(formatoFecha)));
-
+        //incidente.setFechaInicio(LocalDateTime.parse(fechaActual.format(formatoFecha)));
+        incidente.setFechaInicio(fechaActual);
         //TODO: Arreglar tema comunidades afectadas
       /* List<Comunidad> comunidadesAfectadas = miembro.getComunidades();
         incidente.setComunidadesAfectadas(comunidadesAfectadas);*/
