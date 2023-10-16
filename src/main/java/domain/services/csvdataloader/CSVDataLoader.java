@@ -3,6 +3,7 @@ package domain.services.csvdataloader;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import domain.Repositorios.RepositorioEntidad;
+import domain.Repositorios.RepositorioServicio;
 import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
@@ -58,13 +59,46 @@ public class CSVDataLoader {
     }
 
     public List<OrganismoDeControl> leerArchivoOrganismo(InputStream inputStream) {
-        List<OrganismoDeControl> organismosControl = new ArrayList<>();
+        List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
+        RepositorioServicio repositorioServicio = new RepositorioServicio();
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            CSVReader csvReader = new CSVReader(reader);
+            List<String[]> records = csvReader.readAll();
+
+            boolean primeraLinea = true;
+            for (String[] record : records) {
+                if (primeraLinea) {
+                    primeraLinea = false;
+                    continue;
+                }
+
+                // Aquí debes mapear los campos del archivo CSV a los atributos de EntidadPrestadora
+                int servicio_id = Integer.parseInt(record[0]);
+                int usuario_id = Integer.parseInt(record[1]);
+                String mail = record[2];
+                String nombre = record[3];
+                String descripcion = record[4];
+                // Mapea los demás campos...
+
+                // Crea un objeto EntidadPrestadora y agrégalo a la lista
+                OrganismoDeControl organismoDeControl = new OrganismoDeControl();
+                organismoDeControl.setServicio(repositorioServicio.findServicioById(servicio_id));
+                organismoDeControl.setUsuario(repositorioUsuario.findUsuarioById(usuario_id));
+                organismoDeControl.setNombre(nombre);
+                organismoDeControl.setDescripcion(descripcion);
+                organismoDeControl.setCorreoElectronicoResponsable(mail);
+                // Asigna los demás campos...
+
+                organismosDeControl.add(organismoDeControl);
+            }
+
+        } catch (IOException | CsvException e) {
+            throw new RuntimeException("Error al leer el archivo CSV", e);
+        }
 
 
-        // CODIGO ACA
-
-
-        return organismosControl;
+        return organismosDeControl;
 
     }
 }

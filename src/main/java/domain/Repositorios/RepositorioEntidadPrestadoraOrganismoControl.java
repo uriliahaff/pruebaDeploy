@@ -25,6 +25,11 @@ public class RepositorioEntidadPrestadoraOrganismoControl {
             saveEntity(entidad);
         }
     }
+    public void guardarOrganismosControl(List<OrganismoDeControl> organismos){
+        for (OrganismoDeControl organismo : organismos) {
+            saveEntity(organismo);
+        }
+    }
 
 
     private <T> void saveEntity(T entity) {

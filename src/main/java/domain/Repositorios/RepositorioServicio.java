@@ -1,5 +1,6 @@
 package domain.Repositorios;
 
+import domain.Usuarios.Usuario;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.other.EntityManagerProvider;
@@ -52,4 +53,10 @@ public class RepositorioServicio
         query.setParameter("ids", ids);
         return query.getResultList();
     }
+
+    public Servicio findServicioById(int id) {
+        return entityManager.find(Servicio.class, id);
+    }
+
+
 }

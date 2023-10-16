@@ -2,6 +2,7 @@ package domain.Usuarios;
 
 import domain.entidades.Entidad;
 import domain.servicios.Servicio;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -15,20 +16,25 @@ public class OrganismoDeControl{
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "servicio_id")
+    @Setter
     private Servicio servicio;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @MapsId
     @JoinColumn(name = "usuario_id")
+    @Setter
     private Usuario usuario;
 
     @Column(name = "correoElectronicoResponsable",nullable = false)
+    @Setter
     private String correoElectronicoResponsable;
 
     @Column(name = "nombre",nullable = false)
+    @Setter
     private String nombre;
 
     @Column(name = "descripcion")
+    @Setter
     private String descripcion;
 
 
