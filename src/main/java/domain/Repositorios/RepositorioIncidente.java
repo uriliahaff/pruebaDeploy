@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RepositorioIncidente {
 
@@ -50,6 +51,15 @@ public class RepositorioIncidente {
 
     public List<Incidente> findAll() {
         return entityManager.createQuery("from Incidente", Incidente.class).getResultList();
+    }
+
+    public List<Incidente> findAllOpen() {
+        List<Incidente> incidentes = entityManager.createQuery("from Incidente", Incidente.class).getResultList();
+        List<Incidente> incidentesAbiertos = incidentes.stream()
+                .filter(incidente -> incidente.getFechaCierre() == null)
+                .collect(Collectors.toList());
+
+        return incidentesAbiertos;
     }
     public List<Incidente> findIncidentesByDireccion(Provincia provincia, Municipio municipio, Localidad localidad) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();

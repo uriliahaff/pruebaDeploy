@@ -94,7 +94,11 @@
                     <i class="fas fa-fw fa-exclamation"></i>
                     <span>Apertura de incidente</span></a>
             </li>
-
+             <li class="nav-item">
+                 <a class="nav-link" href="/incidentes">
+                     <i class="fas fa-fw fa-list"></i>
+                     <span>Incidentes</span></a>
+             </li>
 
         </ul>
         <!-- End of Sidebar -->
@@ -120,9 +124,9 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Uriel Liahaff</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{username}}</span>
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -160,21 +164,20 @@
                         </div>
                         <div class="card-body">
 
-                            <form>
+                            <form action="/aperturaIncidente" method="POST">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Prestacion de servicio</label>
-                                    <select class="form-control" id="exampleFormControlSelect1" placeholder="Servicio">
+                                    <select class="form-control" id="prestacion" name="prestacion" placeholder="Servicio">
 
-                                        {{#each prestacionDeServicios}}
-                                      <option>{{this.servicio.nombre}} - {{this.establecimiento.nombre}} </option>
-
+                                        {{#each prestaciones}}
+                                      <option value="{{this.id}}">{{this.servicio.nombre}} - {{this.establecimiento.nombre}} </option>
                                          {{/each}}
 
                                     </select>
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleFormControlSelect1">Descripcion</label>
-                                    <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion del incidente">
+                                    <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion del incidente" required>
 
                                   </div>
                                 <button type="submit" class="btn btn-primary mt-4 botonApertura"><i class="fa fa-plus mr-2"></i>Abrir</button>

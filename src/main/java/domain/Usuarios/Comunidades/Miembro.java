@@ -5,6 +5,8 @@ import domain.informes.Incidente;
 import domain.localizaciones.Direccion;
 import domain.services.notificadorDeIncidentes.CommandoNotificacion;
 import domain.servicios.Servicio;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class Miembro {
             inverseJoinColumns = @JoinColumn(name = "servicio_id")
     )
     private List<Servicio> serviciosQueAfectan = new ArrayList<>();
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
             name = "miembro_comunidad",
             joinColumns = @JoinColumn(name = "miembro_id"),
@@ -64,8 +66,9 @@ public class Miembro {
     private List<Direccion> lugaresDeInteres = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "usuario_id")
+    @Getter
+    @Setter
     private Usuario usuario;
 
     // Constructor vacío para Hibernate

@@ -59,6 +59,9 @@ public class RepositorioServicio
     public Servicio findServicioById(int id) {
         return entityManager.find(Servicio.class, id);
     }
+    public PrestacionDeServicio findPrestacionById(int id) {
+        return entityManager.find(PrestacionDeServicio.class, id);
+    }
 
     public List<PrestacionDeServicio> buscarTodasLasPrestaciones() {
         return entityManager.createQuery("from " + PrestacionDeServicio.class.getName()).getResultList();

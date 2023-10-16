@@ -29,6 +29,7 @@ public class Router {
             Server.app().get("/ranking/{id}",((RankingController) FactoryController.controller("rankings"))::ranking);
             Server.app().get("/admin/incidentes",((IncidenteController) FactoryController.controller("incidentes"))::index);
             Server.app().get("/aperturaIncidentes",((IncidenteController) FactoryController.controller("incidentes"))::aperturaIncidentes);
+            Server.app().post("/aperturaIncidente",((IncidenteController) FactoryController.controller("incidentes"))::abrirIncidente);
             Server.app().get("/incidentes",((IncidenteController) FactoryController.controller("incidentes"))::indexUser);
 
 

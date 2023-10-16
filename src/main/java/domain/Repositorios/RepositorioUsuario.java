@@ -10,6 +10,8 @@ import domain.other.EntityManagerProvider;
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
 public class RepositorioUsuario {
 
     private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();;
@@ -150,4 +152,14 @@ public class RepositorioUsuario {
         return query.getResultList();
     }
 
+    public static List<Miembro> findMiembrosByUserId(Integer idUsuario) {
+        List<Miembro> miembros = entityManager.createQuery("from " + Miembro.class.getName()).getResultList();
+
+        List<Miembro> miembrosDelUsuario = miembros.stream()
+                .filter(miembro -> miembro.getUsuario().getId() == idUsuario)
+                .collect(Collectors.toList());
+
+        return miembrosDelUsuario;
+
+    }
 }

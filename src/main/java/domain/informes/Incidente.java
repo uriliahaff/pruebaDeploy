@@ -26,19 +26,27 @@ public class Incidente {
     private int id;
 
     @Column(name = "descripcion",nullable = false)
+    @Getter
+    @Setter
     private String descripcion;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "miembro_informante_id", nullable = false)
+    @Getter
+    @Setter
     private Miembro miembroInformante;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "miembro_analizador_id")
+    @Getter
+    @Setter
     private Miembro miembroAnalizador;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "servicio_id", nullable = false)
+    @Getter
+    @Setter
     private PrestacionDeServicio servicioAfectado;
 
     @ManyToMany
@@ -47,12 +55,18 @@ public class Incidente {
             joinColumns = @JoinColumn(name = "incidente_id"),
             inverseJoinColumns = @JoinColumn(name = "comunidad_id")
     )
+    @Getter
+    @Setter
     private List<Comunidad> comunidadesAfectadas = new ArrayList<>();
 
     @Column(name = "fechaInicio",nullable = false)
+    @Getter
+    @Setter
     private LocalDate fechaInicio;
 
     @Column(name = "fechaCierre")
+    @Getter
+    @Setter
     private LocalDate fechaCierre;
 
     // Getters y Setters
