@@ -1,18 +1,26 @@
 package domain.services.service1;
 
+import javax.persistence.*;
+
 import domain.Repositorios.RepositorioComunidad;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.services.service1.model.PropuestaDeFusionModel;
 
-import javax.persistence.Entity;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PropuestaDeFusion
 {
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "propuesta_comunidad",
+            joinColumns = @JoinColumn(name = "propuesta_id"),
+            inverseJoinColumns = @JoinColumn(name = "comunidad_id")
+    )
     List<Comunidad> comunidades;
+    @Column(name = "sugerencia_date")
     LocalDateTime sugerenciaDate;
 
     public List<Comunidad> getComunidades() {

@@ -110,7 +110,7 @@ public class TestServicio2
         List<CambioDePuntaje>  cambioDePuntajes= new ArrayList<>();
 
 
-        CalculadorConfianzaAdapter calculadorConfianzaAdapter = new CalculadorConfianzaAdapter();
+        CalculadorConfianzaAdapter calculadorConfianzaAdapter =CalculadorConfianzaAdapter.getInstance();
         cambioDePuntajes = calculadorConfianzaAdapter.obternerCambios(incidentes);
 
 
@@ -133,7 +133,7 @@ public class TestServicio2
 
     @Test
     public void testActualizarComunidadValues() throws IOException {
-        CalculadorConfianzaAdapter calculadorConfianzaAdapter = new CalculadorConfianzaAdapter();
+        CalculadorConfianzaAdapter calculadorConfianzaAdapter = CalculadorConfianzaAdapter.getInstance();
         List<Comunidad> comunidades = new ArrayList<>();
         comunidades.add(new RepositorioComunidad().findByName("com 4"));
         System.out.println("Comunidad: "+comunidades.get(0).getMiembros().get(0).getUsuario().getGradoDeConfianza());

@@ -1,8 +1,12 @@
 package domain.rankings;
 
 import domain.Repositorios.RepositorioIncidente;
+import domain.Repositorios.RepositorioLeaderBoard;
 import domain.entidades.Entidad;
 import domain.informes.Incidente;
+import domain.rankings.Leaderboard.LeaderBoardType;
+import domain.rankings.Leaderboard.Leaderboard;
+import domain.rankings.Leaderboard.RankLeaderBoardUnit;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +19,8 @@ public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
         // Calcular el promedio de tiempo de cierre por entidad
         List<Incidente> incidentesCerradosUltimaSemana = new RepositorioIncidente().findClosedLastWeek(); //filtro por los incidentes cerrados la ultima semana
         Map<Integer, List<Incidente>> incidentesPorEntidad = agruparPorEntidadId(incidentesCerradosUltimaSemana); //agrupo incidentes x entidadID
-        List<EntidadPromedio> rankingSemana = calcularPromedioTiempoCierrePorEntidad(incidentesPorEntidad);
+        List<RankLeaderBoardUnit> ranking = calcularPromedioTiempoCierrePorEntidad(incidentesPorEntidad);
+        new RepositorioLeaderBoard().save(new Leaderboard(ranking, LeaderBoardType.MAYOR_PROMEDIO_TIEMPO));
     }
 
 
@@ -40,10 +45,16 @@ public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
           //  incidentesPorEntidad.get(entidad).add(incidente);}
 
         //return incidentesPorEntidad;}
-        private List<EntidadPromedio> calcularPromedioTiempoCierrePorEntidad(Map<Integer, List<Incidente>> incidentesPorEntidad) {
-    List<EntidadPromedio> ranking = new ArrayList<>();
+        private List<RankLeaderBoardUnit> calcularPromedioTiempoCierrePorEntidad(Map<Integer, List<Incidente>> incidentesPorEntidad) {
+    List<RankLeaderBoardUnit> ranking = new ArrayList<>();
     for (Map.Entry<Integer, List<Incidente>> entry : incidentesPorEntidad.entrySet()) {
-        int entidadId = entry.getKey();
+
+        ranking.add(new RankLeaderBoardUnit(
+                entry.getKey(),
+                entry.getValue().stream()
+                        .mapToDouble(this::calcularTiempoCierre).sum()/entry.getValue().size()
+        ));
+        /*int entidadId = entry.getKey();
         List<Incidente> incidentesEntidad = entry.getValue();
 
         long tiempoCierreTotal = 0;
@@ -59,11 +70,11 @@ public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
         if (cantidadIncidentes > 0) {
             long promedioTiempoCierre = tiempoCierreTotal / cantidadIncidentes;
             ranking.add(new EntidadPromedio(entidadId, promedioTiempoCierre));
-        }
+        }*/
     }
 
     // Ordenar el ranking por promedio de tiempo de cierre descendente
-    ranking.sort(Comparator.comparing(EntidadPromedio::getPromedio).reversed());
+    //ranking.sort(Comparator.comparing(EntidadPromedio::getPromedio).reversed());
 
     return ranking;
 }

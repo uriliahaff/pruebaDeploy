@@ -2,8 +2,12 @@ package domain.rankings;
 
 import domain.Repositorios.RepositorioEntidad;
 import domain.Repositorios.RepositorioIncidente;
+import domain.Repositorios.RepositorioLeaderBoard;
 import domain.entidades.Entidad;
 import domain.informes.Incidente;
+import domain.rankings.Leaderboard.LeaderBoardType;
+import domain.rankings.Leaderboard.Leaderboard;
+import domain.rankings.Leaderboard.RankLeaderBoardUnit;
 
 import java.time.Duration;
 import java.util.*;
@@ -19,6 +23,9 @@ public class RankingMayorCantidadIncidentesReportados implements Ranking{
         Map<Integer, List<Incidente>> incidentesPorEntidad = agruparPorEntidadId(
                 incidentesFiltrados
         );
+        Leaderboard leaderboard = generarRangkings(incidentesPorEntidad);
+
+        new RepositorioLeaderBoard().save(leaderboard);
 
     }
     public Map<Integer, List<Incidente>> agruparPorEntidadId(List<Incidente> incidentes) {
@@ -28,6 +35,20 @@ public class RankingMayorCantidadIncidentesReportados implements Ranking{
                 ));
     }
 
+    public Leaderboard generarRangkings(Map<Integer,List<Incidente>> ranks)
+    {
+        List<RankLeaderBoardUnit> rankDetails = new ArrayList<>();
+
+        for (Map.Entry<Integer, List<Incidente>> entry : ranks.entrySet()) {
+            //RankLeaderBoard rankDetail = new R();
+            rankDetails.add(new RankLeaderBoardUnit(
+                    entry.getKey(),
+                    entry.getValue().size()
+            ));
+
+        }
+        return new Leaderboard(rankDetails, LeaderBoardType.MAYORCANTIDADINCIDENTESREPORTADOS);
+    }
     public Map<Entidad, Integer> ordenarEntidadesPorIncidentesAbiertos(Map<Integer, List<Incidente>> mapaEntidadIncidentes) {
         RepositorioEntidad repositorioEntidad = new RepositorioEntidad();
 

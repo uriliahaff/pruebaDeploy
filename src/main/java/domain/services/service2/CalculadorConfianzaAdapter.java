@@ -12,7 +12,14 @@ import java.util.List;
 
 public class CalculadorConfianzaAdapter
 {
-    CalculadorConfianzaAPIService calculadorConfianzaAPIService = CalculadorConfianzaAPIService.getInstancia();
+    private CalculadorConfianzaAPIService calculadorConfianzaAPIService = CalculadorConfianzaAPIService.getInstancia();
+    private static CalculadorConfianzaAdapter instance= new CalculadorConfianzaAdapter();
+    private CalculadorConfianzaAdapter()
+    {}
+    public static CalculadorConfianzaAdapter getInstance()
+    {
+        return instance;
+    }
     public List<CambioDePuntaje> obternerCambios(List<Incidente> incidentes) throws IOException {
         List<IncidenteModel> incidenteModels = incidentes.stream().map(IncidenteModel::new).toList();
         List<CambioDePuntajeModel> cambioDePuntajeModels = calculadorConfianzaAPIService.calcularGradosdeConfianza(incidenteModels);
