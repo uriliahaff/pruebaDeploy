@@ -25,7 +25,7 @@ public class Router {
 
             Rol admin = new Rol("admin", null);
             Rol adminEntidad = new Rol("adminEntidad", null);
-            Rol adminOrganismo= new Rol("adminEntidad", null);
+            Rol adminOrganismo= new Rol("adminOrganismo", null);
 
             Server.app().get("/", ((LoginController) FactoryController.controller("login"))::admin);
             Server.app().get("/login", ((LoginController) FactoryController.controller("login"))::index);
@@ -68,6 +68,8 @@ public class Router {
             Server.app().post("/aperturaIncidente", ((IncidenteController) FactoryController.controller("incidentes"))::abrirIncidente);
             Server.app().get("/incidentes", ((IncidenteController) FactoryController.controller("incidentes"))::indexUser);
             Server.app().get("/cerrarIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::cerrarIncidente);
+            Server.app().get("/revisionIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::revisionIncidente);
+
         });
 
         //  Server.app().get("/entidadesPrestadoras", new EntidadesPrestadorasController()::index);

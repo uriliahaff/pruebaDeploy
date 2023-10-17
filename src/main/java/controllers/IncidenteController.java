@@ -87,6 +87,17 @@ public class IncidenteController {
         context.redirect("/incidentes");
     }
 
+    public void revisionIncidente(Context context){
+        Map<String, Object> model = new HashMap<>();
+        model.put("username", context.cookie("username"));
+        Incidente incidente = this.repositorioDeIncidentes.findById(Integer.parseInt(context.pathParam("id")));
+        model.put("incidente", incidente);
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        context.render("revisionIncidente.hbs", model);
+    }
+
     public void abrirIncidente(Context context){
         Incidente incidente = new Incidente();
         RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
