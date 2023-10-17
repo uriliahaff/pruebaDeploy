@@ -3,6 +3,8 @@ package domain.Usuarios.Comunidades;
 import domain.Usuarios.Usuario;
 import domain.localizaciones.Direccion;
 import domain.servicios.Servicio;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.action.internal.OrphanRemovalAction;
 
 import javax.persistence.*;
@@ -18,6 +20,8 @@ public class Comunidad {
     @Column(name = "id")
     private int id;
 
+    @Getter
+    @Setter
     @Column(name = "nombre", nullable = false)
     private String nombre;
 /*

@@ -50,7 +50,8 @@ public class RepositorioIncidente {
     }
 
     public List<Incidente> findAll() {
-        return entityManager.createQuery("from Incidente", Incidente.class).getResultList();
+        String hql = "FROM Incidente";
+        return entityManager.createQuery(hql, Incidente.class).getResultList();
     }
 
     public List<Incidente> findAllOpen() {

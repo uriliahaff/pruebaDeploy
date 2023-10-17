@@ -5,6 +5,7 @@ import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
+import domain.services.NavBarVisualizer;
 import io.javalin.http.Context;
 
 import java.util.*;
@@ -22,7 +23,9 @@ public class UsuariosController {
         List<Usuario> usuarios = this.repositorioDeUsuarios.buscarTodosUsuarios();
         model.put("usuarios", usuarios);
         model.put("username", context.cookie("username"));
-
+        Usuario user = repositorioDeUsuarios.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         context.render("usuarios.hbs", model);
     }
 
@@ -40,7 +43,9 @@ public class UsuariosController {
         model.put("rolesUsados", rolesUsuario);
         model.put("rolesSinUsar", roles);
         model.put("username", context.cookie("username"));
-
+        Usuario user = repositorioDeUsuarios.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         context.render("editarUsuario.hbs", model);
     }
 

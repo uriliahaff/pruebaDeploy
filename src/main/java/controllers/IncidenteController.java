@@ -10,6 +10,7 @@ import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
 import domain.informes.Incidente;
+import domain.services.NavBarVisualizer;
 import domain.services.notificadorDeIncidentes.NotificadorDeIncidentes;
 import domain.servicios.PrestacionDeServicio;
 import io.javalin.http.Context;
@@ -24,10 +25,11 @@ public class IncidenteController {
 
 
     private RepositorioIncidente repositorioDeIncidentes;
+    private RepositorioUsuario repositorioUsuario;
 
-
-    public IncidenteController(RepositorioIncidente repo){
+    public IncidenteController(RepositorioIncidente repo, RepositorioUsuario repositorioUsuario){
         this.repositorioDeIncidentes = repo;
+        this.repositorioUsuario = repositorioUsuario;
     }
 
     public void index(Context context){
@@ -35,7 +37,9 @@ public class IncidenteController {
         List<Incidente> incidentes = this.repositorioDeIncidentes.findAll();
         model.put("incidentes", incidentes);
         model.put("username", context.cookie("username"));
-
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         context.render("incidentes.hbs", model);
     }
 
@@ -44,7 +48,9 @@ public class IncidenteController {
         List<Incidente> incidentes = this.repositorioDeIncidentes.findAllOpen();
         model.put("incidentes", incidentes);
         model.put("username", context.cookie("username"));
-
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         context.render("incidentesUser.hbs", model);
     }
 
@@ -56,7 +62,9 @@ public class IncidenteController {
 
         model.put("username", context.cookie("username"));
         model.put("prestaciones", prestacionDeServicios);
-
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         context.render("aperturaIncidente.hbs", model);
     }
 
