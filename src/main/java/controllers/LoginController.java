@@ -18,8 +18,6 @@ public class LoginController {
     }
     public void index(Context context){
         Map<String, Object> model = new HashMap<>();
-        //List<Usuario> usuarios = this.repositorioDeUsuario.buscarTodos();
-        //model.put("usuarios", usuarios);
 
         context.render("login.hbs");
     }
@@ -40,7 +38,7 @@ public class LoginController {
     public void loginAttempt(Context context){
         Usuario usuario = repositorioDeUsuario.findUsuarioByUsername(context.formParam("username"));
         String password = context.formParam("password");
-
+        //TODO HASHING PASSWORD
         if(usuario != null){
             if(usuario.getPassword().equals(password)){
                 context.redirect("/");
