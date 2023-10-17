@@ -15,7 +15,7 @@ import java.util.*;
 public class RankingMayorGradoImpacto implements Ranking {
     @Override
     public Leaderboard generarRanking() {
-        // Calcular el grado de impacto por entidad
+       /* // Calcular el grado de impacto por entidad
         Map<String, Integer> gradoImpactoPorEntidad = calcularGradoImpactoPorEntidad(incidentes);
 
         // Crear una lista de entidades con su grado de impacto
@@ -35,7 +35,7 @@ public class RankingMayorGradoImpacto implements Ranking {
         for (EntidadGradoImpacto entidadGrado : rankingSemana) {
             System.out.println(posicion + ". " + entidadGrado.getEntidad() + " - Grado de impacto: " + entidadGrado.getGradoImpacto());
             posicion++;
-        }
+        }*/
         return null;
     }
 
