@@ -21,9 +21,13 @@ public class Miembro {
     @Column(name = "id")
     private int id;
 
+    @Getter
+    @Setter
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
+    @Getter
+    @Setter
     @Column(name = "apellido", nullable = false)
     private String apellido;
 

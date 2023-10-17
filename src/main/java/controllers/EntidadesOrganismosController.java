@@ -1,9 +1,12 @@
 package controllers;
 
 import domain.Repositorios.RepositorioEntidadPrestadoraOrganismoControl;
+import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
+import domain.Usuarios.Usuario;
 import domain.entidades.Establecimiento;
+import domain.services.NavBarVisualizer;
 import domain.services.csvdataloader.CSVDataLoader;
 import io.javalin.http.Context;
 import io.javalin.http.UploadedFile;
@@ -19,17 +22,21 @@ public class EntidadesOrganismosController {
     private EntityManager entityManager;
 
     private RepositorioEntidadPrestadoraOrganismoControl repositorioDeEntidadesPrestadoras;
+    private RepositorioUsuario repositorioUsuario;
 
 
-    public EntidadesOrganismosController(RepositorioEntidadPrestadoraOrganismoControl repo){
+    public EntidadesOrganismosController(RepositorioEntidadPrestadoraOrganismoControl repo, RepositorioUsuario repoUsuario){
         this.repositorioDeEntidadesPrestadoras = repo;
+        this.repositorioUsuario = repoUsuario;
     }
     public void indexEntidades(Context context){
         Map<String, Object> model = new HashMap<>();
         List<EntidadPrestadora> entidades = this.repositorioDeEntidadesPrestadoras.buscarTodosEntidades();
         model.put("entidades", entidades);
         model.put("username", context.cookie("username"));
-
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         context.render("cargaEntidades.hbs", model);
     }
 
@@ -38,7 +45,9 @@ public class EntidadesOrganismosController {
         List<OrganismoDeControl> organismos = this.repositorioDeEntidadesPrestadoras.buscarTodosOrganismos();
         model.put("organismos", organismos);
         model.put("username", context.cookie("username"));
-
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         context.render("cargaOrganismos.hbs", model);
     }
 

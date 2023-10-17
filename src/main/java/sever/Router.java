@@ -24,6 +24,8 @@ public class Router {
         Server.app().routes(()-> {
 
             Rol admin = new Rol("admin", null);
+            Rol adminEntidad = new Rol("adminEntidad", null);
+            Rol adminOrganismo= new Rol("adminEntidad", null);
 
             Server.app().get("/", ((LoginController) FactoryController.controller("login"))::admin);
             Server.app().get("/login", ((LoginController) FactoryController.controller("login"))::index);
@@ -53,8 +55,12 @@ public class Router {
             Server.app().post("/eliminarUsuario/{id}",
                     ((UsuariosController) FactoryController.controller("usuarios"))::delete,
                     admin);
-            Server.app().get("/rankings", ((RankingController) FactoryController.controller("rankings"))::index);
-            Server.app().get("/ranking/{id}", ((RankingController) FactoryController.controller("rankings"))::ranking);
+            Server.app().get("/rankings",
+                    ((RankingController) FactoryController.controller("rankings"))::index,
+                    adminEntidad, adminOrganismo);
+            Server.app().get("/ranking/{id}",
+                    ((RankingController) FactoryController.controller("rankings"))::ranking,
+                    adminEntidad, adminOrganismo);
             Server.app().get("/admin/incidentes",
                     ((IncidenteController) FactoryController.controller("incidentes"))::index,
                     admin);
