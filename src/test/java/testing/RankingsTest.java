@@ -1,9 +1,6 @@
 package testing;
 
-import domain.Repositorios.RepositorioComunidad;
-import domain.Repositorios.RepositorioEstablecimiento;
-import domain.Repositorios.RepositorioServicio;
-import domain.Repositorios.RepositorioUsuario;
+import domain.Repositorios.*;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.Usuarios.Usuario;
@@ -13,10 +10,15 @@ import domain.informes.Incidente;
 import domain.localizaciones.Direccion;
 import domain.services.georef.entities.Municipio;
 import domain.services.georef.entities.Provincia;
+import domain.servicios.Estado;
+import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+
 public class RankingsTest {
 
 
@@ -24,6 +26,7 @@ public class RankingsTest {
     private Usuario usuario1, usuario2, usuario3, usuario4;
     private Establecimiento establecimiento1, establecimiento2, establecimiento3;
     private Entidad entidad1, entidad2,entidad3;
+    private PrestacionDeServicio prestacion1, prestacion2, prestacion3, prestacion4;
     private Incidente incidente1, incidente2, incidente3, incidente4, incidente5;
     private Comunidad comunidad1, comunidad2;
 
@@ -88,7 +91,37 @@ public class RankingsTest {
         repositorioEstablecimiento.save(establecimiento2);
         repositorioEstablecimiento.save(establecimiento3);
 
+        entidad1 = new Entidad("entidad1", "estacionDeTren","entidad1@email.com","tren" );
+        entidad2 = new Entidad("entidad2", "estacionDeSubte", "ent2@email.com","subte");
+        entidad3 = new Entidad("entidad3", "estacionDeSubte", "ent3@email.com", "subte");
 
+        RepositorioEntidad repositorioEntidad = new RepositorioEntidad();
+        repositorioEntidad.save(entidad1);
+        repositorioEntidad.save(entidad2);
+        repositorioEntidad.save(entidad3);
+
+        prestacion1 = new PrestacionDeServicio(servicio1,establecimiento1, Estado.OUT_OF_SERVICE );
+        prestacion2= new PrestacionDeServicio(servicio2,establecimiento2,Estado.OUT_OF_SERVICE);
+        prestacion3= new PrestacionDeServicio(servicio3,establecimiento3,Estado.OUT_OF_SERVICE);
+        prestacion4=new PrestacionDeServicio(servicio4,establecimiento1,Estado.OUT_OF_SERVICE);
+
+        RepositorioPrestacionDeServicio repositorioPrestacionDeServicio = new RepositorioPrestacionDeServicio();
+        repositorioPrestacionDeServicio.save(prestacion1);
+        repositorioPrestacionDeServicio.save(prestacion2);
+        repositorioPrestacionDeServicio.save(prestacion3);
+        repositorioPrestacionDeServicio.save(prestacion4);
+
+
+        incidente1 = new Incidente("se rompio",miembro1,prestacion1, LocalDateTime.now());
+        incidente2 = new Incidente("se rompio",miembro2,prestacion2, LocalDateTime.now());
+        incidente3 = new Incidente("se rompio",miembro3,prestacion3, LocalDateTime.now());
+        incidente4 = new Incidente("se rompio",miembro4,prestacion4, LocalDateTime.now());
+
+        RepositorioIncidente repositorioIncidente= new RepositorioIncidente();
+        repositorioIncidente.save(incidente1);
+        repositorioIncidente.save(incidente2);
+        repositorioIncidente.save(incidente3);
+        repositorioIncidente.save(incidente4);
 
     }
 
