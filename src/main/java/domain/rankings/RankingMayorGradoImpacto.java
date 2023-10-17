@@ -3,6 +3,7 @@ import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
 //import domain.repositorios.RepositorioComunidades;
 import domain.localizaciones.Direccion;
+import domain.rankings.Leaderboard.Leaderboard;
 import domain.services.georef.entities.Localidad;
 import domain.services.notificadorDeIncidentes.CommandoNotificacion;
 import domain.servicios.PrestacionDeServicio;
@@ -13,7 +14,7 @@ import java.util.*;
 
 public class RankingMayorGradoImpacto implements Ranking {
     @Override
-    public void generarRanking(List<Incidente> incidentes) {
+    public Leaderboard generarRanking() {
         // Calcular el grado de impacto por entidad
         Map<String, Integer> gradoImpactoPorEntidad = calcularGradoImpactoPorEntidad(incidentes);
 
@@ -35,6 +36,7 @@ public class RankingMayorGradoImpacto implements Ranking {
             System.out.println(posicion + ". " + entidadGrado.getEntidad() + " - Grado de impacto: " + entidadGrado.getGradoImpacto());
             posicion++;
         }
+        return null;
     }
 
     private Map<String, Integer> calcularGradoImpactoPorEntidad(List<Incidente> incidentes) {

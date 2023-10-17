@@ -1,10 +1,11 @@
 package domain.rankings;
 
 import domain.informes.Incidente;
+import domain.rankings.Leaderboard.Leaderboard;
 
 import java.util.List;
 
 public interface Ranking {
 
-    public void generarRanking(List<Incidente> incidentes);
+    public Leaderboard generarRanking();
 }

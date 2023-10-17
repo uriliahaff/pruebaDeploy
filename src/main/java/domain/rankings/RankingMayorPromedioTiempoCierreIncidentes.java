@@ -15,12 +15,14 @@ import java.util.stream.Collectors;
 
 public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
     @Override
-    public void generarRanking(List<Incidente> incidentes) {
+    public Leaderboard generarRanking() {
         // Calcular el promedio de tiempo de cierre por entidad
         List<Incidente> incidentesCerradosUltimaSemana = new RepositorioIncidente().findClosedLastWeek(); //filtro por los incidentes cerrados la ultima semana
         Map<Integer, List<Incidente>> incidentesPorEntidad = agruparPorEntidadId(incidentesCerradosUltimaSemana); //agrupo incidentes x entidadID
         List<RankLeaderBoardUnit> ranking = calcularPromedioTiempoCierrePorEntidad(incidentesPorEntidad);
-        new RepositorioLeaderBoard().save(new Leaderboard(ranking, LeaderBoardType.MAYOR_PROMEDIO_TIEMPO));
+       Leaderboard leaderboard = new Leaderboard(ranking, LeaderBoardType.MAYOR_PROMEDIO_TIEMPO);
+        new RepositorioLeaderBoard().save(leaderboard);
+        return leaderboard;
     }
 
 

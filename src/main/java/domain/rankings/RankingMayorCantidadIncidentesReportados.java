@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class RankingMayorCantidadIncidentesReportados implements Ranking{
     @Override
-    public void generarRanking(List<Incidente> incidentes) {
+    public Leaderboard generarRanking() {
         /*Map<String, Integer> incidentesPorEntidad = new HashMap<>();
         Set<String> incidentesDuplicados = new HashSet<>();*/
         List<Incidente> incidetesAbiertosUltimaSemana = new RepositorioIncidente().findOpenedLastWeek();
@@ -26,7 +26,7 @@ public class RankingMayorCantidadIncidentesReportados implements Ranking{
         Leaderboard leaderboard = generarRangkings(incidentesPorEntidad);
 
         new RepositorioLeaderBoard().save(leaderboard);
-
+    return leaderboard;
     }
     public Map<Integer, List<Incidente>> agruparPorEntidadId(List<Incidente> incidentes) {
         return incidentes.stream()

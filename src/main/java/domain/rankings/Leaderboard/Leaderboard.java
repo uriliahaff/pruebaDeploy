@@ -1,5 +1,7 @@
 package domain.rankings.Leaderboard;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,9 @@ public class Leaderboard
     {
         this.rankLeaderBoardUnits.addAll(rankLeaderBoardUnits);
         this.type=type;
+    }
+    public List<RankLeaderBoardUnit> getRankLeaderBoardUnits() {
+        return rankLeaderBoardUnits;
     }
 
 }

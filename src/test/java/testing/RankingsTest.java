@@ -8,6 +8,8 @@ import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.informes.Incidente;
 import domain.localizaciones.Direccion;
+import domain.rankings.Leaderboard.Leaderboard;
+import domain.rankings.RankingMayorCantidadIncidentesReportados;
 import domain.services.georef.entities.Municipio;
 import domain.services.georef.entities.Provincia;
 import domain.servicios.Estado;
@@ -18,6 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RankingsTest {
 
@@ -27,7 +31,7 @@ public class RankingsTest {
     private Establecimiento establecimiento1, establecimiento2, establecimiento3;
     private Entidad entidad1, entidad2,entidad3;
     private PrestacionDeServicio prestacion1, prestacion2, prestacion3, prestacion4;
-    private Incidente incidente1, incidente2, incidente3, incidente4, incidente5;
+    private Incidente incidente1, incidente2, incidente3, incidente4;
     private Comunidad comunidad1, comunidad2;
 
 
@@ -112,10 +116,15 @@ public class RankingsTest {
         repositorioPrestacionDeServicio.save(prestacion4);
 
 
-        incidente1 = new Incidente("se rompio",miembro1,prestacion1, LocalDateTime.now());
-        incidente2 = new Incidente("se rompio",miembro2,prestacion2, LocalDateTime.now());
-        incidente3 = new Incidente("se rompio",miembro3,prestacion3, LocalDateTime.now());
-        incidente4 = new Incidente("se rompio",miembro4,prestacion4, LocalDateTime.now());
+        incidente1 = new Incidente("se rompio",miembro1,prestacion1, LocalDateTime.now().minusHours(3));
+        incidente2 = new Incidente("se rompio",miembro2,prestacion2, LocalDateTime.now().minusDays(2));
+        incidente3 = new Incidente("se rompio",miembro3,prestacion3, LocalDateTime.now().minusDays(1));
+        incidente4 = new Incidente("se rompio",miembro4,prestacion4, LocalDateTime.now().minusHours(7));
+
+        incidente1.cerrarIncidente(LocalDateTime.now().minusHours(1),miembro1);
+        incidente2.cerrarIncidente(LocalDateTime.now().minusHours(24),miembro2);
+        incidente3.cerrarIncidente(LocalDateTime.now().minusHours(20),miembro3);
+        incidente4.cerrarIncidente(LocalDateTime.now(),miembro4);
 
         RepositorioIncidente repositorioIncidente= new RepositorioIncidente();
         repositorioIncidente.save(incidente1);
@@ -127,6 +136,14 @@ public class RankingsTest {
 
     @Test
     public void rankingTest1(){
+    List<Incidente> incidentes = new ArrayList<Incidente>();
+    incidentes.add(incidente1);
+    incidentes.add(incidente2);
+    incidentes.add(incidente3);
+    incidentes.add(incidente4);
+
+    Leaderboard leaderbord = new RankingMayorCantidadIncidentesReportados().generarRanking();
+    Assertions.assertTrue(leaderbord.getRankLeaderBoardUnits().size()>0);
 
     }
 }
