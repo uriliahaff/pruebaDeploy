@@ -1,5 +1,7 @@
 package domain.Usuarios;
 
+import io.javalin.security.RouteRole;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "rol")
-public class Rol {
+public class Rol implements RouteRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
