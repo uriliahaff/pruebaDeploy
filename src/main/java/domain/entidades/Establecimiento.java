@@ -33,9 +33,6 @@ public class Establecimiento {
     @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> servicios;
 
-    public Entidad getEntidad() {
-        return entidad;
-    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "entidad_id")
@@ -77,6 +74,10 @@ public class Establecimiento {
 
     public Direccion getDireccion() {
         return direccion;
+    }
+
+    public Entidad getEntidad() {
+        return entidad;
     }
 
     public void agregarServicio(PrestacionDeServicio servicio) {

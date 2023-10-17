@@ -1,39 +1,82 @@
 package domain.rankings;
 
+import domain.Repositorios.RepositorioIncidente;
 import domain.entidades.Entidad;
 import domain.informes.Incidente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
     @Override
     public void generarRanking(List<Incidente> incidentes) {
-        // Calcular el promedio de tiempio de cierre por entidad
-        Map<String, List<Incidente>> incidentesPorEntidad = agruparIncidentesPorEntidad(incidentes);
+        // Calcular el promedio de tiempo de cierre por entidad
+        List<Incidente> incidentesCerradosUltimaSemana = new RepositorioIncidente().findClosedLastWeek(); //filtro por los incidentes cerrados la ultima semana
+        Map<Integer, List<Incidente>> incidentesPorEntidad = agruparPorEntidadId(incidentesCerradosUltimaSemana); //agrupo incidentes x entidadID
         List<EntidadPromedio> rankingSemana = calcularPromedioTiempoCierrePorEntidad(incidentesPorEntidad);
     }
 
-    private static Map<String, List<Incidente>> agruparIncidentesPorEntidad(List<Incidente> incidentes) {
-        Map<String, List<Incidente>> incidentesPorEntidad = new HashMap<>();
+
+    //primero agrupar los incidentes por entidad
+    public Map<Integer, List<Incidente>> agruparPorEntidadId(List<Incidente> incidentes) {
+       return incidentes.stream()
+             .collect(Collectors.groupingBy(incidente -> incidente.getServicioAfectado().getEstablecimiento().getEntidad().getId()
+              ));
+   }
+   // private static Map<String, List<Incidente>> agruparIncidentesPorEntidad(List<Incidente> incidentes) {
+    //    Map<String, List<Incidente>> incidentesPorEntidad = new HashMap<>();
 
 
-        for (Incidente incidente : incidentes) {
+      //  for (Incidente incidente : incidentes) {
             //TODO: here
-            String entidad = incidente.getServicioAfectado().getLocalizacion().toString();//.getEntidad().getNombre();
+        //    String entidad = new RepositorioIncidente().findClosedLastWeek().
+                  //  incidente.getServicioAfectado().getLocalizacion().toString();//.getEntidad().getNombre();
 
-            if (!incidentesPorEntidad.containsKey(entidad)) {
-                incidentesPorEntidad.put(entidad, new ArrayList<>());
-            }
+          //  if (!incidentesPorEntidad.containsKey(entidad)) {
+            //    incidentesPorEntidad.put(entidad, new ArrayList<>());}
 
-            incidentesPorEntidad.get(entidad).add(incidente);
+          //  incidentesPorEntidad.get(entidad).add(incidente);}
+
+        //return incidentesPorEntidad;}
+        private List<EntidadPromedio> calcularPromedioTiempoCierrePorEntidad(Map<Integer, List<Incidente>> incidentesPorEntidad) {
+    List<EntidadPromedio> ranking = new ArrayList<>();
+    for (Map.Entry<Integer, List<Incidente>> entry : incidentesPorEntidad.entrySet()) {
+        int entidadId = entry.getKey();
+        List<Incidente> incidentesEntidad = entry.getValue();
+
+        long tiempoCierreTotal = 0;
+        int cantidadIncidentes = 0;
+
+        for (Incidente incidente : incidentesEntidad) {
+            // Calcular el tiempo de cierre de cada incidente
+            long tiempoCierre = calcularTiempoCierre(incidente);
+            tiempoCierreTotal += tiempoCierre;
+            cantidadIncidentes++;
         }
 
-        return incidentesPorEntidad;
+        if (cantidadIncidentes > 0) {
+            long promedioTiempoCierre = tiempoCierreTotal / cantidadIncidentes;
+            ranking.add(new EntidadPromedio(entidadId, promedioTiempoCierre));
+        }
     }
 
-    private List<EntidadPromedio> calcularPromedioTiempoCierrePorEntidad(Map<String, List<Incidente>> incidentesPorEntidad) {
+    // Ordenar el ranking por promedio de tiempo de cierre descendente
+    ranking.sort(Comparator.comparing(EntidadPromedio::getPromedio).reversed());
+
+    return ranking;
+}
+
+    // Función para calcular el tiempo de cierre
+    private long calcularTiempoCierre(Incidente incidente) {
+        LocalDateTime fechaApertura = incidente.getFechaInicio();
+        LocalDateTime fechaCierre = incidente.getFechaCierre();
+            long tiempoCierre= fechaCierre.getDayOfYear()- fechaApertura.getDayOfYear();
+        return tiempoCierre;
+    }
+
+   /* private List<EntidadPromedio> calcularPromedioTiempoCierrePorEntidad(Map<Integer, List<Incidente>> incidentesPorEntidad) {
         List<EntidadPromedio> rankingSemana = new ArrayList<>();
 
         for (Map.Entry<String, List<Incidente>> entry : incidentesPorEntidad.entrySet()) {
@@ -65,13 +108,13 @@ public class RankingMayorPromedioTiempoCierreIncidentes implements Ranking{
 
         return rankingSemana;
     }
-
+*/
      public class EntidadPromedio{
-        private String entidad;
+        private Integer entidadID;
         private long promedio;
 
-         public EntidadPromedio(String entidad, long promedioTiempoCierre) {
-             this.entidad = entidad;
+         public EntidadPromedio(Integer entidadID, long promedioTiempoCierre) {
+             this.entidadID = entidadID;
              this.promedio = promedioTiempoCierre;
          }
 
