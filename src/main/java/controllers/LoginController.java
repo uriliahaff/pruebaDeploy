@@ -17,9 +17,13 @@ public class LoginController {
         this.repositorioDeUsuario = repo;
     }
     public void index(Context context){
-        Map<String, Object> model = new HashMap<>();
 
         context.render("login.hbs");
+    }
+
+    public void registro(Context context){
+
+        context.render("signin.hbs");
     }
 
     public void admin(Context context){
@@ -52,6 +56,10 @@ public class LoginController {
             context.redirect("/login");
 
         }
+    }
+
+    public void signinAttempt(Context context){
+
     }
 
     public void logout(Context context){

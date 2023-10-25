@@ -29,8 +29,12 @@ public class Router {
 
             Server.app().get("/", ((LoginController) FactoryController.controller("login"))::admin);
             Server.app().get("/login", ((LoginController) FactoryController.controller("login"))::index);
+            Server.app().get("/signin", ((LoginController) FactoryController.controller("login"))::registro);
+
             Server.app().get("/logout", ((LoginController) FactoryController.controller("login"))::logout);
             Server.app().post("/login", ((LoginController) FactoryController.controller("login"))::loginAttempt);
+            Server.app().post("/signin", ((LoginController) FactoryController.controller("login"))::signinAttempt);
+
             Server.app().get("/cargaEntidades",
                     ((EntidadesOrganismosController) FactoryController.controller("entidades"))::indexEntidades,
                     admin);
