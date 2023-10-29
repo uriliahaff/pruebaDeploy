@@ -40,18 +40,21 @@ public class LoginController {
     }
 
     public void loginAttempt(Context context){
-        Usuario usuario = repositorioDeUsuario.findUsuarioByUsername(context.formParam("username"));
+        //Usuario usuario = repositorioDeUsuario.findUsuarioByUsername(context.formParam("username"));
+        String username = context.formParam("username");
         String password = context.formParam("password");
-        //TODO HASHING PASSWORD
+
+        Usuario usuario = repositorioDeUsuario.findUsuarioByUsernameAndPassword(username, password);
+
         if(usuario != null){
-            if(usuario.getPassword().equals(password)){
+            //if(usuario.getPassword().equals(password)){
                 context.redirect("/");
                 context.cookie("id", String.valueOf(usuario.getId()));
                 context.cookie("username", usuario.getUsername());
-            }
+           /* }
             else{
                 context.redirect("/login");
-            }
+            }*/
         } else{
             context.redirect("/login");
 

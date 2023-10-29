@@ -3,6 +3,8 @@ package domain.Usuarios;
 import domain.other.*;
 
 import javax.persistence.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class Usuario{
 
 
     @Column(name = "grado_de_confianza")
-    private double gradoDeConfianza;
+    private double gradoDeConfianza = 2;
 
 
     @Column(name = "estatus")
@@ -59,7 +61,8 @@ public class Usuario{
 
     public Usuario(String username, String password) {
         this.username = username;
-        this.password = password;
+        //this.password = password;
+        this.setPassword(password);
         roles = new ArrayList<>();
 
     }
@@ -81,7 +84,7 @@ public class Usuario{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Usuario.hashPassword(password);//password;
     }
     
     public boolean cumpleOWASP(String password){
@@ -98,4 +101,20 @@ public class Usuario{
         return gradoDeConfianza;
     }
 
+    public static String hashPassword(String password){
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 algorithm not found", e);
+        }
+    }
 }
