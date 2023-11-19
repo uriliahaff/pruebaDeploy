@@ -38,6 +38,8 @@ public class Establecimiento {
     @JoinColumn(name = "entidad_id")
     private Entidad entidad;
 
+
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id")
     private Direccion direccion;
@@ -77,9 +79,11 @@ public class Establecimiento {
     }
 
     public Entidad getEntidad() {
-        return entidad;
+        return this.entidad;
     }
-
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
+    }
     public void agregarServicio(PrestacionDeServicio servicio) {
         servicios.add(servicio); // Agregar un servicio a la lista de servicios
 

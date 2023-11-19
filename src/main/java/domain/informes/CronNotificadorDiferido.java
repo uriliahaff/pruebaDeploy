@@ -1,4 +1,5 @@
 package domain.informes;
+import domain.Repositorios.RepositorioNotificacionDiferida;
 import domain.Usuarios.Comunidades.ConfiguracionNotificacionDeIncidentes;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.other.EntityManagerProvider;
@@ -48,21 +49,15 @@ public class CronNotificadorDiferido {
                 , titulo
                 , miembro
                 ,getNextScheduledDate(config.getHorarioPreferencia()));
-        save(notificacionDiferida);
+        new RepositorioNotificacionDiferida().save(notificacionDiferida);
         //timer.schedule(new NotificacionDiferida(texto, titulo, miembro), (long) getNextScheduledTime(config.getHorarioPreferencia()) * 60 * 1000);
 
     }
 
-    private void save(NotificacionDiferida notificacionDiferida) {
-        EntityManager em = EntityManagerProvider.getInstance().getEntityManager();
-        em.getTransaction().begin();
-        em.persist(notificacionDiferida);
-        em.getTransaction().commit();
-    }
-    public LocalDate getNextScheduledDate(List<Float> horarios) {
-        LocalTime now = LocalTime.now();
+
+    public LocalDateTime getNextScheduledDate(List<Float> horarios) {
+        LocalDateTime now = LocalDateTime.now();
         float nowAsFloat = now.getHour() + now.getMinute() / 60f;
-        LocalDate today = LocalDate.now();
 
         List<Float> horariosPostNow = horarios.stream()
                 .filter(h -> h > nowAsFloat)
@@ -70,9 +65,9 @@ public class CronNotificadorDiferido {
                 .collect(Collectors.toList());
 
         if (!horariosPostNow.isEmpty()) {
-            return convertToLocalDate(today, horariosPostNow.get(0));
+            return convertToLocalDate(now, horariosPostNow.get(0));
         } else {
-            return convertToLocalDate(today.plusDays(1), horarios.stream()
+            return convertToLocalDate(now.plusDays(1), horarios.stream()
                     .min(Float::compare)
                     .orElseThrow());
         }
@@ -102,7 +97,7 @@ public class CronNotificadorDiferido {
         em.getTransaction().commit();
     }
 
-    private LocalDate convertToLocalDate(LocalDate date, float timeAsFloat) {
+    private LocalDateTime convertToLocalDate(LocalDateTime date, float timeAsFloat) {
         int hour = (int) timeAsFloat;
         int minute = (int) ((timeAsFloat - hour) * 60);
         // Crear una fecha con la hora y el minuto calculados

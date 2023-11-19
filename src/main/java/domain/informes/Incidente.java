@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,6 +94,12 @@ public class Incidente {
     }
     public Miembro getMiembroAnalizador() {
         return miembroAnalizador;
+    }
+
+
+    public int getTiempoDeResolucion()
+    {
+        return (int)ChronoUnit.HOURS.between(this.fechaInicio,this.fechaCierre);
     }
 
 

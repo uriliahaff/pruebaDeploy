@@ -158,8 +158,15 @@
                     
                                                             </tr>
                                                         </thead>
-                    
-                                                        <tbody>
+                                                            {{#each rankingPromedioTiempo}}
+                                                                <tr>
+                                                                    <td>{{this.id}} / {{this.leaderboard.id}}</td>
+                                                                    <td>{{this.entidad.id}} {{this.entidad.nombre}}</td>
+                                                                    <td>{{this.value}}</td>
+                                                                </tr>
+                                                            {{/each}}
+                                                        <!--<tbody>
+
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>Uriel Liahaff</td>
@@ -178,7 +185,7 @@
                                                                 <td>Uriel Liahaff</td>
                                                                 <td>Uriel Liahaff</td>
 
-                                                            </tr>
+                                                            </tr>-->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -206,8 +213,14 @@
                     
                                                             </tr>
                                                         </thead>
-                    
-                                                        <tbody>
+                                                        {{#each rankingMayorIncidentesReportados}}
+                                                        <tr>
+                                                            <td>{{this.id}} / {{this.leaderboard.id}}</td>
+                                                            <td>{{this.entidad.id}} {{this.entidad.nombre}}</td>
+                                                            <td>{{this.value}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                        <!--<tbody>
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>Uriel Liahaff</td>
@@ -227,7 +240,8 @@
                                                                 <td>Uriel Liahaff</td>
 
                                                             </tr>
-                                                        </tbody>
+                                                        </tbody>-->
+
                                                     </table>
                                                 </div>
                                             </div>
@@ -254,8 +268,15 @@
                     
                                                             </tr>
                                                         </thead>
+                                                        {{#each rankingMayorImpacto}}
+                                                        <tr>
+                                                            <td>{{this.id}} / {{this.leaderboard.id}}</td>
+                                                            <td>{{this.entidad.id}} {{this.entidad.nombre}}</td>
+                                                            <td>{{this.value}}</td>
+                                                        </tr>
+                                                        {{/each}}
                     
-                                                        <tbody>
+                                                        <!--<tbody>
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>Uriel Liahaff</td>
@@ -275,7 +296,7 @@
                                                                 <td>Uriel Liahaff</td>
 
                                                             </tr>
-                                                        </tbody>
+                                                        </tbody>-->
                                                     </table>
                                                 </div>
                                             </div>

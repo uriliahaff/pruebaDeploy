@@ -32,6 +32,7 @@ public class LoginController {
 
         RepositorioUsuario repoUsuario = new RepositorioUsuario();
         Usuario user = repoUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        System.out.println(user);
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
         model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         model.put("username", context.cookie("username"));

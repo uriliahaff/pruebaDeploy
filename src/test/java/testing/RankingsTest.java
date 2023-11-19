@@ -10,6 +10,7 @@ import domain.informes.Incidente;
 import domain.localizaciones.Direccion;
 import domain.rankings.Leaderboard.Leaderboard;
 import domain.rankings.RankingMayorCantidadIncidentesReportados;
+import domain.rankings.RankingMayorPromedioTiempoCierreIncidentes;
 import domain.services.georef.entities.Municipio;
 import domain.services.georef.entities.Provincia;
 import domain.servicios.Estado;
@@ -86,24 +87,32 @@ public class RankingsTest {
         repositorioComunidad.save(comunidad1);
         repositorioComunidad.save(comunidad2);
 
+        entidad1 = new Entidad("entidad1", "estacionDeTren","entidad1@email.com","tren" );
+        entidad2 = new Entidad("entidad2", "estacionDeSubte", "ent2@email.com","subte");
+        entidad3 = new Entidad("entidad3", "estacionDeSubte", "ent3@email.com", "subte");
+
+        RepositorioEntidad repositorioEntidad = new RepositorioEntidad();
+
+        repositorioEntidad.save(entidad1);
+        repositorioEntidad.save(entidad2);
+        repositorioEntidad.save(entidad3);
+
+
         establecimiento1 = new Establecimiento("establecimiento1","estacion bulnes", new Direccion(new Provincia("CABA"), new Municipio("Palermo")));
         establecimiento2 = new Establecimiento("establecimiento2", "estacion scalabrini", new Direccion(new Provincia("CABA"), new Municipio("Palermo")));
         establecimiento3 = new Establecimiento("establecimiento3", "estacion chacarita", new Direccion(new Provincia("CABA"),new Municipio("Almagro")));
+
+        establecimiento1.setEntidad(entidad1);
+        establecimiento2.setEntidad(entidad2);
+        establecimiento3.setEntidad(entidad3);
+
 
         RepositorioEstablecimiento repositorioEstablecimiento = new RepositorioEstablecimiento();
         repositorioEstablecimiento.save(establecimiento1);
         repositorioEstablecimiento.save(establecimiento2);
         repositorioEstablecimiento.save(establecimiento3);
 
-        entidad1 = new Entidad("entidad1", "estacionDeTren","entidad1@email.com","tren" );
-        entidad2 = new Entidad("entidad2", "estacionDeSubte", "ent2@email.com","subte");
-        entidad3 = new Entidad("entidad3", "estacionDeSubte", "ent3@email.com", "subte");
-
-        RepositorioEntidad repositorioEntidad = new RepositorioEntidad();
-        repositorioEntidad.save(entidad1);
-        repositorioEntidad.save(entidad2);
-        repositorioEntidad.save(entidad3);
-
+        System.out.println(establecimiento1.getId()+": "+establecimiento1.getEntidad());
         prestacion1 = new PrestacionDeServicio(servicio1,establecimiento1, Estado.OUT_OF_SERVICE );
         prestacion2= new PrestacionDeServicio(servicio2,establecimiento2,Estado.OUT_OF_SERVICE);
         prestacion3= new PrestacionDeServicio(servicio3,establecimiento3,Estado.OUT_OF_SERVICE);
@@ -135,15 +144,23 @@ public class RankingsTest {
     }
 
     @Test
-    public void rankingTest1(){
-    List<Incidente> incidentes = new ArrayList<Incidente>();
-    incidentes.add(incidente1);
-    incidentes.add(incidente2);
-    incidentes.add(incidente3);
-    incidentes.add(incidente4);
+    public void rankingTest1()
+    {
+        List<Incidente> incidentes = new ArrayList<Incidente>();
+        incidentes.add(incidente1);
+        incidentes.add(incidente2);
+        incidentes.add(incidente3);
+        incidentes.add(incidente4);
 
-    Leaderboard leaderbord = new RankingMayorCantidadIncidentesReportados().generarRanking();
-    Assertions.assertTrue(leaderbord.getRankLeaderBoardUnits().size()>0);
+        Leaderboard leaderbord = new RankingMayorCantidadIncidentesReportados().generarRanking();
+        Assertions.assertTrue(leaderbord.getRankLeaderBoardUnits().size()>0);
+
+    }
+    @Test
+    public void rankingTest2()
+    {
+        Leaderboard leaderbord = new RankingMayorPromedioTiempoCierreIncidentes().generarRanking();
+        Assertions.assertTrue(leaderbord.getRankLeaderBoardUnits().size()>0);
 
     }
 }

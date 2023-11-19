@@ -13,7 +13,8 @@ import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class RankingMayorCantidadIncidentesReportados implements Ranking{
+public class RankingMayorCantidadIncidentesReportados implements Ranking
+{
     @Override
     public Leaderboard generarRanking() {
         /*Map<String, Integer> incidentesPorEntidad = new HashMap<>();
@@ -26,6 +27,7 @@ public class RankingMayorCantidadIncidentesReportados implements Ranking{
         Leaderboard leaderboard = generarRangkings(incidentesPorEntidad);
 
         new RepositorioLeaderBoard().save(leaderboard);
+        new RepositorioLeaderBoard().update(leaderboard);
     return leaderboard;
     }
     public Map<Integer, List<Incidente>> agruparPorEntidadId(List<Incidente> incidentes) {

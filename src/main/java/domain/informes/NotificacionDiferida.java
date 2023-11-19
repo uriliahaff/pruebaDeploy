@@ -6,6 +6,7 @@ import domain.services.notificationSender.EnviadorDeNotificaciones;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -29,12 +30,12 @@ public class NotificacionDiferida extends TimerTask {
     private Miembro destinatario;
 
     @Column(name = "fecha_de_envio")
-    private LocalDate fechaDeEnvio;
+    private LocalDateTime fechaDeEnvio;
 
     public NotificacionDiferida() {
     }
 
-    public NotificacionDiferida(String texto, String titulo, Miembro destinatario, LocalDate fechaDeEnvio) {
+    public NotificacionDiferida(String texto, String titulo, Miembro destinatario, LocalDateTime fechaDeEnvio) {
         this.texto = texto;
         this.titulo = titulo;
         this.destinatario = destinatario;

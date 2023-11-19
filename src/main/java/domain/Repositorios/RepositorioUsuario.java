@@ -30,6 +30,8 @@ public class RepositorioUsuario {
     }
 
 
+
+
     public void actualizar(Object o) {
         EntityTransaction tx = entityManager.getTransaction();
         if(!tx.isActive())
@@ -55,7 +57,22 @@ public class RepositorioUsuario {
         } catch (NoResultException e) {
             // Manejar el caso en que no se encuentra ningún usuario con el nombre de usuario dado
             return null;
-        }    }
+        }
+    }
+    public Usuario findUsuarioByUsernameAndPassword(String username, String password) {
+        try {
+            return entityManager
+                    .createQuery("SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password", Usuario.class)
+                    .setParameter("username", username)
+                    .setParameter("password", Usuario.hashPassword(password))
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encuentra ningún usuario con el nombre de usuario y contraseña dados
+            return null;
+        }
+    }
+
 
     public Miembro findMiembroById(int id) {
         return entityManager.find(Miembro.class, id);

@@ -1,5 +1,7 @@
 package domain.Repositorios;
 
+import domain.Usuarios.Comunidades.Comunidad;
+import domain.Usuarios.Comunidades.Miembro;
 import domain.entidades.Establecimiento;
 import domain.informes.Incidente;
 import domain.localizaciones.Direccion;
@@ -12,16 +14,17 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RepositorioIncidente {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private static EntityManager entityManager;
 
     public RepositorioIncidente() {
-        this.entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        entityManager = EntityManagerProvider.getInstance().getEntityManager();
     }
 
     public void save(Incidente incidente) {
@@ -89,8 +92,8 @@ public class RepositorioIncidente {
         return typedQuery.getResultList();
     }
     public List<Incidente> findClosedLastWeek() {
-        LocalDate today = LocalDate.now();
-        LocalDate lastWeekStart = today.minusDays(7);
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime lastWeekStart = today.minusDays(7);
 
         String hql = "FROM Incidente i WHERE i.fechaCierre BETWEEN :lastWeekStart AND :today";
 
@@ -100,8 +103,8 @@ public class RepositorioIncidente {
                 .getResultList();
     }
     public List<Incidente> findOpenedLastWeek() {
-        LocalDate today = LocalDate.now();
-        LocalDate lastWeekStart = today.minusDays(7);
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime lastWeekStart = today.minusDays(7);
 
         String hql = "FROM Incidente i WHERE i.fechaInicio BETWEEN :lastWeekStart AND :today";
 
@@ -111,5 +114,18 @@ public class RepositorioIncidente {
                 .getResultList();
     }
 
+    public static List<Miembro> findUniqueMembersFromCommunitiesAffectedByIncident(Incidente incidenteEspecifico) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Miembro> cq = cb.createQuery(Miembro.class);
+
+        Root<Incidente> incidente = cq.from(Incidente.class);
+        Join<Incidente, Comunidad> comunidadJoin = incidente.join("comunidadesAfectadas");
+        Join<Comunidad, Miembro> miembroJoin = comunidadJoin.join("miembros");
+
+        cq.select(miembroJoin).distinct(true);
+        cq.where(cb.equal(incidente, incidenteEspecifico));
+
+        return entityManager.createQuery(cq).getResultList();
+    }
 
 }
