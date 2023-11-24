@@ -71,6 +71,9 @@ public class Usuario{
         this.roles.add(rol);
     }
     public void setRoles(List<Rol> roles){this.roles = roles;}
+
+    public boolean usuarioTieneRol( String nombreRol) {        return getRoles().stream().anyMatch(rol -> rol.getNombre().equalsIgnoreCase(nombreRol));}
+
     public String getUsername() {
         return username;
     }

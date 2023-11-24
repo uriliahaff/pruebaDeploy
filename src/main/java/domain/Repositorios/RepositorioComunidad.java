@@ -34,11 +34,31 @@ public class RepositorioComunidad
         entityManager.remove(comunidad);
         entityManager.getTransaction().commit();
     }
+    public void deleteById(int comunidadId) {
+        entityManager.getTransaction().begin();
 
+        Comunidad comunidad = entityManager.find(Comunidad.class, comunidadId);
+        if (comunidad != null) {
+            entityManager.remove(comunidad);
+        }
+
+        entityManager.getTransaction().commit();
+    }
     public Comunidad find(int id) {
-        return entityManager.find(Comunidad.class, id);
+        Comunidad comunidad = entityManager.find(Comunidad.class, id);
+        if (comunidad != null) {
+            // Inicializa las listas perezosas
+            comunidad.getMiembros().size(); // Acceder a la lista para inicializarla
+            comunidad.getAdmins().size();   // Acceder a la lista para inicializarla
+            comunidad.getIntereses().size(); // Acceder a la lista para inicializarla
+        }
+        return comunidad;
     }
 
+    public List<Comunidad> findAll()
+    {
+    return entityManager.createQuery("SELECT c FROM Comunidad c", Comunidad.class).getResultList();
+    }
 
     public static List<Comunidad> findComunidadByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {

@@ -63,6 +63,9 @@ public class Comunidad {
         this.gradoDeConfianza = gradoDeConfianza;
     }
 
+    public boolean hasAdmin(int usuarioId) {
+        return admins.stream().anyMatch(admin -> admin.getId() == usuarioId);
+    }
     // Getters y setters
     public int getId() {
         return id;
@@ -88,12 +91,22 @@ public class Comunidad {
         return miembros;
     }
 
+    public Miembro getMiembro(int miembroId) {
+        return miembros.stream()
+                .filter(miembro -> miembro.getId() == miembroId)
+                .findFirst()
+                .orElse(null);
+    }
+
     public void setMiembros(List<Miembro> miembros) {
         this.miembros = miembros;
     }
     public void agregarMiembros(Miembro... nuevosMiembros) {
         this.miembros.addAll(Arrays.asList(nuevosMiembros));
     }
+
+    public void removeMiembro(Miembro miembro) {    this.miembros.remove(miembro);  }
+
     public void agregarInteres(Servicio servicio)
     {
         this.intereses.add(servicio);
@@ -107,6 +120,7 @@ public class Comunidad {
         this.admins = admins;
     }
 
+    public void addAdmins(Usuario usuario) { this.admins.add(usuario);}
     public List<Servicio> getIntereses() {
         return intereses;
     }

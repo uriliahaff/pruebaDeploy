@@ -18,6 +18,7 @@ public class FactoryController {
             case "usuarios": controller = new UsuariosController(new RepositorioUsuario()); break;
             case "rankings": controller = new RankingController(new RepositorioUsuario()); break;
             case "incidentes": controller = new IncidenteController(new RepositorioIncidente(), new RepositorioUsuario()); break;
+            case "comunidad": controller = new ComunidadController(); break;
 
         }
         return controller;

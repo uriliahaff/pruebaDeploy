@@ -143,4 +143,6 @@ public class Miembro {
     public String getNombre() {
         return nombre;
     }
+
+    public void removeComunidad(Comunidad comunidad) {   this.comunidades.remove(comunidad); }
 }

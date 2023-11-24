@@ -1,0 +1,54 @@
+<h1 class="h3 mb-2 text-gray-800">Comunidades</h1>
+<p class="mb-4">Listado de comunidades registradas en el sistema.</p>
+<div class="card shadow mb-4">
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Comunidades</h6>
+</div>
+<div class="card-body tabla">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Grado de Confianza</th>
+                <th>Número de Miembros</th>
+                <th>Admins</th>
+                <th>Intereses</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each comunidades}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>
+                    <a href="/comunidad/{{this.id}}">
+                        {{this.nombre}}
+                    </a>
+                </td>
+                <td>{{this.gradoDeConfianza}}</td>
+                <td>{{this.miembros.length}}</td>
+                <td>
+                    {{#each this.admins}}
+                    {{this.nombre}},
+                    {{/each}}
+                </td>
+                <td>
+                    {{#each this.intereses}}
+                    {{this.nombre}},
+                    {{/each}}
+                </td>
+                    {{#if usuarioPuedeEliminar}}
+                    <td>
+                        <form action="/comunidad/delete/{{this.id}}" method="POST">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                    {{/if}}
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

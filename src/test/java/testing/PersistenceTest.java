@@ -1,6 +1,8 @@
 package testing;
 
+import domain.Procesos.ComunidadManager;
 import domain.Repositorios.*;
+import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
@@ -172,6 +174,35 @@ public class PersistenceTest {
         Assertions.assertNull(usuarioEliminado);
     }
 
+    @Test
+    public void generateComunity()
+    {
+        Comunidad com = new Comunidad("Comunidad con miembros", 2);
+        Miembro miembro = new Miembro(
+                "miembro con com"
+                ,"a"
+                , "correo",
+                "telefono",
+                null,
+                new Usuario("username", "contraseña")
+                );
+        Miembro miembro2 = new Miembro(
+                "miembro con com 2"
+                ,"a"
+                , "correo",
+                "telefono",
+                null,
+                new Usuario("username", "contraseña")
+        );
+
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+        repositorioUsuario.saveMiembro(miembro);
+        repositorioUsuario.saveMiembro(miembro2);
+        RepositorioComunidad repositorioComunidad = new RepositorioComunidad();
+        repositorioComunidad.save(com);
+        ComunidadManager.agregarMiembro(miembro,com);
+        ComunidadManager.agregarMiembro(miembro2,com);
+    }
 
 
     @Test
