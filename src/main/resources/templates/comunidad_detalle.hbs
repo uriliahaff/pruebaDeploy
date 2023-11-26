@@ -10,6 +10,7 @@
         <table class="table table-bordered" id="dataTableIntereses" width="100%" cellspacing="0">
             <thead>
             <tr>
+                <th>Id del Servicio</th>
                 <th>Nombre del Servicio</th>
                 <th>Descripción</th>
             </tr>
@@ -17,8 +18,61 @@
             <tbody>
             {{#each comunidad.intereses}}
             <tr>
+                <td>{{this.id}}</td>
                 <td>{{this.nombre}}</td>
                 <td>{{this.descripcion}}</td>
+                <td>
+                    <form action="/comunidad/removerInteres" method="post">
+                        <input type="hidden" name="comunidadId" value="{{comunidad.id}}" />
+                        <input type="hidden" name="interesId" value="{{this.id}}" />
+                        <button type="submit" class="btn btn-warning">Quitar</button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <form action="/comunidad/addInteres" method="POST">
+        <input type="hidden" name="comunidadId" value="{{comunidad.id}}" />
+        <select name="servicioSeleccionado" id="servicioDropdown">
+            <!-- Opciones del dropdown llenadas dinámicamente -->
+            {{#each listaDeServicios}}
+            <option value="{{this.id}}">{{this.nombre}}</option>
+            {{/each}}
+        </select>
+        <button type="submit">agregar</button>
+    </form>
+</div>
+</div>
+
+
+
+<div class="card shadow mb-4">
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Admins de la Comunidad</h6>
+</div>
+<div class="card-body tabla">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTableAdmin" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Id del Admin</th>
+                <th>Username</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each comunidad.admins}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.username}}</td>
+                <td>
+                    <form action="/comunidad/removerAdmin" method="post">
+                        <input type="hidden" name="comunidadId" value="{{comunidad.id}}" />
+                        <input type="hidden" name="adminId" value="{{this.id}}" />
+                        <button type="submit" class="btn btn-warning">Quitar</button>
+                    </form>
+                </td>
             </tr>
             {{/each}}
             </tbody>
@@ -27,6 +81,10 @@
 </div>
 </div>
 
+
+
+
+
 <div class="card shadow mb-4">
 <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Miembros de la Comunidad</h6>
@@ -34,6 +92,32 @@
 <div class="card-body tabla">
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTableMiembros" width="100%" cellspacing="0">
+            <tbody>
+            {{#each listaMiembros}}
+            <tr>
+                <td>{{this.nombre}}</td>
+                <td>{{this.apellido}}</td>
+                <td>{{this.correoElectronico}}</td>
+                <td>{{this.telefono}}</td>
+
+                {{#if esAdmin}}
+                    <td>
+                        <form action="/comunidad/{{comunidad.id}}/expulsar/{{this.id}}" method="post">
+                            <button type="submit" class="btn btn-warning">Expulsar</button>
+                        </form>
+                    </td>
+                    {{#if this.MiembroNoEsAdmin}}
+                        <td>
+                            <form action="/comunidad/{{comunidad.id}}/ascender/{{this.id}}" method="post">
+                                <button type="submit" class="btn btn-success">Ascender a Admin</button>
+                            </form>
+                        </td>
+                    {{/if}}
+                {{/if}}
+            </tr>
+
+            {{/each}}
+            </tbody>
             <thead>
             <tr>
                 <th>Nombre</th>
@@ -42,29 +126,13 @@
                 <th>Teléfono</th>
             </tr>
             </thead>
-            <tbody>
-            {{#each comunidad.miembros}}
-            <tr>
-                <td>{{this.nombre}}</td>
-                <td>{{this.apellido}}</td>
-                <td>{{this.correoElectronico}}</td>
-                <td>{{this.telefono}}</td>
-            </tr>
-            {{#if esAdmin}}
-            <td>
-                <form action="/comunidad/{{../comunidad.id}}/expulsar/{{this.id}}" method="post">
-                    <button type="submit" class="btn btn-warning">Expulsar</button>
-                </form>
-            </td>
-            <td>
-                <form action="/comunidad/{{../comunidad.id}}/ascender/{{this.id}}" method="post">
-                    <button type="submit" class="btn btn-success">Ascender a Admin</button>
-                </form>
-            </td>
-            {{/if}}
-            {{/each}}
-            </tbody>
         </table>
+            {{#if usuarioEsTipoMiembro}}
+                <form action="/comunidad/join/{{comunidad.id}}" method="post">
+                    <button type="submit" class="btn btn-success">Unirse</button>
+                </form>
+
+            {{/if}}
     </div>
 </div>
 </div>

@@ -31,6 +31,9 @@ public class Router {
             Server.app().get("/login", ((LoginController) FactoryController.controller("login"))::index);
             Server.app().get("/signin", ((LoginController) FactoryController.controller("login"))::registro);
 
+            Server.app().get("/registrar", ((SignInController) FactoryController.controller("signIn"))::signInMember);
+
+
             Server.app().get("/logout", ((LoginController) FactoryController.controller("login"))::logout);
             Server.app().post("/login", ((LoginController) FactoryController.controller("login"))::loginAttempt);
             Server.app().post("/signin", ((LoginController) FactoryController.controller("login"))::signinAttempt);
@@ -81,7 +84,24 @@ public class Router {
             Server.app().get("/comunidad/{id}", ((ComunidadController) FactoryController.controller("comunidad"))::mostrarComunidad);
 
             Server.app().post("/comunidad/{comunidadId}/expulsar/{miembroId}", ((ComunidadController) FactoryController.controller("comunidad"))::expulsarMiembro);
+
+
             Server.app().post("/comunidad/{comunidadId}/ascender/{miembroId}", ((ComunidadController) FactoryController.controller("comunidad"))::ascenderAAdmin);
+            Server.app().post("/comunidad/removerAdmin", ((ComunidadController) FactoryController.controller("comunidad"))::removerAdmin);
+
+            Server.app().post("/comunidad/join/{comunidadId}", ((ComunidadController) FactoryController.controller("comunidad"))::joinComunidad);
+
+            Server.app().post("/comunidad/addInteres", ((ComunidadController) FactoryController.controller("comunidad"))::addInteres);
+            Server.app().post("/comunidad/removerInteres", ((ComunidadController) FactoryController.controller("comunidad"))::removerInteres);
+
+
+
+            Server.app().get("/servicios", ((ServicioController) FactoryController.controller("servicios"))::indexServicios);
+            Server.app().post("/crearServicio", ((ServicioController) FactoryController.controller("servicios"))::crearServicio);
+
+            Server.app().get("/organismoDeControl", ((OrganismoDeControlController) FactoryController.controller("organismoDeControl"))::indexOrganismoDeControl);
+            Server.app().post("/cargarMasivaDeOrganismosDeControl", ((OrganismoDeControlController) FactoryController.controller("organismoDeControl"))::indexOrganismoDeControl);
+
 
 
 

@@ -1,0 +1,52 @@
+<h1 class="h3 mb-2 text-gray-800">Organismos de Control</h1>
+<p class="mb-4">Listado de organismos de control registrados en el sistema.</p>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Organismos de Control</h6>
+    </div>
+    <div class="card-body tabla">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Correo Electrónico del Responsable</th>
+                    <th>Servicio Asociado</th>
+                    <th>Usuario Administrador</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each organismosDeControl}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.nombre}}</td>
+                    <td>{{this.descripcion}}</td>
+                    <td>{{this.correoElectronicoResponsable}}</td>
+                    <td>{{this.servicio.nombre}}</td>
+                    <td>{{this.usuario.nombre}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Subir Organismos de Control desde CSV</h6>
+            </div>
+            {{#if isAdmin}}
+                <div class="card-body">
+                    <form action="/SubirOrganismoDeControlCSV" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="archivoCSV">Archivo CSV</label>
+                            <input type="file" class="form-control-file" id="archivoCSV" name="archivoCSV" accept=".csv" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subir Archivo</button>
+                    </form>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

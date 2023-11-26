@@ -63,6 +63,15 @@ public class Comunidad {
         this.gradoDeConfianza = gradoDeConfianza;
     }
 
+    public void removerInteres(int interesId)
+    {
+        this.intereses.removeIf(servicio -> servicio.getId() == interesId);
+    }
+    public void removerAdmin(int adminId)
+    {
+        this.admins.removeIf(admin -> admin.getId() == adminId);
+    }
+
     public boolean hasAdmin(int usuarioId) {
         return admins.stream().anyMatch(admin -> admin.getId() == usuarioId);
     }
@@ -96,6 +105,13 @@ public class Comunidad {
                 .filter(miembro -> miembro.getId() == miembroId)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public boolean esMiembroByUserId(int userId)
+    {
+        return miembros.stream()
+                .anyMatch(miembro -> miembro.getUsuario().getId() == userId);
+
     }
 
     public void setMiembros(List<Miembro> miembros) {

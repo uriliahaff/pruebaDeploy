@@ -28,6 +28,11 @@ public class RepositorioServicio
         entityManager.merge(servicio);
         entityManager.getTransaction().commit();
     }
+    public List<Servicio> findAll()
+    {
+        TypedQuery<Servicio> query = entityManager.createQuery("SELECT s FROM Servicio s", Servicio.class);
+        return query.getResultList();
+    }
 
     public void delete(Servicio servicio) {
     entityManager.getTransaction().begin();

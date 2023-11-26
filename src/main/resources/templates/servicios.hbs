@@ -1,0 +1,52 @@
+<h1 class="h3 mb-2 text-gray-800">Servicios</h1>
+<p class="mb-4">Listado de servicios registrados en el sistema.</p>
+<div class="card shadow mb-4">
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Servicios</h6>
+</div>
+<div class="card-body tabla">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each servicios}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>
+                    <a href="/servicio/{{this.id}}">
+                        {{this.nombre}}
+                    </a>
+                </td>
+                <td>{{this.descripcion}}</td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Crear Nuevo Servicio</h6>
+    </div>
+    <div class="card-body">
+        <form action="/crearServicio" method="POST">
+            <div class="form-group">
+                <label for="nombreServicio">Nombre del Servicio</label>
+                <input type="text" class="form-control" id="nombreServicio" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="descripcionServicio">Descripción</label>
+                <textarea class="form-control" id="descripcionServicio" name="descripcion" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Servicio</button>
+        </form>
+    </div>
+</div>
+
+</div>

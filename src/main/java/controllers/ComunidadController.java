@@ -4,30 +4,36 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import domain.Repositorios.RepositorioComunidad;
+import domain.Repositorios.RepositorioServicio;
 import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.Usuario;
 import domain.services.NavBarVisualizer;
+import domain.servicios.Servicio;
 import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ComunidadController {
     private static RepositorioComunidad repositorioComunidad = new RepositorioComunidad();
     private static RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+    private static RepositorioServicio repositorioServicio = new RepositorioServicio();
 
     public void indexComunidades(Context context) {
         Map<String, Object> model = new HashMap<>();
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
-        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+
+        CommonController.fillNav(model, user);
 
         List<Comunidad> comunidades = repositorioComunidad.findAll();
         model.put("comunidades", comunidades);
@@ -69,10 +75,39 @@ public class ComunidadController {
         }
 
         int userId = Integer.parseInt(context.cookie("id"));
-        model.put("comunidad", comunidad);
         Usuario user = repositorioUsuario.findUsuarioById(userId);
         model.put("username", context.cookie("username"));
         model.put("esAdmin", comunidad.hasAdmin(userId) || user.usuarioTieneRol("admin"));
+
+        model.put("usuarioPerteneceAComunidad", comunidad.esMiembroByUserId(userId));
+        model.put("usuarioEsTipoMiembro", repositorioUsuario.findMiembroByUsuarioId(userId) != null);
+
+        model.put("comunidad", comunidad);
+
+        List<Map<String, Object>> listaDeMiembros = new ArrayList<>();
+
+
+        for (Miembro miembro : comunidad.getMiembros()) {
+            Map<String, Object> miembroMap = new HashMap<>();
+            miembroMap.put("nombre", miembro.getNombre());
+            miembroMap.put("id", miembro.getId());
+            miembroMap.put("correoElectronico", miembro.getCorreoElectronico());
+            miembroMap.put("telefono", miembro.getTelefono());
+
+            boolean esAdmin = comunidad.hasAdmin(miembro.getUsuario().getId());
+            miembroMap.put("MiembroNoEsAdmin", !esAdmin); // El opuesto de esAdmin
+
+
+            listaDeMiembros.add(miembroMap);
+        }
+
+
+        model.put("listaMiembros",listaDeMiembros);
+
+        model.put("listaDeServicios", repositorioServicio.findAll().stream()
+                .filter(servicio -> !comunidad.deInteres(servicio))
+                .collect(Collectors.toList()));
+
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
         model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
 
@@ -120,23 +155,92 @@ public class ComunidadController {
 
 
     public void ascenderAAdmin(Context context) {
-            int comunidadId = Integer.parseInt(context.pathParam("comunidadId"));
-            int miembroId = Integer.parseInt(context.pathParam("miembroId"));
+        int comunidadId = Integer.parseInt(context.pathParam("comunidadId"));
+        int miembroId = Integer.parseInt(context.pathParam("miembroId"));
 
-            Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
-            Comunidad comunidad = repositorioComunidad.find(comunidadId);
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        Comunidad comunidad = repositorioComunidad.find(comunidadId);
 
-            if (!comunidad.getAdmins().contains(user) && !user.usuarioTieneRol("admin")) {
-                context.status(403).result("No autorizado");
-                return;
-            }
-            Miembro miembro = comunidad.getMiembro(miembroId);
-            comunidad.addAdmins(miembro.getUsuario());
-            repositorioComunidad.update(comunidad);
-
-            context.redirect("/comunidad/" + comunidadId);
+        if (!comunidad.getAdmins().contains(user) && !user.usuarioTieneRol("admin")) {
+            context.status(403).result("No autorizado");
+            return;
         }
+        Miembro miembro = comunidad.getMiembro(miembroId);
+        comunidad.addAdmins(miembro.getUsuario());
+        repositorioComunidad.update(comunidad);
+
+        context.redirect("/comunidad/" + comunidadId);
     }
+    public void removerAdmin(Context context) {
+        int comunidadId = Integer.parseInt(context.formParam("comunidadId"));
+        int adminId = Integer.parseInt(context.formParam("adminId"));
+
+        Comunidad comunidad = repositorioComunidad.find(comunidadId);
+
+        comunidad.removerAdmin(adminId);
+
+        repositorioComunidad.update(comunidad);
+
+        context.redirect("/comunidad/" + comunidadId);
+    }
+
+    public void joinComunidad(Context context)
+    {
+        Map<String, Object> model = new HashMap<>();
+        int comunidadId = Integer.parseInt(context.pathParam("comunidadId"));
+        int userId = Integer.parseInt(context.cookie("id"));
+
+        Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(userId);
+        Comunidad comunidad = repositorioComunidad.find(comunidadId);
+
+        miembro.addComunidad(comunidad);
+        comunidad.agregarMiembros(miembro);
+
+        repositorioComunidad.update(comunidad);
+        repositorioUsuario.updateMiembro(miembro);
+
+
+        context.redirect("/comunidad/" + comunidadId);
+
+    }
+
+    public void addInteres(Context context)
+    {
+        Map<String, Object> model = new HashMap<>();
+
+        Map<String, List<String>> parametros = context.formParamMap();
+
+        for (Map.Entry<String, List<String>> entry : parametros.entrySet()) {
+            System.out.println("Clave: " + entry.getKey() + ", Valor: " + entry.getValue());
+        }
+        int comunidadId = Integer.parseInt(context.formParam("comunidadId"));
+        int servicioId = Integer.parseInt(context.formParam("servicioSeleccionado"));
+
+        Comunidad comunidad = repositorioComunidad.find(comunidadId);
+        Servicio servicio = repositorioServicio.findServicioById(servicioId);
+
+        comunidad.agregarInteres(servicio);
+        repositorioComunidad.update(comunidad);
+
+        context.redirect("/comunidad/" + comunidadId);
+
+    }
+    public void removerInteres( Context context)
+    {
+        int comunidadId = Integer.parseInt(context.formParam("comunidadId"));
+        int servicioId = Integer.parseInt(context.formParam("interesId"));
+
+        Comunidad comunidad = repositorioComunidad.find(comunidadId);
+        //Servicio servicio = repositorioServicio.findServicioById(servicioId);
+
+        comunidad.removerInteres(servicioId);
+        repositorioComunidad.update(comunidad);
+        context.redirect("/comunidad/" + comunidadId);
+
+    }
+
+
+}
 
 
 

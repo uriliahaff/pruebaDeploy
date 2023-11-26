@@ -30,6 +30,18 @@ public class RepositorioUsuario {
     }
 
 
+    public List<OrganismoDeControl> findAllOrganismoDeControl() {
+        return entityManager.createQuery("SELECT o FROM OrganismoDeControl o", OrganismoDeControl.class)
+                .getResultList();
+    }
+
+    public List<OrganismoDeControl> findOrganismoDeControlByUserId(int userId) {
+        TypedQuery<OrganismoDeControl> query = entityManager.createQuery(
+                "SELECT o FROM OrganismoDeControl o WHERE o.usuario.id = :userId", OrganismoDeControl.class);
+        query.setParameter("userId", userId);
+        return query.getResultList();
+    }
+
 
 
     public void actualizar(Object o) {
@@ -74,6 +86,17 @@ public class RepositorioUsuario {
     }
 
 
+    public Miembro findMiembroByUsuarioId(int usuarioId) {
+        try {
+            return entityManager
+                    .createQuery("SELECT m FROM Miembro m WHERE m.usuario.id = :usuarioId", Miembro.class)
+                    .setParameter("usuarioId", usuarioId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encuentra ningún miembro con el ID de usuario dado
+            return null;
+        }
+    }
     public Miembro findMiembroById(int id) {
         return entityManager.find(Miembro.class, id);
     }
@@ -81,6 +104,8 @@ public class RepositorioUsuario {
     public OrganismoDeControl findOrganismoDeControlById(int id) {
         return entityManager.find(OrganismoDeControl.class, id);
     }
+
+
 
     public EntidadPrestadora findEntidadPrestadoraById(int id) {
         return entityManager.find(EntidadPrestadora.class, id);
@@ -105,6 +130,29 @@ public class RepositorioUsuario {
 
     public void saveOrganismoDeControl(OrganismoDeControl organismoDeControl) {
         saveEntity(organismoDeControl);
+    }
+    public void saveOrganismosDeControl(List<OrganismoDeControl> organismosDeControl) {
+        entityManager.getTransaction().begin();
+
+        try {
+            int i = 0;
+            for (OrganismoDeControl organismo : organismosDeControl) {
+                entityManager.persist(organismo);
+
+                if (i % 20 == 0) { // Flush and clear in batches
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                i++;
+            }
+
+            entityManager.getTransaction().commit();
+        } catch (RuntimeException e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            throw e; // or handle it appropriately
+        }
     }
 
     public void updateOrganismoDeControl(OrganismoDeControl organismoDeControl) {
