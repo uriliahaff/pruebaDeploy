@@ -29,8 +29,8 @@ public class OrganismoDeControlController
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         boolean isAdmin = user.usuarioTieneRol("admin");
-
-        if(!isAdmin) {
+        boolean isODC = repositorioUsuario.findOrganismoDeControlByUserId(user.getId()) != null;
+        if(!isAdmin && !isODC) {
             context.redirect("/");
         }
         model.put("isAdmin",isAdmin);
@@ -51,9 +51,7 @@ public class OrganismoDeControlController
             context.status(500).result("Error al procesar la plantilla de incidentes.");
             return; // Sal del método aquí si no quieres procesar más el request debido al error
         }
-
-
-
+        model.put("servicios", repositorioServicio.findAll());
         // Renderiza la plantilla común con el contenido incluido
         context.render("layout_comun.hbs", model);
     }

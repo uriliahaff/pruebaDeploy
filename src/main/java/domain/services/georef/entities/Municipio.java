@@ -19,6 +19,10 @@ public class Municipio {
         this.nombre = nombre;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public Municipio() {
     }
 }

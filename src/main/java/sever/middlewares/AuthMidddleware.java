@@ -8,16 +8,27 @@ import io.javalin.http.Context;
 import io.javalin.security.RouteRole;
 import sever.exceptions.NoAuthExcpetion;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 public class AuthMidddleware {
 
-    public static void aply(JavalinConfig config) {
 
+    public static void aply(JavalinConfig config) {
+        List<String> listaPermitidos = Arrays.asList(
+                "signIn"
+                ,"login"
+                ,"signin"
+                ,"registrar"
+                ,"registrarUsuario"
+                ,"registrarOrganismo"
+                ,"registrarEntidad"
+        );
         config.accessManager(((handler, context, routeRoles) -> {
-            if (context.cookie("id") == null && !context.path().equals("/login")&& !context.path().equals("/signin")) {
+            if (context.cookie("id") == null && !listaPermitidos.stream().anyMatch(permits -> context.path().equals("/"+permits)))
+            {//!context.path().equals("/login")&& !context.path().equals("/signin")) {
                 throw new NoAuthExcpetion();
 
             } else if (context.cookie("id") != null && context.path().equals("/login")) {

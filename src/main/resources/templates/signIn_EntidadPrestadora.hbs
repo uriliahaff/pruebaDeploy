@@ -1,0 +1,51 @@
+<!-- Este campo se usará para el nombre de la Entidad Prestadora -->
+<input type="hidden" name="RegistroType" value="EntidadPrestadora" />
+
+
+<div class="form-group">
+    <label for="nombre">Nombre de la Entidad Prestadora:</label>
+    <input type="text" class="form-control" id="nombre" name="nombre" required>
+</div>
+
+<!-- Campo para el Correo Electrónico del Responsable -->
+<div class="form-group">
+    <label for="correoElectronicoResponsable">Correo Electrónico del Responsable:</label>
+    <input type="email" class="form-control" id="correoElectronicoResponsable" name="correoElectronicoResponsable" required>
+</div>
+
+<!-- Campo para la Descripción de la Entidad Prestadora -->
+<div class="form-group">
+    <label for="descripcion">Descripción:</label>
+    <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+</div>
+<h3>Crear Nueva Entidad</h3>
+
+    <fieldset class="border p-4 mt-4">
+        <legend class="w-auto">Crear Nueva Entidad</legend>
+
+        <div class="form-group">
+            <label for="entidadNombre">Nombre de la Entidad:</label>
+            <input type="text" class="form-control" id="entidadNombre" name="entidadNombre" required>
+        </div>
+
+        <div class="form-group">
+            <label for="entidadEmail">Correo Electrónico de la Entidad:</label>
+            <input type="email" class="form-control" id="entidadEmail" name="entidadEmail">
+        </div>
+
+        <div class="form-group">
+            <label for="entidadDescripcion">Descripción de la Entidad:</label>
+            <textarea class="form-control" id="entidadDescripcion" name="entidadDescripcion"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="tipoEntidad">Tipo de Entidad:</label>
+            <select class="form-control" id="tipoEntidad" name="tipoEntidadId" required>
+                {{#each tipos}}
+                <option value="{{this.id}}">{{this.tipo}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+    </fieldset>
+</div>

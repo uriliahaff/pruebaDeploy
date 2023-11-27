@@ -18,6 +18,10 @@ public class Localidad {
     public Localidad() {
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public Localidad(String nombre) {
         this.nombre = nombre;
     }

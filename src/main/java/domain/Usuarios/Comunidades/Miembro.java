@@ -69,6 +69,10 @@ public class Miembro {
     )
     private List<Direccion> lugaresDeInteres = new ArrayList<>();
 
+    public List<Servicio> getServiciosQueAfectan() {
+        return serviciosQueAfectan;
+    }
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")
     @Getter
@@ -93,6 +97,13 @@ public class Miembro {
 
     public List<Comunidad> getComunidades() {
         return comunidades;
+    }
+    public void addLugarDeInteres(Direccion direccion)
+    {
+        lugaresDeInteres.add(direccion);
+    }    public void addServicioDeInteres(Servicio servicio)
+    {
+        serviciosQueAfectan.add(servicio);
     }
 //TODO: Servicio de interes, entidad de interes,
 

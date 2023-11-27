@@ -53,6 +53,12 @@ public class OrganismoDeControl{
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+    public OrganismoDeControl(Usuario user, String correoElectronicoResponsable, String nombre, String descripcion) {
+        this.usuario = user;
+        this.correoElectronicoResponsable = correoElectronicoResponsable;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
 
     public OrganismoDeControl() {
     }

@@ -31,7 +31,6 @@ public class Router {
             Server.app().get("/login", ((LoginController) FactoryController.controller("login"))::index);
             Server.app().get("/signin", ((LoginController) FactoryController.controller("login"))::registro);
 
-            Server.app().get("/registrar", ((SignInController) FactoryController.controller("signIn"))::signInMember);
 
 
             Server.app().get("/logout", ((LoginController) FactoryController.controller("login"))::logout);
@@ -102,8 +101,16 @@ public class Router {
             Server.app().get("/organismoDeControl", ((OrganismoDeControlController) FactoryController.controller("organismoDeControl"))::indexOrganismoDeControl);
             Server.app().post("/cargarMasivaDeOrganismosDeControl", ((OrganismoDeControlController) FactoryController.controller("organismoDeControl"))::indexOrganismoDeControl);
 
+            Server.app().get("/registrar", ((SignInController) FactoryController.controller("signIn"))::renderSignInMember);
+            Server.app().get("/registrarOrganismo", ((SignInController) FactoryController.controller("signIn"))::renderSignInOrganismoDeControl);
+            Server.app().get("/registrarEntidad", ((SignInController) FactoryController.controller("signIn"))::renderSignInEntidadPrestadora);
+            Server.app().post("/registrarUsuario", ((SignInController) FactoryController.controller("signIn"))::processSignInRedirect);
 
-
+            Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil);
+            Server.app().post("/perfil/{id}/addLugarInteres", ((PerfilController) FactoryController.controller("perfil"))::addLugarDeInteres);
+            Server.app().post("/perfil/{id}/addService", ((PerfilController) FactoryController.controller("perfil"))::addServicioDeInteres);
+            Server.app().post("/perfil/{idMiembro}/agregarHorario", ((PerfilController) FactoryController.controller("perfil"))::agregarHorario);
+            Server.app().post("/perfil/{idMiembro}/borrarHorario", ((PerfilController) FactoryController.controller("perfil"))::borrarHorario);
 
         });
 

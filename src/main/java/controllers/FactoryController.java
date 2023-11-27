@@ -22,6 +22,7 @@ public class FactoryController {
             case "servicios": controller = new ServicioController(); break;
             case "organismoDeControl": controller = new OrganismoDeControlController(); break;
             case "signIn": controller = new SignInController(); break;
+            case "perfil": controller = new PerfilController(); break;
 
         }
         return controller;

@@ -5,7 +5,9 @@ import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
+import domain.entidades.TipoEntidad;
 import domain.other.EntityManagerProvider;
+import domain.servicios.Servicio;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -34,6 +36,16 @@ public class RepositorioUsuario {
         return entityManager.createQuery("SELECT o FROM OrganismoDeControl o", OrganismoDeControl.class)
                 .getResultList();
     }
+
+    public List<TipoEntidad> findAllTipoEntidad()
+    {
+        return entityManager.createQuery("SELECT s FROM TipoEntidad s", TipoEntidad.class)
+                .getResultList();
+    }
+    public TipoEntidad findTipoEntidad(int id) {
+        return entityManager.find(TipoEntidad.class, id);
+    }
+
 
     public List<OrganismoDeControl> findOrganismoDeControlByUserId(int userId) {
         TypedQuery<OrganismoDeControl> query = entityManager.createQuery(

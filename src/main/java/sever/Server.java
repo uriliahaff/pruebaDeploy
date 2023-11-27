@@ -27,7 +27,10 @@ public class Server {
     }
 
     public static void init() {
+        System.out.println("Iniciando la aplicación...");
         if(app == null) {
+            System.out.println("Creando la aplicación Javalin...");
+
             Integer port = Integer.parseInt(System.getProperty("port", "8080"));
             app = Javalin.create(config()).start(port);
             initTemplateEngine();
@@ -64,27 +67,30 @@ public class Server {
                 }, ".hbs" // Extensión del archivo de template
         );
     }*/
-private static void initTemplateEngine() {
-    JavalinRenderer.register((filePath, model, context) -> {
-        // Crear una nueva instancia de Handlebars con un TemplateLoader personalizado
-        Handlebars handlebars = new Handlebars()
-                // Aquí configuramos el prefijo del TemplateLoader
-                .with(new ClassPathTemplateLoader("/templates", ".hbs"));
-        // Ahora Handlebars buscará las plantillas dentro de /resources/templates
+    private static void initTemplateEngine() {
+        System.out.println("Inicializando el motor de plantillas...");
 
-        Template template;
-        try {
-            // Compilamos la plantilla principal pasando solo el nombre del archivo (sin la extensión .hbs)
-            template = handlebars.compile(filePath.replace(".hbs", ""));
-            // Aplicamos el modelo a la plantilla compilada para renderizar el HTML
-            return template.apply(model);
-        } catch (IOException e) {
-            e.printStackTrace();
-            context.status(HttpStatus.INTERNAL_SERVER_ERROR);
-            return "Error al renderizar la plantilla.";
-        }
-    }, ".hbs");
-}
+        JavalinRenderer.register((filePath, model, context) -> {
+            System.out.println("Hola");
+            // Crear una nueva instancia de Handlebars con un TemplateLoader personalizado
+            Handlebars handlebars = new Handlebars()
+                    .with(new ClassPathTemplateLoader("/templates", ".hbs"));
+
+            // Ahora Handlebars buscará las plantillas dentro de /resources/templates
+            System.out.println("Ha");
+            Template template;
+            try {
+                // Compilamos la plantilla principal pasando solo el nombre del archivo (sin la extensión .hbs)
+                template = handlebars.compile(filePath.replace(".hbs", ""));
+                // Aplicamos el modelo a la plantilla compilada para renderizar el HTML
+                return template.apply(model);
+            } catch (IOException e) {
+                e.printStackTrace();
+                context.status(HttpStatus.INTERNAL_SERVER_ERROR);
+                return "Error al renderizar la plantilla.";
+            }
+        }, ".hbs");
+    }
 
 
 

@@ -104,6 +104,17 @@ public class Usuario{
         return gradoDeConfianza;
     }
 
+    public static boolean contraseñaSegura(String password)
+    {
+        ValidadorDePassword vp = new ValidadorDePassword();
+        vp.addValidaciones(new ChequeoDiezMilContrasenias());
+        vp.addValidaciones(new ChequeoMayuscula());
+        vp.addValidaciones(new ChequeoLongitud());
+        vp.addValidaciones(new ChequeoCaracterEspecial());
+        vp.addValidaciones(new ChequeoNumero());
+        return vp.validarContrasenia(password);
+    }
+
     public static String hashPassword(String password){
 
         try {

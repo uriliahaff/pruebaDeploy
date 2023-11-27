@@ -48,6 +48,8 @@ public class ServicioController
             return; // Sal del método aquí si no quieres procesar más el request debido al error
         }
 
+
+
         // Renderiza la plantilla común con el contenido incluido
         context.render("layout_comun.hbs", model);
     }
