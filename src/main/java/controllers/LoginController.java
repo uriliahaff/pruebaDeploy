@@ -6,6 +6,7 @@ import domain.Usuarios.Usuario;
 import domain.services.NavBarVisualizer;
 import io.javalin.http.Context;
 import io.javalin.security.RouteRole;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -36,11 +37,12 @@ public class LoginController {
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
         model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
         model.put("username", context.cookie("username"));
+        model.put("id", user.getId());
 
         context.render("dashboard.hbs", model);
     }
 
-    public void loginAttempt(Context context){
+    public void loginAttempt(@NotNull Context context){
         //Usuario usuario = repositorioDeUsuario.findUsuarioByUsername(context.formParam("username"));
         String username = context.formParam("username");
         String password = context.formParam("password");
