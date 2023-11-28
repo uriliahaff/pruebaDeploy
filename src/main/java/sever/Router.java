@@ -112,6 +112,14 @@ public class Router {
             Server.app().post("/perfil/{idMiembro}/agregarHorario", ((PerfilController) FactoryController.controller("perfil"))::agregarHorario);
             Server.app().post("/perfil/{idMiembro}/borrarHorario", ((PerfilController) FactoryController.controller("perfil"))::borrarHorario);
 
+            Server.app().get("/entidades", ((EntidadController) FactoryController.controller("entidad"))::indexEntidades);
+            Server.app().get("/entidad/{id}", ((EntidadController) FactoryController.controller("entidad"))::indexEntidad);
+            Server.app().post("/entidad/{id}/crearEstablecimiento", ((EntidadController) FactoryController.controller("entidad"))::crearEstablecimiento);
+            Server.app().post("/entidades/crearEntidad", ((EntidadController) FactoryController.controller("entidad"))::crearEntidad);
+
+            Server.app().get("/establecimiento/{id}", ((EstablecimientoController) FactoryController.controller("establecimiento"))::indexEstablecimiento);
+            Server.app().post("/establecimiento/{id}/agregarServicio", ((EstablecimientoController) FactoryController.controller("establecimiento"))::addPrestacion);
+
         });
 
         //  Server.app().get("/entidadesPrestadoras", new EntidadesPrestadorasController()::index);

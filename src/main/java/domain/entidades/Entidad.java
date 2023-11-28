@@ -27,7 +27,7 @@ public class Entidad {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToMany(mappedBy = "entidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "entidad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Establecimiento> establecimientos;
 
     public Entidad(){}

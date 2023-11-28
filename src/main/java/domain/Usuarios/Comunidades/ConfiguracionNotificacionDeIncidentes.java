@@ -26,6 +26,10 @@ public class ConfiguracionNotificacionDeIncidentes {
     @Column
     private float toleranciaEnMinutos = 5.0f;
 
+    public void setMedioPreferido(ComponenteNotificador medioPreferido) {
+        this.medioPreferido = medioPreferido;
+    }
+
     public ComponenteNotificador getMedioPreferido() {
         /*try {
             return (ComponenteNotificador) Class.forName(this.medioPreferido).newInstance();

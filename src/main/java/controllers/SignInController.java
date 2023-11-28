@@ -103,7 +103,7 @@ public class SignInController {
         String nombre = context.formParam("nombre");
         String descripcion = context.formParam("descripcion");
         String correoElectronicoResponsable = context.formParam("correoElectronicoResponsable");
-
+/*
         String nombreEntidad = context.formParam("entidadNombre");
         String emailEntidad = context.formParam("entidadEmail");
         String descripcionEntidad = context.formParam("entidadDescripcion");
@@ -112,7 +112,8 @@ public class SignInController {
         Entidad entidad = new Entidad(nombreEntidad, repositorioUsuario.findTipoEntidad(tipoEntidadId), emailEntidad, descripcionEntidad);
         repositorioEntidad.save(entidad);
 
-
+*/
+        Entidad entidad = repositorioEntidad.findEntidadById(Integer.parseInt(context.formParam("entidadId")));
 
         EntidadPrestadora entidadPrestadora = new EntidadPrestadora(
                 entidad
@@ -216,7 +217,8 @@ public class SignInController {
         }
         model.put("servicios", repositorioServicio.findAll());
 
-        model.put("tipos",repositorioUsuario.findAllTipoEntidad());
+
+        model.put("entidades", repositorioEntidad.findAll());
 
         try {
             Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));

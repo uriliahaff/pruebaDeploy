@@ -1,0 +1,91 @@
+<h1 class="h3 mb-2 text-gray-800">{{entidad.nombre}}</h1>
+<p class="mb-4">Tipo: {{entidad.tipo.nombre}}</p>
+<p class="mb-4">Correo Electrónico: {{entidad.email}}</p>
+<p class="mb-4">Descripción: {{entidad.descripcion}}</p>
+
+        <!-- Lista de Establecimientos Asociados -->
+<div class="card shadow mb-4">
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Establecimientos Asociados</h6>
+</div>
+<div class="card-body tabla">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTableEstablecimientos" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Nombre del Establecimiento</th>
+                <th>Dirección</th>
+                <!-- Otros campos relevantes de los establecimientos -->
+            </tr>
+            </thead>
+            <tbody>
+            {{#each entidad.establecimientos}}
+            <tr>
+                <td><a href="/establecimiento/{{this.id}}">{{this.nombre}}</a></td>
+                <td>{{this.direccion.direccionCompleta}}</td>
+                <!-- Otros campos relevantes de los establecimientos -->
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- ...contenido existente... -->
+
+<!-- Sección para Crear un Nuevo Establecimiento -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Crear Nuevo Establecimiento</h6>
+    </div>
+    <div class="card-body">
+        <form action="/entidad/{{entidad.id}}/crearEstablecimiento" method="POST">
+            <div class="form-group">
+                <label for="establecimientoNombre">Nombre del Establecimiento:</label>
+                <input type="text" class="form-control" id="eNombre" name="eNombre" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="establecimientoDescripcion">Descripción:</label>
+                <textarea class="form-control" id="eDescripcion" name="eDescripcion"></textarea>
+            </div>
+
+            <div class="form-group">
+                <div class="card-body">
+                        {{{crearDireccion}}}
+                </div>
+            </div>
+            <!-- Aquí puedes agregar más campos según sea necesario -->
+
+            <button type="submit" class="btn btn-primary">Crear Establecimiento</button>
+        </form>
+    </div>
+</div>
+
+<!-- ...contenido existente... -->
+
+</div>
+
+        <!-- Aquí puedes añadir más secciones según sea necesario -->
+
+<script>
+    function checkServicioSeleccionado() {
+        var servicioSeleccionado = document.getElementById("servicioDropdown").value;
+        var botonAgregar = document.getElementById("agregarServicioBtn");
+
+        botonAgregar.disabled = !servicioSeleccionado;
+    }
+    function formatoHora(minutos) {
+        const horas = Math.floor(minutos / 60);
+        const minutosRestantes = minutos % 60;
+        return `${horas.toString().padStart(2, '0')}:${minutosRestantes.toString().padStart(2, '0')}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const elementosHorario = document.querySelectorAll('.horario-en-minutos');
+        elementosHorario.forEach(elemento => {
+            const minutos = parseFloat(elemento.textContent);
+            elemento.textContent = formatoHora(minutos);
+        });
+    });
+</script>

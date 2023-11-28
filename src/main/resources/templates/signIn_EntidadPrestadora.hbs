@@ -18,34 +18,17 @@
     <label for="descripcion">Descripción:</label>
     <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
 </div>
-<h3>Crear Nueva Entidad</h3>
 
-    <fieldset class="border p-4 mt-4">
-        <legend class="w-auto">Crear Nueva Entidad</legend>
 
-        <div class="form-group">
-            <label for="entidadNombre">Nombre de la Entidad:</label>
-            <input type="text" class="form-control" id="entidadNombre" name="entidadNombre" required>
-        </div>
-
-        <div class="form-group">
-            <label for="entidadEmail">Correo Electrónico de la Entidad:</label>
-            <input type="email" class="form-control" id="entidadEmail" name="entidadEmail">
-        </div>
-
-        <div class="form-group">
-            <label for="entidadDescripcion">Descripción de la Entidad:</label>
-            <textarea class="form-control" id="entidadDescripcion" name="entidadDescripcion"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="tipoEntidad">Tipo de Entidad:</label>
-            <select class="form-control" id="tipoEntidad" name="tipoEntidadId" required>
-                {{#each tipos}}
-                <option value="{{this.id}}">{{this.tipo}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-    </fieldset>
+<div class="form-group">
+<label for="entidadId">Selecciona una Entidad:</label>
+<select class="form-control" id="entidadId" name="entidadId">
+    <option value="">Selecciona una Entidad</option>
+    {{#each entidades}}
+    <option value="{{this.id}}">{{this.nombre}}</option>
+    {{/each}}
+</select>
 </div>
+
+        <!-- ...resto del formulario... -->
+

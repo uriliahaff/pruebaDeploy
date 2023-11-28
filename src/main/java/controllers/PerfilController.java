@@ -9,11 +9,15 @@ import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.ConfiguracionNotificacionDeIncidentes;
 import domain.Usuarios.Comunidades.Miembro;
+import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.Usuario;
 import domain.localizaciones.Direccion;
 import domain.services.georef.entities.Localidad;
 import domain.services.georef.entities.Municipio;
 import domain.services.georef.entities.Provincia;
+import domain.services.notificationSender.ComponenteNotificador;
+import domain.services.notificationSender.NotificarViaCorreo;
+import domain.services.notificationSender.NotificarViaWpp;
 import domain.servicios.Servicio;
 import io.javalin.http.Context;
 import sever.Server;
@@ -33,6 +37,16 @@ public class PerfilController
     RepositorioServicio repositorioServicio = new RepositorioServicio();
     public void redirectPerfil(Context context)
     {
+
+        int profileUserId = Integer.parseInt(context.pathParam("id"));
+        if(repositorioUsuario.findMiembroByUsuarioId(profileUserId)!= null)
+            renderPerfilMiembro(context);
+        else if (repositorioUsuario.findOrganismoDeControlByUserId(profileUserId)!= null)
+            renderPerfilODC(context);
+        else if(repositorioUsuario.findEntidadPrestadoraByUserId(profileUserId) != null)
+            renderPerfilEP(context);
+            else
+            context.redirect("/");
         /*
         switch (context.formParam("PerfilType")) {
             case "Miembro":
@@ -50,7 +64,16 @@ public class PerfilController
         }+/
 
          */
-        renderPerfilMiembro(context);
+    }
+    private void renderPerfilEP(Context context)
+    {
+        EntidadPrestadora entidadPrestadora;
+
+    }
+
+    private void renderPerfilODC(Context context)
+    {
+
     }
 
     private void renderPerfilMiembro(Context context)
@@ -195,6 +218,29 @@ public class PerfilController
         } catch (Exception e) {
             context.status(500).result("Error al procesar la solicitud: " + e.getMessage());
         }
+    }
+
+    public void guardarMedioPreferido(Context context)
+    {
+        String medioPreferido = context.formParam("medioPreferido");
+        int miembroId = Integer.parseInt(context.pathParam("idMiembro"));
+        Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(miembroId);
+
+
+
+        // Actualizar el medio preferido
+        if ("mail".equals(medioPreferido)) {
+            miembro.getConfiguracionNotificacionDeIncidentes().setMedioPreferido(new NotificarViaCorreo());
+            // Configurar para notificaciones por correo electrónico
+        } else if ("whatsapp".equals(medioPreferido))
+        {
+            miembro.getConfiguracionNotificacionDeIncidentes().setMedioPreferido(new NotificarViaWpp());
+
+            // Configurar para notificaciones por WhatsApp
+        }
+
+        repositorioUsuario.updateMiembro(miembro);
+        context.redirect("/perfil/"+ miembroId); // Redirigir al usuario
     }
 
 }

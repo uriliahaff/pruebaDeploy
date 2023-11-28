@@ -6,6 +6,7 @@ import domain.Usuarios.Comunidades.Miembro;
 
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
+import domain.entidades.TipoEntidad;
 import domain.other.EntityManagerProvider;
 
 import javax.persistence.EntityManager;
@@ -59,7 +60,24 @@ public class RepositorioEntidad
         return query.getResultList();
     }
 
+    public List<Entidad> findAll() {
+        TypedQuery<Entidad> query = entityManager.createQuery(
+                "SELECT e FROM Entidad e", Entidad.class);
+        return query.getResultList();
+    }
+
     public Entidad findEntidadById(int id) {
         return entityManager.find(Entidad.class, id);
     }
+
+
+    public List<TipoEntidad> findAllTipoEntidad()
+    {
+        return entityManager.createQuery("SELECT s FROM TipoEntidad s", TipoEntidad.class)
+                .getResultList();
+    }
+    public TipoEntidad findTipoEntidad(int id) {
+        return entityManager.find(TipoEntidad.class, id);
+    }
+
 }

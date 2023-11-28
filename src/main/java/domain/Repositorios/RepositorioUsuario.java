@@ -1,10 +1,7 @@
 package domain.Repositorios;
 
+import domain.Usuarios.*;
 import domain.Usuarios.Comunidades.Miembro;
-import domain.Usuarios.EntidadPrestadora;
-import domain.Usuarios.OrganismoDeControl;
-import domain.Usuarios.Rol;
-import domain.Usuarios.Usuario;
 import domain.entidades.TipoEntidad;
 import domain.other.EntityManagerProvider;
 import domain.servicios.Servicio;
@@ -37,21 +34,25 @@ public class RepositorioUsuario {
                 .getResultList();
     }
 
-    public List<TipoEntidad> findAllTipoEntidad()
-    {
-        return entityManager.createQuery("SELECT s FROM TipoEntidad s", TipoEntidad.class)
-                .getResultList();
-    }
-    public TipoEntidad findTipoEntidad(int id) {
-        return entityManager.find(TipoEntidad.class, id);
-    }
-
 
     public List<OrganismoDeControl> findOrganismoDeControlByUserId(int userId) {
         TypedQuery<OrganismoDeControl> query = entityManager.createQuery(
                 "SELECT o FROM OrganismoDeControl o WHERE o.usuario.id = :userId", OrganismoDeControl.class);
         query.setParameter("userId", userId);
         return query.getResultList();
+    }
+
+    public EntidadPrestadora findEntidadPrestadoraByUserId(int userId) {
+        try {
+            TypedQuery<EntidadPrestadora> query = entityManager.createQuery(
+                    "SELECT e FROM EntidadPrestadora e WHERE e.usuario.id = :userId", EntidadPrestadora.class);
+            query.setParameter("userId", userId);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // O manejar de otra manera si no hay resultados
+        } catch (NonUniqueResultException e) {
+            throw new IllegalStateException("Más de una EntidadPrestadora encontrada para userId: " + userId);
+        }
     }
 
 
@@ -215,6 +216,8 @@ public class RepositorioUsuario {
 
     public List<Rol> buscarTodosRoles() {
         return entityManager.createQuery("from " + Rol.class.getName()).getResultList();
+    }    public List<Permiso> buscarTodosPermisos() {
+        return entityManager.createQuery("from " + Permiso.class.getName()).getResultList();
     }
 
     public static List<Miembro> findMiembrosByIds(List<Integer> ids) {

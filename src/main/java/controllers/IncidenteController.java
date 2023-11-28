@@ -29,7 +29,7 @@ public class IncidenteController {
 
 
     private RepositorioIncidente repositorioDeIncidentes;
-    private RepositorioUsuario repositorioUsuario;
+    private RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
 
     public IncidenteController(RepositorioIncidente repo, RepositorioUsuario repositorioUsuario){
         this.repositorioDeIncidentes = repo;
@@ -140,8 +140,8 @@ public void indexUser(Context context) {
         //DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         //incidente.setFechaCierre(LocalDateTime.parse(fechaActual.format(formatoFecha)));
         Usuario usuarioInformante = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
-        List<Miembro> miembrosDelUsuario = repositorioUsuario.findMiembrosByUserId(usuarioInformante.getId());
-        Miembro miembro =  miembrosDelUsuario.get(0);
+        Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(usuarioInformante.getId());
+
         incidente.cerrarIncidente(fechaActual, miembro);
         this.repositorioDeIncidentes.update(incidente);
         NotificadorDeIncidentes.notificarIncidente(incidente);
@@ -162,10 +162,11 @@ public void indexUser(Context context) {
 
     public void abrirIncidente(Context context){
         Incidente incidente = new Incidente();
-        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
-        Usuario usuarioInformante = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
-        List<Miembro> miembrosDelUsuario = repositorioUsuario.findMiembrosByUserId(usuarioInformante.getId());
-        Miembro miembro =  miembrosDelUsuario.get(0);
+        int userId = Integer.parseInt(context.cookie("id"));
+        //Usuario usuarioInformante = repositorioUsuario.findUsuarioById());
+        //List<Miembro> miembrosDelUsuario = repositorioUsuario.findMiembrosByUserId(usuarioInformante.getId());
+        //Miembro miembro =  miembrosDelUsuario.get(0);
+        Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(userId);
         incidente.setMiembroInformante(miembro);
         this.asignarParametros(incidente, context);
 
