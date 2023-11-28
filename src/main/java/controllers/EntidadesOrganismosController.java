@@ -34,6 +34,8 @@ public class EntidadesOrganismosController {
         List<EntidadPrestadora> entidades = this.repositorioDeEntidadesPrestadoras.buscarTodosEntidades();
         model.put("entidades", entidades);
         model.put("username", context.cookie("username"));
+        model.put("UserId",context.cookie("id"));
+
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
         model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
@@ -45,6 +47,8 @@ public class EntidadesOrganismosController {
         List<OrganismoDeControl> organismos = this.repositorioDeEntidadesPrestadoras.buscarTodosOrganismos();
         model.put("organismos", organismos);
         model.put("username", context.cookie("username"));
+        model.put("UserId",context.cookie("id"));
+        
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
         model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
@@ -62,7 +66,7 @@ public class EntidadesOrganismosController {
 
                 repositorioDeEntidadesPrestadoras.guardarEntidadesPrestadoras(entidadesACargar);
 
-                context.redirect("/cargaEntidades");
+                context.redirect("/entidades");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

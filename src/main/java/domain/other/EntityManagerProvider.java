@@ -27,6 +27,6 @@ public class EntityManagerProvider {
         if (em == null || !em.isOpen()) {
             em = emf.createEntityManager();
         }
-        return em;
+        return emf.createEntityManager();
     }
 }

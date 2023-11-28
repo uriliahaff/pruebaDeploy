@@ -35,11 +35,15 @@ public class RepositorioUsuario {
     }
 
 
-    public List<OrganismoDeControl> findOrganismoDeControlByUserId(int userId) {
-        TypedQuery<OrganismoDeControl> query = entityManager.createQuery(
-                "SELECT o FROM OrganismoDeControl o WHERE o.usuario.id = :userId", OrganismoDeControl.class);
-        query.setParameter("userId", userId);
-        return query.getResultList();
+    public OrganismoDeControl findOrganismoDeControlByUserId(int userId) {
+        try {
+            TypedQuery<OrganismoDeControl> query = entityManager.createQuery(
+                    "SELECT o FROM OrganismoDeControl o WHERE o.usuario.id = :userId", OrganismoDeControl.class);
+            query.setParameter("userId", userId);
+            return query.getSingleResult(); // Obtiene un único resultado
+        } catch (NoResultException e) {
+            return null; // Retorna null si no se encuentra ningún resultado
+        }
     }
 
     public EntidadPrestadora findEntidadPrestadoraByUserId(int userId) {
@@ -216,8 +220,10 @@ public class RepositorioUsuario {
 
     public List<Rol> buscarTodosRoles() {
         return entityManager.createQuery("from " + Rol.class.getName()).getResultList();
-    }    public List<Permiso> buscarTodosPermisos() {
-        return entityManager.createQuery("from " + Permiso.class.getName()).getResultList();
+    }
+
+    public List<Permiso> findAllPermisos() {
+        return entityManager.createQuery("SELECT p FROM Permiso p", Permiso.class).getResultList();
     }
 
     public static List<Miembro> findMiembrosByIds(List<Integer> ids) {

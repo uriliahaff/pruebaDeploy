@@ -16,7 +16,7 @@ public class SmtpEmailSender implements EmailSender {
         properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.example.com"); // Servidor SMTP
+        properties.put("mail.smtp.host", "smtp.gmail.com"); // Servidor SMTP
         properties.put("mail.smtp.port", "587"); // Puerto
 
     }
@@ -28,7 +28,7 @@ public class SmtpEmailSender implements EmailSender {
                 return new PasswordAuthentication(username, password);
             }
         });
-
+        System.out.println("Enviar el mail: " +mensaje);
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));

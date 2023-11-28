@@ -41,9 +41,14 @@
             </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="/comunidades">
+            <a class="nav-link" href="/comunidades">
+                <i class="fas fa-fw fa-chart-line"></i>
+                <span>Comunidades</span>
+            </a>
+        </li>        <li class="nav-item">
+        <a class="nav-link" href="/entidades">
             <i class="fas fa-fw fa-chart-line"></i>
-            <span>Comunidades</span>
+            <span>Entidades</span>
         </a>
     </li>
         <li class="nav-item">
@@ -58,6 +63,12 @@
                 <span>Incidentes</span>
             </a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/usuarios">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Usuarios</span>
+        </a>
+    </li>
     </ul>
 
     <div id="content-wrapper" class="d-flex flex-column">
@@ -74,7 +85,7 @@
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{username}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="/perfil/{{UserId}}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Perfil
                             </a>
@@ -83,7 +94,7 @@
                                 Configuracion
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="/logout">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Cerrar sesion
                             </a>

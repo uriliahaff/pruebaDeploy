@@ -11,6 +11,7 @@ public class RepositorioNotificacionDiferida
 
     public void save(NotificacionDiferida notificacionDiferida)
     {
+        //if (!entityManager.getTransaction().isActive())
         entityManager.getTransaction().begin();
         entityManager.persist(notificacionDiferida);
         entityManager.getTransaction().commit();

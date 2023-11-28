@@ -3,14 +3,11 @@ package controllers;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
-import domain.Repositorios.RepositorioEntidadPrestadoraOrganismoControl;
 import domain.Repositorios.RepositorioIncidente;
 import domain.Repositorios.RepositorioServicio;
 import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
-import domain.Usuarios.EntidadPrestadora;
-import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
 import domain.informes.Incidente;
 import domain.services.NavBarVisualizer;
@@ -18,11 +15,8 @@ import domain.services.notificadorDeIncidentes.NotificadorDeIncidentes;
 import domain.servicios.PrestacionDeServicio;
 import io.javalin.http.Context;
 
-import javax.persistence.EntityManager;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class IncidenteController {
@@ -63,6 +57,7 @@ public void index(Context context){
     model.put("incidentes", incidentes);
     model.put("username", context.cookie("username"));
     Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+    model.put("UserId",context.cookie("id"));
     NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
     model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
 
@@ -86,10 +81,26 @@ public void index(Context context){
     // Renderiza la plantilla común con el contenido incluido
     context.render("layout_comun.hbs", model);
 }
-public void indexUser(Context context) {
+public void indexIncidentes(Context context) {
     Map<String, Object> model = new HashMap<>();
     List<Incidente> incidentes = this.repositorioDeIncidentes.findAllOpen();
-    model.put("incidentes", incidentes);
+
+    int userId = Integer.parseInt(context.cookie("id"));
+    model.put("UserId",context.cookie("id"));
+
+    Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(userId);
+    System.out.println(miembro);
+    if (miembro!= null)
+    {
+        incidentes = incidentes
+                .stream()
+                .filter(incidente -> incidente.esMiembroEnComunidadesAfectadas(miembro))
+                .toList();
+
+    }
+
+    model.put("incidentes",incidentes);
+
     model.put("username", context.cookie("username"));
     Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
     NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
@@ -123,6 +134,7 @@ public void indexUser(Context context) {
         List<PrestacionDeServicio> prestacionDeServicios = repositorioServicios.buscarTodasLasPrestaciones();
 
         model.put("username", context.cookie("username"));
+        model.put("UserId", context.cookie("id"));
         model.put("prestaciones", prestacionDeServicios);
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();

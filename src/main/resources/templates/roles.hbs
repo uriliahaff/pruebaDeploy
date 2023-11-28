@@ -1,11 +1,39 @@
-<h1 class="h3 mb-2 text-gray-800">Comunidades</h1>
-<p class="mb-4">Listado de comunidades registradas en el sistema.</p>
-        {{#each rol in roles}}
+<h1 class="h3 mb-2 text-gray-800">Roles</h1>
+<p class="mb-4">Listado de roles y sus permisos.</p>
+
+        {{#each roles as |rol|}}
 <div class="card shadow mb-4">
 <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">this.nombre</h6>
+    <h6 class="m-0 font-weight-bold text-primary">{{rol.nombre}}</h6>
 </div>
-{{/each}}
+<div class="card-body">
+    <h5>Permisos Actuales:</h5>
+    <ul>
+        {{#each rol.permisos as |permiso|}}
+        <li>
+            {{permiso.descripcion}}
+            <!-- Formulario para borrar permiso -->
+            <form action="/rol/{{rol.id}}/borrarPermiso/{{permiso.id}}" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-small btn-danger">Borrar</button>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
 
-
+    <!-- Formulario para agregar nuevo permiso -->
+    <form action="/rol/{{rol.id}}/agregarPermiso" method="POST">
+        <div class="form-group">
+            <label for="permisoDropdown-{{rol.id}}">Agregar Permiso:</label>
+            <select class="form-control" id="permisoDropdown-{{rol.id}}" name="permisoId">
+                <!-- Supongamos que tienes una lista de permisos disponibles para elegir -->
+                {{#each permisosDisponibles}}
+                <option value="{{this.id}}">{{this.descripcion}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
 </div>
+</div>
+        {{/each}}
+

@@ -1,7 +1,6 @@
 package sever;
 
 import controllers.*;
-import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.Rol;
 import io.javalin.http.Context;
 
@@ -72,8 +71,9 @@ public class Router {
                     admin);
             Server.app().get("/aperturaIncidentes", ((IncidenteController) FactoryController.controller("incidentes"))::aperturaIncidentes);
             Server.app().post("/aperturaIncidente", ((IncidenteController) FactoryController.controller("incidentes"))::abrirIncidente);
-            Server.app().get("/incidentes", ((IncidenteController) FactoryController.controller("incidentes"))::indexUser);
-            Server.app().get("/cerrarIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::cerrarIncidente);
+            Server.app().get("/incidentes", ((IncidenteController) FactoryController.controller("incidentes"))::indexIncidentes);
+            //Server.app().get("/cerrarIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::cerrarIncidente);
+            Server.app().post("/cerrarIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::cerrarIncidente);
             Server.app().get("/revisionIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::revisionIncidente);
 
 
@@ -98,21 +98,22 @@ public class Router {
             Server.app().get("/servicios", ((ServicioController) FactoryController.controller("servicios"))::indexServicios);
             Server.app().post("/crearServicio", ((ServicioController) FactoryController.controller("servicios"))::crearServicio);
 
-            Server.app().get("/organismoDeControl", ((OrganismoDeControlController) FactoryController.controller("organismoDeControl"))::indexOrganismoDeControl);
-            Server.app().post("/cargarMasivaDeOrganismosDeControl", ((OrganismoDeControlController) FactoryController.controller("organismoDeControl"))::indexOrganismoDeControl);
+            Server.app().get("/organismoDeControl", ((EntidadesOrganismosController) FactoryController.controller("organismos"))::indexOrganismos);
+            Server.app().post("/cargarMasivaDeOrganismosDeControl", ((EntidadesOrganismosController) FactoryController.controller("organismos"))::cargarMasivaOrganismos);
 
             Server.app().get("/registrar", ((SignInController) FactoryController.controller("signIn"))::renderSignInMember);
             Server.app().get("/registrarOrganismo", ((SignInController) FactoryController.controller("signIn"))::renderSignInOrganismoDeControl);
             Server.app().get("/registrarEntidad", ((SignInController) FactoryController.controller("signIn"))::renderSignInEntidadPrestadora);
             Server.app().post("/registrarUsuario", ((SignInController) FactoryController.controller("signIn"))::processSignInRedirect);
 
-            //Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil); NO ES SEGURO
-            Server.app().get("/perfil", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil); // MAS SEGURO
+            Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil);
+            //Server.app().get("/perfil", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil); // MAS SEGURO
 
             Server.app().post("/perfil/{id}/addLugarInteres", ((PerfilController) FactoryController.controller("perfil"))::addLugarDeInteres);
             Server.app().post("/perfil/{id}/addService", ((PerfilController) FactoryController.controller("perfil"))::addServicioDeInteres);
             Server.app().post("/perfil/{idMiembro}/agregarHorario", ((PerfilController) FactoryController.controller("perfil"))::agregarHorario);
             Server.app().post("/perfil/{idMiembro}/borrarHorario", ((PerfilController) FactoryController.controller("perfil"))::borrarHorario);
+            Server.app().post("/perfil/{idMiembro}/updateNotificationPreferences", ((PerfilController) FactoryController.controller("perfil"))::guardarMedioPreferido);
 
             Server.app().get("/entidades", ((EntidadController) FactoryController.controller("entidad"))::indexEntidades);
             Server.app().get("/entidad/{id}", ((EntidadController) FactoryController.controller("entidad"))::indexEntidad);
@@ -121,6 +122,10 @@ public class Router {
 
             Server.app().get("/establecimiento/{id}", ((EstablecimientoController) FactoryController.controller("establecimiento"))::indexEstablecimiento);
             Server.app().post("/establecimiento/{id}/agregarServicio", ((EstablecimientoController) FactoryController.controller("establecimiento"))::addPrestacion);
+
+            Server.app().get("/roles", ((RolController) FactoryController.controller("rol"))::indexRols);
+            Server.app().post("/rol/{id}/agregarPermiso", ((RolController) FactoryController.controller("rol"))::addPermiso);
+            Server.app().post("/rol/{id}/borrarPermiso/{permisoId}", ((RolController) FactoryController.controller("rol"))::borrarPermiso);
 
         });
 

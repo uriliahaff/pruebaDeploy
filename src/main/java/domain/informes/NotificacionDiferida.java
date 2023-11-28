@@ -29,10 +29,39 @@ public class NotificacionDiferida extends TimerTask {
     @JoinColumn(name = "miembro_id", nullable = false)
     private Miembro destinatario;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public Miembro getDestinatario() {
+        return destinatario;
+    }
+
+    public LocalDateTime getFechaDeEnvio() {
+        return fechaDeEnvio;
+    }
+
+    public static EnviadorDeNotificaciones getEnviadorDeNotificaciones() {
+        return enviadorDeNotificaciones;
+    }
+
     @Column(name = "fecha_de_envio")
     private LocalDateTime fechaDeEnvio;
 
+    @Transient
+    private static EnviadorDeNotificaciones enviadorDeNotificaciones = EnviadorDeNotificaciones.getInstance();
+
     public NotificacionDiferida() {
+        if(enviadorDeNotificaciones == null)
+            enviadorDeNotificaciones = EnviadorDeNotificaciones.getInstance();
     }
 
     public NotificacionDiferida(String texto, String titulo, Miembro destinatario, LocalDateTime fechaDeEnvio) {
@@ -45,9 +74,13 @@ public class NotificacionDiferida extends TimerTask {
 
     public void run()
     {
-        EnviadorDeNotificaciones enviadorDeNotificaciones = EnviadorDeNotificaciones.getInstance();
-        enviadorDeNotificaciones.cambiarEstrategia(destinatario.getConfiguracionNotificacionDeIncidentes().getMedioPreferido());
-        enviadorDeNotificaciones.enviarNotificacion(titulo,destinatario,texto);
+        //enviadorDeNotificaciones.cambiarEstrategia(destinatario.getConfiguracionNotificacionDeIncidentes().getMedioPreferido());
+        enviadorDeNotificaciones.enviarNotificacion(
+                destinatario.getConfiguracionNotificacionDeIncidentes().getMedioPreferido()
+                ,titulo
+                ,destinatario
+                ,texto
+        );
     }
 
 

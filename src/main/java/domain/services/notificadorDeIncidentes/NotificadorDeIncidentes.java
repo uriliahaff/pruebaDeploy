@@ -22,11 +22,14 @@ public class NotificadorDeIncidentes {
                 .distinct()
                 .collect(Collectors.toList());
 */
+        System.out.println("Aca empiezo");
         List<Miembro> miembrosUnicos = incidente.getComunidadesAfectadas().stream()
                 //.filter(comunidad -> comunidad.deInteres(servicioAfectado.getServicio()))//TODO: Abrir solo para las communidades que le interesa?
-                .flatMap(comunidad -> comunidad.miembrosFiltradosPorInteresEnLocalizacion(servicioAfectado.getLocalizacion()).stream())
+                //.flatMap(comunidad -> comunidad.miembrosFiltradosPorInteresEnLocalizacion(servicioAfectado.getLocalizacion()).stream())
+                .flatMap(comunidad -> comunidad.getMiembros().stream())
                 .distinct()
                 .collect(Collectors.toList());
+        System.out.println("Quedaron " + miembrosUnicos.size());
         miembrosUnicos.forEach(
                         miembro -> miembro.getCommandoNotificar(incidente).notificarIncidente()
                 );

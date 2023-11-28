@@ -33,6 +33,8 @@ public class EstablecimientoController
         Map<String, Object> model = new HashMap<>();
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        model.put("UserId",context.cookie("id"));
+        
 
         int establecimientoId = Integer.parseInt(context.pathParam("id"));
         CommonController.fillNav(model, user);

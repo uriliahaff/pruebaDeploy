@@ -4,6 +4,8 @@ import domain.Usuarios.Usuario;
 import domain.informes.Incidente;
 import domain.localizaciones.Direccion;
 import domain.services.notificadorDeIncidentes.CommandoNotificacion;
+import domain.services.notificationSender.NotificarViaCorreo;
+import domain.services.notificationSender.NotificarViaWpp;
 import domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -123,6 +125,8 @@ public class Miembro {
 
     public CommandoNotificacion getCommandoNotificar(Incidente incidente)
     {
+        if (this.configuracionNotificacionDeIncidentes == null)
+            this.configuracionNotificacionDeIncidentes = new ConfiguracionNotificacionDeIncidentes(new NotificarViaCorreo());
         return configuracionNotificacionDeIncidentes.generarComando(this,incidente);
         //TODO: Aca tiene que hacer toda la cosa con el comand y no se que
     }

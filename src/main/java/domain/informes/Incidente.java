@@ -92,6 +92,15 @@ public class Incidente {
 
         //TODO: Aca hay que generar la notificacion para cada miembro
     }
+    public boolean esMiembroEnComunidadesAfectadas(Miembro miembro) {
+        for (Comunidad comunidad : this.getComunidadesAfectadas()) {
+            if (comunidad.getMiembros().contains(miembro)) {
+                return true; // El miembro se encuentra en una de las comunidades afectadas
+            }
+        }
+        return false; // El miembro no se encuentra en ninguna de las comunidades afectadas
+    }
+
     public Miembro getMiembroAnalizador() {
         return miembroAnalizador;
     }

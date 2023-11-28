@@ -12,4 +12,9 @@ private WwpSender wwpSender;
     public void enviarNotificacion(String titulo, Miembro destinatario, String message) {
         wwpSender.enviarWpp(titulo, destinatario.getTelefono(), message);
     }
+
+    @Override
+    public String name() {
+        return "whatsapp";
+    }
 }

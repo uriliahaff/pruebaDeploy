@@ -4,7 +4,7 @@ import domain.Usuarios.Comunidades.Miembro;
 
 public class EnviadorDeNotificaciones {
     private static EnviadorDeNotificaciones instance = null;
-    private ComponenteNotificador estrategia;
+    //private ComponenteNotificador estrategia;
 
     // Hacer el constructor privado
     private EnviadorDeNotificaciones() {
@@ -18,11 +18,12 @@ public class EnviadorDeNotificaciones {
         return instance;
     }
 
-    public void enviarNotificacion(String titulo, Miembro destinatario, String mensaje){
+    public void enviarNotificacion(ComponenteNotificador estrategia, String titulo, Miembro destinatario, String mensaje){
+        System.out.println("Enviando notificacion " + destinatario.getNombre());
         estrategia.enviarNotificacion(titulo, destinatario, mensaje);
     }
 
-    public void cambiarEstrategia(ComponenteNotificador estrategia){
-        this.estrategia = estrategia;
-    }
+    //public void cambiarEstrategia(ComponenteNotificador estrategia){
+    //    this.estrategia = estrategia;
+    //}
 }

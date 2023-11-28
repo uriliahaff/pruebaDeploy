@@ -30,6 +30,7 @@ public class OrganismoDeControlController
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         boolean isAdmin = user.usuarioTieneRol("admin");
         boolean isODC = repositorioUsuario.findOrganismoDeControlByUserId(user.getId()) != null;
+
         if(!isAdmin && !isODC) {
             context.redirect("/");
         }

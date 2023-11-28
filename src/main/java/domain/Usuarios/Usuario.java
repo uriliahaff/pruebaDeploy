@@ -50,6 +50,10 @@ public class Usuario{
     public List<Rol> getRoles() {
         return roles;
     }
+    public boolean tienePermiso(String permiso)
+    {
+        return this.roles.stream().anyMatch(rol -> rol.getPermisos().stream().anyMatch(p -> p.getDescripcion().equals(permiso)));
+    }
 
     public Usuario() {
         vp.addValidaciones(new ChequeoDiezMilContrasenias());

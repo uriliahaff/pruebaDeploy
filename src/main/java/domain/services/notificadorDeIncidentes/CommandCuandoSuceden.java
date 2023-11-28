@@ -8,11 +8,16 @@ public class CommandCuandoSuceden extends CommandoNotificacion{
     public CommandCuandoSuceden(Miembro miembro, Incidente incidente) {
         super(miembro, incidente);
     }
+    private static EnviadorDeNotificaciones enviadorDeNotificaciones = EnviadorDeNotificaciones.getInstance();
 
     @Override
     public void notificarIncidente() {
-        EnviadorDeNotificaciones enviadorDeNotificaciones = EnviadorDeNotificaciones.getInstance();
-        enviadorDeNotificaciones.cambiarEstrategia(miembro.getConfiguracionNotificacionDeIncidentes().getMedioPreferido());
-        enviadorDeNotificaciones.enviarNotificacion("Nuevo Incidente", miembro,"Incidente en "+incidente.getServicioAfectado());
+        //enviadorDeNotificaciones.cambiarEstrategia(miembro.getConfiguracionNotificacionDeIncidentes().getMedioPreferido());
+        enviadorDeNotificaciones.enviarNotificacion(
+                miembro.getConfiguracionNotificacionDeIncidentes().getMedioPreferido()
+                ,"Nuevo Incidente"
+                , miembro
+                ,"Incidente en "+incidente.getServicioAfectado()
+        );
     }
 }

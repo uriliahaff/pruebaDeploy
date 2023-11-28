@@ -10,6 +10,7 @@ import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.ConfiguracionNotificacionDeIncidentes;
 import domain.Usuarios.Comunidades.Miembro;
 import domain.Usuarios.EntidadPrestadora;
+import domain.Usuarios.OrganismoDeControl;
 import domain.Usuarios.Usuario;
 import domain.localizaciones.Direccion;
 import domain.services.georef.entities.Localidad;
@@ -39,15 +40,30 @@ public class PerfilController
     {
 
 
-        int profileUserId = Integer.parseInt(context.cookie("id"));
-        if(repositorioUsuario.findMiembroByUsuarioId(profileUserId)!= null)
+        int profileUserId = Integer.parseInt(context.pathParam("id"));
+        Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(profileUserId);
+        System.out.println(miembro);
+        if(miembro!= null)
+        {
+            System.out.println("entrando perfil");
             renderPerfilMiembro(context);
-        else if (repositorioUsuario.findOrganismoDeControlByUserId(profileUserId)!= null)
-            renderPerfilODC(context);
-        else if(repositorioUsuario.findEntidadPrestadoraByUserId(profileUserId) != null)
-            renderPerfilEP(context);
+        }
+        else
+        {
+            EntidadPrestadora entidadPrestadora = repositorioUsuario.findEntidadPrestadoraByUserId(profileUserId);
+            if(entidadPrestadora != null)
+            {
+                context.redirect("/entidad/"+entidadPrestadora.getEntidad().getId());
+            }
             else
-            context.redirect("/");
+            {
+                OrganismoDeControl organismoDeControl = repositorioUsuario.findOrganismoDeControlByUserId(profileUserId);
+                if (organismoDeControl != null)
+                    renderPerfilODC(context);
+                else
+                    context.redirect("/");
+            }
+        }
         /*
         switch (context.formParam("PerfilType")) {
             case "Miembro":
@@ -66,6 +82,7 @@ public class PerfilController
 
          */
     }
+
     private void renderPerfilEP(Context context)
     {
         EntidadPrestadora entidadPrestadora;
@@ -83,9 +100,9 @@ public class PerfilController
 
         int userId = Integer.parseInt(context.cookie("id"));
 
-        // QUE HACE ESTO
-        // int profileUserId = Integer.parseInt(context.pathParam("id"));
-        //model.put("owner", userId==profileUserId);
+        int profileUserId = Integer.parseInt(context.pathParam("id"));
+        System.out.println(profileUserId);
+        model.put("owner", userId==profileUserId);
 
         model.put("profileId",userId);
         Usuario user = repositorioUsuario.findUsuarioById(userId);
@@ -95,6 +112,7 @@ public class PerfilController
         Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(userId);
         miembro.getServiciosQueAfectan().size();
         model.put("miembro",miembro);
+        model.put("showMedioPreferido", miembro.getConfiguracionNotificacionDeIncidentes().getMedioPreferido().name());
 
         model.put("configuracionNotificacionDeIncidentes", miembro.getConfiguracionNotificacionDeIncidentes());
 
@@ -225,22 +243,24 @@ public class PerfilController
 
     public void guardarMedioPreferido(Context context)
     {
-        String medioPreferido = context.formParam("medioPreferido");
+
+        String medioPreferido = context.formParam("preferencia");
         int miembroId = Integer.parseInt(context.pathParam("idMiembro"));
         Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(miembroId);
 
 
-
+        System.out.println(medioPreferido);
         // Actualizar el medio preferido
-        if ("mail".equals(medioPreferido)) {
+        if ("email".equals(medioPreferido)) {
             miembro.getConfiguracionNotificacionDeIncidentes().setMedioPreferido(new NotificarViaCorreo());
             // Configurar para notificaciones por correo electrónico
-        } else if ("whatsapp".equals(medioPreferido))
+        } else if ("telefono".equals(medioPreferido))
         {
             miembro.getConfiguracionNotificacionDeIncidentes().setMedioPreferido(new NotificarViaWpp());
 
-            // Configurar para notificaciones por WhatsApp
         }
+        System.out.println("SDFVJKBHLSDVBJKLSDFVBJÑ");
+        repositorioUsuario.updateMiembro(miembro);
 
         repositorioUsuario.updateMiembro(miembro);
         context.redirect("/perfil/"+ miembroId); // Redirigir al usuario

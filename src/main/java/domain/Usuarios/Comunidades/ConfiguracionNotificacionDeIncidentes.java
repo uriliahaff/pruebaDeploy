@@ -7,6 +7,7 @@ import domain.services.notificadorDeIncidentes.CommandoNotificacion;
 import domain.services.notificationSender.ComponenteNotificador;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class ConfiguracionNotificacionDeIncidentes {
 
     @ElementCollection
     @CollectionTable(name = "horario_preferencia")
-    private List<Float> horarioPreferencia;
+    private List<Float> horarioPreferencia = new ArrayList<>();
 
     @Column
     private float toleranciaEnMinutos = 5.0f;
@@ -54,7 +55,7 @@ public class ConfiguracionNotificacionDeIncidentes {
 
     public CommandoNotificacion generarComando(Miembro miembro, Incidente incidente)
     {
-        if (horarioPreferencia.isEmpty())
+        if (horarioPreferencia == null || horarioPreferencia.isEmpty())
         {
             return new CommandCuandoSuceden(miembro, incidente);
         }

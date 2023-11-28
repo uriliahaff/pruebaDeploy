@@ -71,13 +71,11 @@ public class Server {
         System.out.println("Inicializando el motor de plantillas...");
 
         JavalinRenderer.register((filePath, model, context) -> {
-            System.out.println("Hola");
             // Crear una nueva instancia de Handlebars con un TemplateLoader personalizado
             Handlebars handlebars = new Handlebars()
                     .with(new ClassPathTemplateLoader("/templates", ".hbs"));
 
             // Ahora Handlebars buscará las plantillas dentro de /resources/templates
-            System.out.println("Ha");
             Template template;
             try {
                 // Compilamos la plantilla principal pasando solo el nombre del archivo (sin la extensión .hbs)

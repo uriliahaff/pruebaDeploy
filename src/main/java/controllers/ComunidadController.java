@@ -32,6 +32,7 @@ public class ComunidadController {
         Map<String, Object> model = new HashMap<>();
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        model.put("UserId",context.cookie("id"));
 
         CommonController.fillNav(model, user);
 
@@ -77,11 +78,12 @@ public class ComunidadController {
         int userId = Integer.parseInt(context.cookie("id"));
         Usuario user = repositorioUsuario.findUsuarioById(userId);
         model.put("username", context.cookie("username"));
-        model.put("esAdmin", comunidad.hasAdmin(userId) || user.usuarioTieneRol("admin"));
+        model.put("esAdmin", comunidad.hasAdmin(userId) || user.usuarioTieneRol("admin") || user.tienePermiso("editarComunidad"));
 
+        boolean esTipoMiembro = repositorioUsuario.findMiembroByUsuarioId(userId) != null;
         model.put("usuarioPerteneceAComunidad", comunidad.esMiembroByUserId(userId));
-        model.put("usuarioEsTipoMiembro", repositorioUsuario.findMiembroByUsuarioId(userId) != null);
-
+        model.put("usuarioEsTipoMiembro", esTipoMiembro);
+        model.put("puedeUnirse", !comunidad.esMiembroByUserId(userId) && esTipoMiembro);
         model.put("comunidad", comunidad);
 
         List<Map<String, Object>> listaDeMiembros = new ArrayList<>();

@@ -17,6 +17,18 @@ public class Entidad {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
+    public TipoEntidad getTipo() {
+        return tipo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "tipo_entidad_id", nullable = false)
     private TipoEntidad tipo;

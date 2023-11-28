@@ -42,6 +42,14 @@
                             </td>
                             <td>{{this.fechaInicio}}</td>
                             <td>{{#if this.fechaCierre}}{{this.fechaCierre}}{{else}}-{{/if}}</td>
+                            <td>
+                                {{#unless this.fechaCierre}}
+                                <!-- Botón solo visible si el incidente está abierto -->
+                                <form action="/cerrarIncidente/{{this.id}}" method="POST">
+                                    <button type="submit" class="btn btn-danger">Cerrar Incidente</button>
+                                </form>
+                                {{/unless}}
+                            </td>
                         </tr>
                         {{/each}}
                     </tbody>

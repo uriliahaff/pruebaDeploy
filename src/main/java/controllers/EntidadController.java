@@ -65,6 +65,7 @@ public class EntidadController
         Map<String, Object> model = new HashMap<>();
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        model.put("UserId",context.cookie("id"));
 
         CommonController.fillNav(model, user);
         int entidadId = Integer.parseInt(context.pathParam("id"));
@@ -150,6 +151,7 @@ public class EntidadController
         Establecimiento establecimiento = new Establecimiento(establecimientoNombre,establecimientoDescripcion,direccion);
         establecimiento.setEntidad(entidad);
         repositorioEstablecimiento.save(establecimiento);
+        entidad.agregarEstablecimiento(establecimiento);
 
         repositorioEntidad.update(entidad);
         context.redirect("/entidad/"+ entidadId);

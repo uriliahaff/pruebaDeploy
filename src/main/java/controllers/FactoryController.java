@@ -25,7 +25,7 @@ public class FactoryController {
             case "perfil": controller = new PerfilController(); break;
             case "entidad": controller = new EntidadController(); break;
             case "establecimiento": controller = new EstablecimientoController(); break;
-
+            case "rol": controller = new RolController(); break;
         }
         return controller;
     }

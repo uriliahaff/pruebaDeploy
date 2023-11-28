@@ -2,6 +2,44 @@
 <p class="mb-4">Correo Electrónico: {{miembro.correoElectronico}}</p>
 <p class="mb-4">Teléfono: {{miembro.telefono}}</p>
 
+
+        <!-- ...contenido existente... -->
+
+<div class="card shadow mb-4">
+
+<div class="card-body">
+    Actual: {{showMedioPreferido}}
+    <form action="/perfil/{{profileId}}/updateNotificationPreferences" method="POST">
+        <div>
+            <input type="radio" id="preferencia" name="medioNotificacion" value="email" data-preferencia="email">
+            <label for="preferenciaEmail">Correo Electrónico</label>
+        </div>
+        <div>
+            <input type="radio" id="preferencia" name="medioNotificacion" value="telefono" data-preferencia="telefono">
+            <label for="preferenciaTelefono">Teléfono</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar Preferencias</button>
+    </form>
+</div>
+</div>
+
+        <!-- ...contenido existente... -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var preferenciaActual = "{{preferencia}}"; // Reemplaza esto con la forma en que obtienes la preferencia actual
+
+    // Encuentra todos los botones de radio con data-preferencia
+    var botonesRadio = document.querySelectorAll('input[type=radio][data-preferencia]');
+
+    botonesRadio.forEach(function(boton) {
+        if (boton.getAttribute('data-preferencia') === preferenciaActual) {
+            boton.checked = true;
+        }
+    });
+});
+
+</script>
+
 <div class="card shadow mb-4">
 <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Servicios Afectados</h6>
@@ -82,14 +120,6 @@
 
         </form>
     </div>
-</div>
-
-<div class="card shadow mb-4">
-<div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Comunidades Participantes</h6>
-</div>
-<div>
-
 </div>
 
 <div class="card shadow mb-4">
