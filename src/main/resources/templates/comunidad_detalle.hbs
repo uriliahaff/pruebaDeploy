@@ -33,7 +33,7 @@
             </tbody>
         </table>
     </div>
-    {{#if esAdmin}}
+    {{#if editarComunidad}}
     <form action="/comunidad/addInteres" method="POST">
         <input type="hidden" name="comunidadId" value="{{comunidad.id}}" />
         <select name="servicioSeleccionado" id="servicioDropdown">
@@ -68,7 +68,7 @@
             <tr>
                 <td>{{this.id}}</td>
                 <td>{{this.username}}</td>
-                {{#if esAdmin}}
+                {{#if editarComunidad}}
                 <td>
                     <form action="/comunidad/removerAdmin" method="post">
                         <input type="hidden" name="comunidadId" value="{{comunidad.id}}" />
@@ -104,7 +104,7 @@
                 <td>{{this.correoElectronico}}</td>
                 <td>{{this.telefono}}</td>
 
-                {{#if esAdmin}}
+                {{#if editarComunidad}}
                     <td>
                         <form action="/comunidad/{{comunidad.id}}/expulsar/{{this.id}}" method="post">
                             <button type="submit" class="btn btn-warning">Expulsar</button>

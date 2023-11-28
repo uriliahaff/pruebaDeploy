@@ -38,7 +38,7 @@ public class ComunidadController {
 
         List<Comunidad> comunidades = repositorioComunidad.findAll();
         model.put("comunidades", comunidades);
-        model.put("usuarioPuedeEliminar", user.getRoles()); // RolX es el rol necesario
+        model.put("editarComunidad", user.tienePermiso("editarComunidad")); // RolX es el rol necesario
 
         try {
             // Configura el loader para buscar plantillas en el directorio /templates
@@ -78,7 +78,8 @@ public class ComunidadController {
         int userId = Integer.parseInt(context.cookie("id"));
         Usuario user = repositorioUsuario.findUsuarioById(userId);
         model.put("username", context.cookie("username"));
-        model.put("esAdmin", comunidad.hasAdmin(userId) || user.usuarioTieneRol("admin") || user.tienePermiso("editarComunidad"));
+        model.put("editarComunidad", user.tienePermiso("editarComunidad") || comunidad.hasAdmin(userId));
+        model.put("esAdmin", comunidad.hasAdmin(userId));
 
         boolean esTipoMiembro = repositorioUsuario.findMiembroByUsuarioId(userId) != null;
         model.put("usuarioPerteneceAComunidad", comunidad.esMiembroByUserId(userId));

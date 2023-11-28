@@ -4,41 +4,37 @@
 
 
         <!-- ...contenido existente... -->
-
+        {{#if editarMiembro}}
 <div class="card shadow mb-4">
 
 <div class="card-body">
     Actual: {{showMedioPreferido}}
     <form action="/perfil/{{profileId}}/updateNotificationPreferences" method="POST">
         <div>
-            <input type="radio" id="preferencia" name="medioNotificacion" value="email" data-preferencia="email">
+            <input type="radio" id="preferenciaEmail" name="preferencia" value="email">
             <label for="preferenciaEmail">Correo Electrónico</label>
-        </div>
-        <div>
-            <input type="radio" id="preferencia" name="medioNotificacion" value="telefono" data-preferencia="telefono">
+            <input type="radio" id="preferenciaTelefono" name="preferencia" value="telefono">
             <label for="preferenciaTelefono">Teléfono</label>
         </div>
         <button type="submit" class="btn btn-primary">Actualizar Preferencias</button>
     </form>
 </div>
 </div>
+{{/if}}
 
         <!-- ...contenido existente... -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var preferenciaActual = "{{preferencia}}"; // Reemplaza esto con la forma en que obtienes la preferencia actual
+    var preferenciaActual = "{{preferencia}}"; // Asegúrate de que esto reciba la preferencia actual correctamente
 
-    // Encuentra todos los botones de radio con data-preferencia
-    var botonesRadio = document.querySelectorAll('input[type=radio][data-preferencia]');
-
-    botonesRadio.forEach(function(boton) {
-        if (boton.getAttribute('data-preferencia') === preferenciaActual) {
-            boton.checked = true;
-        }
-    });
+    // Encuentra el botón de radio correspondiente y márcalo como seleccionado
+    var botonPreferido = document.querySelector(`input[type="radio"][value="${preferenciaActual}"]`);
+    if (botonPreferido) {
+        botonPreferido.checked = true;
+    }
 });
-
 </script>
+
 
 <div class="card shadow mb-4">
 <div class="card-header py-3">
@@ -64,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             {{/each}}
             </tbody>
         </table>
-        {{#if owner}}
+        {{#if editarMiembro}}
         <!-- Formulario para seleccionar y agregar un servicio -->
         <form id="formAgregarServicio" action="/perfil/{{profileId}}/addService" method="POST">
             <div class="form-group mt-4">
@@ -109,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </table>
     </div>
 </div>
+{{#if editarMiembro}}
 <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Comunidades Participantes</h6>
 </div>
@@ -121,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </form>
     </div>
 </div>
-
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Configuración de Notificación de Incidentes</h6>
@@ -163,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </form>
     </div>
 </div>
+{{/if}}
 
 
 <div class="card-body tabla">

@@ -59,7 +59,7 @@ public class PerfilController
             {
                 OrganismoDeControl organismoDeControl = repositorioUsuario.findOrganismoDeControlByUserId(profileUserId);
                 if (organismoDeControl != null)
-                    renderPerfilODC(context);
+                    context.redirect("/organismoDeControl");
                 else
                     context.redirect("/");
             }
@@ -101,11 +101,12 @@ public class PerfilController
         int userId = Integer.parseInt(context.cookie("id"));
 
         int profileUserId = Integer.parseInt(context.pathParam("id"));
+
+        Usuario user = repositorioUsuario.findUsuarioById(userId);
         System.out.println(profileUserId);
-        model.put("owner", userId==profileUserId);
+        model.put("editarMiembro", userId==profileUserId || user.tienePermiso("editarMiembro"));
 
         model.put("profileId",userId);
-        Usuario user = repositorioUsuario.findUsuarioById(userId);
 
         model.put("username", context.cookie("username"));
 
@@ -249,7 +250,6 @@ public class PerfilController
         Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(miembroId);
 
 
-        System.out.println(medioPreferido);
         // Actualizar el medio preferido
         if ("email".equals(medioPreferido)) {
             miembro.getConfiguracionNotificacionDeIncidentes().setMedioPreferido(new NotificarViaCorreo());
@@ -259,7 +259,6 @@ public class PerfilController
             miembro.getConfiguracionNotificacionDeIncidentes().setMedioPreferido(new NotificarViaWpp());
 
         }
-        System.out.println("SDFVJKBHLSDVBJKLSDFVBJÑ");
         repositorioUsuario.updateMiembro(miembro);
 
         repositorioUsuario.updateMiembro(miembro);

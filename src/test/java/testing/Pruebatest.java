@@ -3,6 +3,7 @@ package testing;
 import domain.Repositorios.RepositorioRol;
 import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.Permiso;
+import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -50,11 +51,34 @@ public class Pruebatest {
         Permiso permisoComunidad = new Permiso("editarComunidad");
         Permiso permisoEditar = new Permiso("editarMiembro");
         Permiso permisoCrearEntidad = new Permiso("crearEntidad");
+        Permiso permisoEditarUsuario = new Permiso("editarUsuario");
+        Permiso permisoEditarRoles = new Permiso("editarRoles");
+
 
         repositorioRol.save(permisoEntidad);
         repositorioRol.save(permisoComunidad);
         repositorioRol.save(permisoEditar);
-        repositorioRol.save(permisoCrearEntidad);
+        repositorioRol.save(permisoEditarUsuario);
+        repositorioRol.save(permisoEditarRoles);
+    }
+    @Test
+    public void permisos2()
+    {
+        RepositorioRol repositorioRol = new RepositorioRol();
+        Rol rol = repositorioRol.findRolByNombre("admin");
+        rol.setPermisos(repositorioRol.findAllPermisos());
+        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+        repositorioUsuario.findUsuarioByUsername("miembroTestConMail").addRol(rol);
+    }
+    @Test
+    public void add()
+    {
+        RepositorioRol repositorioRol = new RepositorioRol();
+        Rol rol = repositorioRol.findRolByNombre("admin");
+        Usuario usuario = RepositorioUsuario.findMiembrosByUserId(20).get(0).getUsuario();
+        usuario.addRol(rol);
+        new RepositorioUsuario().updateUsuario(usuario);
+
     }
 
     @Test

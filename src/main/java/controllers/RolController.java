@@ -9,8 +9,10 @@ import domain.Usuarios.Permiso;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
 import io.javalin.http.Context;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,13 +24,19 @@ public class RolController
     public void indexRols(Context context)
     {
         Map<String,Object> model = new HashMap<>();
-        List<Rol> roles = repositorioUsuario.buscarTodosRoles();
-        List<Permiso> permisos = repositorioUsuario.findAllPermisos();
+        model.put("UserId",context.cookie("id"));
+        List<Rol> roles = repositorioRol.findAllRoles();
+        roles.size();
+        roles.forEach(rol -> rol.getPermisos().size());
+        List<Permiso> permisos = repositorioRol.findAllPermisos();
 
+        roles.forEach(rol -> rol.getPermisos().forEach(permiso -> permiso.getDescripcion()));
         model.put("roles",roles);
+
         model.put("permisosDisponibles",permisos);
 
         model.put("UserId", context.cookie("id"));
+
 
         try {
             // Configura el loader para buscar plantillas en el directorio /templates
@@ -54,6 +62,7 @@ public class RolController
         int rolId = Integer.parseInt(context.pathParam("id"));
         int permisoId = Integer.parseInt(context.formParam("permisoId"));
 
+        System.out.println(rolId + "\n" + permisoId);
         Rol rol = repositorioRol.findRolById(rolId);
         Permiso permiso = repositorioRol.findPermisoById(permisoId);
         rol.getPermisos().add(permiso);
@@ -72,5 +81,13 @@ public class RolController
         repositorioRol.update(rol);
         context.redirect("/roles");
 
+    }
+
+    public void crearRol(Context context)
+    {
+        String rolName = context.formParam("nuevoRolNombre");
+        if(rolName!=null && !rolName.isEmpty())
+            repositorioRol.save(new Rol(rolName, new ArrayList<>()));
+        context.redirect("/roles");
     }
 }

@@ -46,11 +46,11 @@ public class Router {
                     ((EntidadesOrganismosController) FactoryController.controller("entidades"))::cargarMasivaEntidades,
                     admin);
             Server.app().post("/cargarCSVOrganismos",
-                    ((EntidadesOrganismosController) FactoryController.controller("organismos"))::cargarMasivaOrganismos,
-                    admin);
+                    ((EntidadesOrganismosController) FactoryController.controller("organismos"))::cargarMasivaOrganismos
+                    ,admin);
             Server.app().get("/usuarios",
-                    ((UsuariosController) FactoryController.controller("usuarios"))::index,
-                    admin);
+                    ((UsuariosController) FactoryController.controller("usuarios"))::index);
+                    //,admin);
             Server.app().get("/usuarios/{id}/editar",
                     ((UsuariosController) FactoryController.controller("usuarios"))::editar,
                     admin);
@@ -124,6 +124,7 @@ public class Router {
             Server.app().post("/establecimiento/{id}/agregarServicio", ((EstablecimientoController) FactoryController.controller("establecimiento"))::addPrestacion);
 
             Server.app().get("/roles", ((RolController) FactoryController.controller("rol"))::indexRols);
+            Server.app().post("/rol/crearRol", ((RolController) FactoryController.controller("rol"))::crearRol);
             Server.app().post("/rol/{id}/agregarPermiso", ((RolController) FactoryController.controller("rol"))::addPermiso);
             Server.app().post("/rol/{id}/borrarPermiso/{permisoId}", ((RolController) FactoryController.controller("rol"))::borrarPermiso);
 

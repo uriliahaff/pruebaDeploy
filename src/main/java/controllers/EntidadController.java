@@ -9,6 +9,7 @@ import domain.Repositorios.RepositorioEstablecimiento;
 import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.Comunidades.Comunidad;
 import domain.Usuarios.Comunidades.Miembro;
+import domain.Usuarios.EntidadPrestadora;
 import domain.Usuarios.Usuario;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EntidadController
 {
@@ -39,7 +41,9 @@ public class EntidadController
 
         List<Entidad> entidades = repositorioEntidad.findAll();
         model.put("entidades", entidades);
-        model.put("usuarioPuedeEliminar", user.getRoles()); // RolX es el rol necesario
+
+        model.put("editarEntidades", user.tienePermiso("editarEntidades"));
+
 
         model.put("tipos",repositorioEntidad.findAllTipoEntidad());
         try {
@@ -72,7 +76,9 @@ public class EntidadController
         Entidad entidad = repositorioEntidad.findEntidadById(entidadId);
         entidad.getEstablecimientos().size();
         model.put("entidad", entidad);
-        model.put("usuarioPuedeEliminar", user.getRoles()); // RolX es el rol necesario
+
+        EntidadPrestadora entidadPrestadora = repositorioUsuario.findEntidadPrestadoraByUserId(user.getId());
+        model.put("editarEntidades", user.tienePermiso("editarEntidades") || (entidadPrestadora != null && entidadPrestadora.getEntidad().getId() == entidadId));
 
         model.put("tipos",repositorioEntidad.findAllTipoEntidad());
         model.put("provincias",repositorioDireccion.findAllProvincias());

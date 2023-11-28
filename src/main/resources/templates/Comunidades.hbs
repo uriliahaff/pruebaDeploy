@@ -39,7 +39,7 @@
                     {{this.nombre}},
                     {{/each}}
                 </td>
-                    {{#if usuarioPuedeEliminar}}
+                    {{#if editarComunidad}}
                     <td>
                         <form action="/comunidad/delete/{{this.id}}" method="POST">
                             <button type="submit" class="btn btn-danger">Eliminar</button>

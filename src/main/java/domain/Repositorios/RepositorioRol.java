@@ -8,6 +8,8 @@ import domain.servicios.Servicio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class RepositorioRol
 {
@@ -23,6 +25,7 @@ public class RepositorioRol
         entityManager.getTransaction().begin();
         entityManager.merge(rol);
         entityManager.getTransaction().commit();
+        entityManager.refresh(rol);
     }
 
     public void delete(Rol rol) {
@@ -39,6 +42,15 @@ public class RepositorioRol
     {
         return entityManager.find(Permiso.class, id);
     }
+    public List<Permiso> findAllPermisos() {
+        TypedQuery<Permiso> query = entityManager.createQuery("SELECT p FROM Permiso p", Permiso.class);
+        return query.getResultList();
+    }
+    public List<Rol> findAllRoles() {
+    TypedQuery<Rol> query = entityManager.createQuery("SELECT r FROM Rol r", Rol.class);
+    return query.getResultList();
+}
+
     public Rol findRolByNombre(String nombre) {
         try {
             String jpql = "SELECT r FROM Rol r WHERE r.nombre = :nombre";

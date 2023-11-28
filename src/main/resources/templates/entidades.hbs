@@ -2,8 +2,8 @@
 <h1 class="h3 mb-2 text-gray-800">Entidades</h1>
 <p class="mb-4">Listado de entidades registradas en el sistema.</p>
 
+        {{#if editarEntidades}}
 <div class="card shadow mb-4">
-
 <!-- Botón para abrir el modal de carga CSV -->
 <button type="button" class="btn btn-primary mb-3 btnCSV" data-bs-toggle="modal" data-bs-target="#csvModal">
     <i class="fa fa-upload mr-1"></i>Cargar CSV
@@ -30,6 +30,7 @@
         </div>
     </div>
 </div>
+{{/if}}
 
 <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Lista de Entidades</h6>
@@ -71,7 +72,7 @@
     </div>
 </div>
 
-
+{{#if editarEntidades}}
 <h3>Crear Nueva Entidad</h3>
 
     <form action="/entidades/crearEntidad" method="POST"> <!-- Asegúrate de cambiar la acción a la ruta correcta en tu servidor -->
@@ -105,4 +106,4 @@
             <button type="submit" class="btn btn-primary">Crear Entidad</button>
         </fieldset>
     </form>
-
+{{/if}}

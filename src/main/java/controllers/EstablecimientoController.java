@@ -34,29 +34,21 @@ public class EstablecimientoController
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         model.put("UserId",context.cookie("id"));
-        
-
         int establecimientoId = Integer.parseInt(context.pathParam("id"));
+        Establecimiento establecimiento = repositorioEstablecimiento.find(establecimientoId);
+
+        EntidadPrestadora entidadPrestadora = repositorioUsuario.findEntidadPrestadoraByUserId(user.getId());
+        model.put("editarEntidades", user.tienePermiso("editarEntidades") || (entidadPrestadora != null && entidadPrestadora.getEntidad().getId() == establecimiento.getEntidad().getId()));
+
+
         CommonController.fillNav(model, user);
 
         List<Entidad> entidades = repositorioEntidad.findAll();
         model.put("entidades", entidades);
-        model.put("usuarioPuedeEliminar", user.getRoles()); // RolX es el rol necesario
-
-        Establecimiento establecimiento = repositorioEstablecimiento.find(establecimientoId);
 
         model.put("establecimiento", establecimiento);
-        EntidadPrestadora entidadPrestadora = repositorioUsuario.findEntidadPrestadoraByUserId(user.getId());
-        if (
-                (entidadPrestadora != null)
-                && entidadPrestadora.getEntidad().getId() ==establecimiento.getEntidad().getId()
-        )
-        {
-            model.put("editPermiso", true);
-        }
-        else
-            model.put("editPermiso", false);
-        model.put("editPermiso", true);
+
+
         model.put("servicios", repositorioServicio.findAll());
 
         try {
