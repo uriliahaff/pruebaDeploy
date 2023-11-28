@@ -38,7 +38,8 @@ public class PerfilController
     public void redirectPerfil(Context context)
     {
 
-        int profileUserId = Integer.parseInt(context.pathParam("id"));
+
+        int profileUserId = Integer.parseInt(context.cookie("id"));
         if(repositorioUsuario.findMiembroByUsuarioId(profileUserId)!= null)
             renderPerfilMiembro(context);
         else if (repositorioUsuario.findOrganismoDeControlByUserId(profileUserId)!= null)
@@ -81,15 +82,17 @@ public class PerfilController
         Map<String, Object> model = new HashMap<>();
 
         int userId = Integer.parseInt(context.cookie("id"));
-        int profileUserId = Integer.parseInt(context.pathParam("id"));
 
-        model.put("owner", userId==profileUserId);
-        model.put("profileId",profileUserId);
+        // QUE HACE ESTO
+        // int profileUserId = Integer.parseInt(context.pathParam("id"));
+        //model.put("owner", userId==profileUserId);
+
+        model.put("profileId",userId);
         Usuario user = repositorioUsuario.findUsuarioById(userId);
 
         model.put("username", context.cookie("username"));
 
-        Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(profileUserId);
+        Miembro miembro = repositorioUsuario.findMiembroByUsuarioId(userId);
         miembro.getServiciosQueAfectan().size();
         model.put("miembro",miembro);
 

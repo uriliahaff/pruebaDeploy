@@ -106,7 +106,9 @@ public class Router {
             Server.app().get("/registrarEntidad", ((SignInController) FactoryController.controller("signIn"))::renderSignInEntidadPrestadora);
             Server.app().post("/registrarUsuario", ((SignInController) FactoryController.controller("signIn"))::processSignInRedirect);
 
-            Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil);
+            //Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil); NO ES SEGURO
+            Server.app().get("/perfil", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil); // MAS SEGURO
+
             Server.app().post("/perfil/{id}/addLugarInteres", ((PerfilController) FactoryController.controller("perfil"))::addLugarDeInteres);
             Server.app().post("/perfil/{id}/addService", ((PerfilController) FactoryController.controller("perfil"))::addServicioDeInteres);
             Server.app().post("/perfil/{idMiembro}/agregarHorario", ((PerfilController) FactoryController.controller("perfil"))::agregarHorario);
