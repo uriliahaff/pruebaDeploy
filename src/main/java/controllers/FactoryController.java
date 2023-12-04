@@ -1,5 +1,6 @@
 package controllers;
 
+import domain.Repositorios.RepositorioDireccion;
 import domain.Repositorios.RepositorioEntidadPrestadoraOrganismoControl;
 import domain.Repositorios.RepositorioIncidente;
 import domain.Repositorios.RepositorioUsuario;
@@ -26,6 +27,8 @@ public class FactoryController {
             case "entidad": controller = new EntidadController(); break;
             case "establecimiento": controller = new EstablecimientoController(); break;
             case "rol": controller = new RolController(); break;
+            case "georef": controller = new GEOREFController(new RepositorioDireccion()); break;
+
         }
         return controller;
     }

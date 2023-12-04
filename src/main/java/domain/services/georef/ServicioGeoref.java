@@ -1,5 +1,6 @@
 package domain.services.georef;
 
+import domain.services.georef.entities.ListadoDeLocalidades;
 import domain.services.georef.entities.ListadoDeMunicipios;
 import domain.services.georef.entities.ListadoDeProvincias;
 import retrofit2.Call;
@@ -38,6 +39,13 @@ public class ServicioGeoref {
         Call<ListadoDeMunicipios> requestListadoMunicipiosDeProvincia = georefService.municipios(id);
         Response<ListadoDeMunicipios> responseListadoMunicipiosDeProvincia = requestListadoMunicipiosDeProvincia.execute();
         return responseListadoMunicipiosDeProvincia.body();
+    }
+
+    public ListadoDeLocalidades listadoDeLocalidadesDeProvincia(int id) throws IOException {
+        GeorefService georefService = this.retrofit.create(GeorefService.class);
+        Call<ListadoDeLocalidades> requestListadoLocalidadesDeProvincia = georefService.localidades(id);
+        Response<ListadoDeLocalidades> responseListadoLocalidadesDeProvincia = requestListadoLocalidadesDeProvincia.execute();
+        return responseListadoLocalidadesDeProvincia.body();
     }
 
 }

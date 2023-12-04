@@ -128,6 +128,10 @@ public class Router {
             Server.app().post("/rol/{id}/agregarPermiso", ((RolController) FactoryController.controller("rol"))::addPermiso);
             Server.app().post("/rol/{id}/borrarPermiso/{permisoId}", ((RolController) FactoryController.controller("rol"))::borrarPermiso);
 
+            Server.app().get("/georef", ((GEOREFController) FactoryController.controller("georef"))::index);
+            Server.app().post("/georef", ((GEOREFController) FactoryController.controller("georef"))::actualizar);
+
+
         });
 
         //  Server.app().get("/entidadesPrestadoras", new EntidadesPrestadorasController()::index);

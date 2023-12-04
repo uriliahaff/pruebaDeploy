@@ -8,8 +8,10 @@ public class ListadoDeLocalidades {
     public int total;
     public Parametro parametros;
     public List<Localidad> localidades;
-    private class Parametro{
+    private class Parametro {
         public List<String> campos;
+        public int max;
+        public List<String> provincia;
     }
 
 }

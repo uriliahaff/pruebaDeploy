@@ -18,7 +18,7 @@ public class Direccion {
         return id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Provincia provincia;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

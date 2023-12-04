@@ -41,12 +41,14 @@ public class UsuariosController {
             Template template = handlebars.compile("usuarios_template");
             String bodyContent = template.apply(model);
             model.put("body", bodyContent);
+            context.render("usuarios.hbs", model);
         } catch (IOException e) {
             e.printStackTrace();
             // Es importante manejar esta excepción adecuadamente
             context.status(500).result("Error al procesar la plantilla de incidentes.");
             return; // Sal del método aquí si no quieres procesar más el request debido al error
         }
+
         context.render("layout_comun.hbs", model);
     }
 
