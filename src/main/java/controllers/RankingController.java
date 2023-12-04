@@ -41,11 +41,11 @@ public class RankingController {
         rankLeaderBoardUnitList.forEach(r -> r.getValue());
         model.put("rankingMayorIncidentesReportados", rankLeaderBoardUnitList);
 
-
-
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+
+        navBarVisualizer.colocarItems(user.getRoles(), model);
+
         context.render("rankings.hbs", model);
     }
     private List<RankLeaderBoardUnit> getLastRanking(LeaderBoardType type)
@@ -62,7 +62,7 @@ public class RankingController {
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
         context.render("ranking.hbs", model);
     }
 

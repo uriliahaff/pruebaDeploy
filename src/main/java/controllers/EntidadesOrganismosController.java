@@ -38,7 +38,8 @@ public class EntidadesOrganismosController {
 
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
+
         context.render("cargaEntidades.hbs", model);
     }
 
@@ -51,7 +52,8 @@ public class EntidadesOrganismosController {
         
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
+
         context.render("cargaOrganismos.hbs", model);
     }
 

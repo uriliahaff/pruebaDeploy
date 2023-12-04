@@ -29,27 +29,9 @@ public class UsuariosController {
         model.put("username", context.cookie("username"));
         Usuario user = repositorioDeUsuarios.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
-        model.put("editarUsuario", user.tienePermiso("editarUsuario"));
-        System.out.println("\n" + user.tienePermiso("editarUsuario"));
-        model.put("editarRoles", user.tienePermiso("editarRoles"));
-        try {
-            // Configura el loader para buscar plantillas en el directorio /templates
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
 
-            // Compila el contenido del partial 'incidentes_template' y pásalo como 'body'
-            Template template = handlebars.compile("usuarios_template");
-            String bodyContent = template.apply(model);
-            model.put("body", bodyContent);
-            context.render("usuarios.hbs", model);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Es importante manejar esta excepción adecuadamente
-            context.status(500).result("Error al procesar la plantilla de incidentes.");
-            return; // Sal del método aquí si no quieres procesar más el request debido al error
-        }
-
-        context.render("layout_comun.hbs", model);
+        context.render("usuarios.hbs", model);
     }
 
     public void editar(Context context){
@@ -68,7 +50,8 @@ public class UsuariosController {
         model.put("username", context.cookie("username"));
         Usuario user = repositorioDeUsuarios.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
+
         context.render("editarUsuario.hbs", model);
     }
 
@@ -76,7 +59,7 @@ public class UsuariosController {
         Usuario usuario = this.repositorioDeUsuarios.findUsuarioById(Integer.parseInt(context.pathParam("id")));
         this.asignarParametros(usuario, context);
         this.repositorioDeUsuarios.actualizar(usuario);
-        context.redirect("/usuarios");
+        context.redirect("/admin/usuarios");
     }
 
     public void delete(Context context) {
@@ -89,9 +72,6 @@ public class UsuariosController {
 
         if(!Objects.equals(context.formParam("username"), "")) {
             usuario.setUsername(context.formParam("username"));
-        }
-        if(!Objects.equals(context.formParam("password"), "")) {
-            usuario.setPassword(context.formParam("password"));
         }
         List<Rol> rolesSeleccionados = new ArrayList<>();
         for (Rol rol : this.repositorioDeUsuarios.buscarTodosRoles()) {

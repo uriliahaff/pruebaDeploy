@@ -3,6 +3,7 @@ package domain.services;
 import domain.Usuarios.Rol;
 
 import java.util.List;
+import java.util.Map;
 
 public class NavBarVisualizer {
 
@@ -17,7 +18,7 @@ public class NavBarVisualizer {
                             "                Administrador\n" +
                             "            </div>" +
                             "<li class=\"nav-item\">\n" +
-                            "                <a class=\"nav-link\" href=\"/usuarios\">\n" +
+                            "                <a class=\"nav-link\" href=\"/admin/usuarios\">\n" +
                             "                    <i class=\"fas fa-fw fa-users\"></i>\n" +
                             "                    <span>Usuarios</span></a>\n" +
                             "            </li>")
@@ -39,6 +40,24 @@ public class NavBarVisualizer {
         }
         return navItems.toString();
     }
+
+    public String itemsNavNoAdmin(List<Rol> roles){
+        StringBuilder navItems= new StringBuilder();
+        if(contiene(roles, new Rol("adminEntidad",null)) || contiene(roles, new Rol("adminOrganismo",null))){
+            navItems.append("            <li class=\"nav-item\">\n" +
+                    "                <a class=\"nav-link\" href=\"/rankings\">\n" +
+                    "                    <i class=\"fas fa-fw fa-chart-line\"></i>\n" +
+                    "                    <span>Rankings</span></a>\n" +
+                    "            </li>");
+        }
+        return navItems.toString();
+    }
+
+    public void colocarItems(List<Rol> roles, Map<String, Object> model){
+        model.put("itemsNav", this.itemsNav(roles));
+        model.put("itemsNavNoAdmin", this.itemsNavNoAdmin(roles));
+    }
+
 
     public static boolean contiene(List<Rol> lista1, Rol rol2) {
         for (Rol rol1 : lista1) {

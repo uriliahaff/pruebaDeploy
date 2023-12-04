@@ -8,33 +8,22 @@ public class Router {
 
     public static void init() {
 
-      /*  Server.app().before(ctx -> {
-            // Excluir la verificación de autenticación para la ruta /login
-            if (!ctx.path().equals("/login") && !isLoggedIn(ctx)) {
-                // Redirigir o manejar la falta de autenticación según tus necesidades
-                ctx.redirect("/login");
-            }
-            if (ctx.path().equals("/login") && isLoggedIn(ctx)) {
-                // Redirigir o manejar la falta de autenticación según tus necesidades
-                ctx.redirect("/");
-            }
-        });
-*/
         Server.app().routes(()-> {
 
             Rol admin = new Rol("admin", null);
             Rol adminEntidad = new Rol("adminEntidad", null);
             Rol adminOrganismo= new Rol("adminOrganismo", null);
 
+
             Server.app().get("/", ((LoginController) FactoryController.controller("login"))::admin);
             Server.app().get("/login", ((LoginController) FactoryController.controller("login"))::index);
             Server.app().get("/signin", ((LoginController) FactoryController.controller("login"))::registro);
 
 
-
             Server.app().get("/logout", ((LoginController) FactoryController.controller("login"))::logout);
             Server.app().post("/login", ((LoginController) FactoryController.controller("login"))::loginAttempt);
             Server.app().post("/signin", ((LoginController) FactoryController.controller("login"))::signinAttempt);
+
 
             Server.app().get("/cargaEntidades",
                     ((EntidadesOrganismosController) FactoryController.controller("entidades"))::indexEntidades,
@@ -48,24 +37,30 @@ public class Router {
             Server.app().post("/cargarCSVOrganismos",
                     ((EntidadesOrganismosController) FactoryController.controller("organismos"))::cargarMasivaOrganismos
                     ,admin);
-            Server.app().get("/usuarios",
-                    ((UsuariosController) FactoryController.controller("usuarios"))::index);
-                    //,admin);
-            Server.app().get("/usuarios/{id}/editar",
+
+
+            Server.app().get("/admin/usuarios",
+                    ((UsuariosController) FactoryController.controller("usuarios"))::index,
+                    admin);
+            Server.app().get("/admin/usuarios/{id}/editar",
                     ((UsuariosController) FactoryController.controller("usuarios"))::editar,
                     admin);
-            Server.app().post("/editarUsuario/{id}",
+            Server.app().post("/admin/editarUsuario/{id}",
                     ((UsuariosController) FactoryController.controller("usuarios"))::update,
                     admin);
             Server.app().post("/eliminarUsuario/{id}",
                     ((UsuariosController) FactoryController.controller("usuarios"))::delete,
                     admin);
+
+
             Server.app().get("/rankings",
                     ((RankingController) FactoryController.controller("rankings"))::index,
                     adminEntidad, adminOrganismo);
             Server.app().get("/ranking/{id}",
                     ((RankingController) FactoryController.controller("rankings"))::ranking,
-                    adminEntidad, adminOrganismo);
+                    admin, adminEntidad, adminOrganismo);
+
+
             Server.app().get("/admin/incidentes",
                     ((IncidenteController) FactoryController.controller("incidentes"))::index,
                     admin);
