@@ -1,3 +1,6 @@
+{{#partial "contenido" }}
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 <h1 class="h3 mb-2 text-gray-800">{{comunidad.nombre}}</h1>
 <p class="mb-4">Grado de Confianza: {{comunidad.gradoDeConfianza}}</p>
 
@@ -10,15 +13,14 @@
         <table class="table table-bordered" id="dataTableIntereses" width="100%" cellspacing="0">
             <thead>
             <tr>
-                <th>Id del Servicio</th>
                 <th>Nombre del Servicio</th>
                 <th>Descripción</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             {{#each comunidad.intereses}}
             <tr>
-                <td>{{this.id}}</td>
                 <td>{{this.nombre}}</td>
                 <td>{{this.descripcion}}</td>
                 <td>
@@ -59,19 +61,17 @@
         <table class="table table-bordered" id="dataTableAdmin" width="100%" cellspacing="0">
             <thead>
             <tr>
-                <th>Id del Admin</th>
                 <th>Username</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             {{#each comunidad.admins}}
             <tr>
-                <td>{{this.id}}</td>
                 <td>{{this.username}}</td>
                 {{#if editarComunidad}}
                 <td>
                     <form action="/comunidad/removerAdmin" method="post">
-                        <input type="hidden" name="comunidadId" value="{{comunidad.id}}" />
                         <input type="hidden" name="adminId" value="{{this.id}}" />
                         <button type="submit" class="btn btn-warning">Quitar</button>
                     </form>
@@ -140,4 +140,5 @@
     </div>
 </div>
 </div>
-
+{{/partial}}
+{{> base }}

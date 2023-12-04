@@ -1,47 +1,51 @@
+           {{#partial "contenido" }}
+               <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-  <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Incidentes</h1>
+                    <p class="mb-4">Listado de incidentes</p>
 
-      <!-- Page Heading -->
-      <h1 class="h3 mb-2 text-gray-800">Incidentes</h1>
-      <p class="mb-4">Listado de incidentes</p>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Incidentes</h6>
+                        </div>
+                        <div class="card-body tabla">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Descripcion</th>
+                                            <th>Servicio afectado</th>
+                                            <th>Fecha inicio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-      <!-- DataTales Example -->
-      <div class="card shadow mb-4">
-          <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Incidentes</h6>
-          </div>
-          <div class="card-body tabla">
-              <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                      <thead>
-                          <tr>
-                              <th>Descripcion</th>
-                              <th>Servicio afectado</th>
-                              <th>Fecha inicio</th>
-                              <th></th>
-                          </tr>
-                      </thead>
+                                    <tbody>
+                                         {{#each incidentes}}
+                                        <tr>
+                                            <td>{{this.descripcion}}</td>
+                                            <td>{{this.servicioAfectado.servicio.nombre}} - {{this.servicioAfectado.establecimiento.nombre}}</td>
+                                            <td>{{this.fechaInicio}}</td>
+                                            <td>
+                                            <form action="/cerrarIncidente/{{this.id}}" method="POST">
+                                                   <button type="submit" class="btn btn-danger">Cerrar Incidente</button>
+                                            </form>
+                                            </td>
+                                        </tr>
+                                         {{/each}}
 
-                      <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                                {{#each incidentes}}
-                         <tr>
-                            <td>{{this.descripcion}}</td>
-                            <td>{{this.servicioAfectado.servicio.nombre}} - {{this.servicioAfectado.establecimiento.nombre}} </td>
-                            <td>{{this.fechaInicio}}</td>
-                            <td>
-                            <a role="button" class="btn btn-primary" href="/cerrarIncidente/{{this.id}}"><i class="fa fa-check mr-2"></i>Resuelto</a>
+                </div>
+                <!-- /.container-fluid -->
 
-                            </td>
-                         </tr>
-                     {{/each}}
+{{/partial}}
+{{> base }}
 
-
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
-
-  </div>
-<!-- /.container-fluid -->

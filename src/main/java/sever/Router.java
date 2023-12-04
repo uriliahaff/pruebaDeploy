@@ -64,27 +64,22 @@ public class Router {
             Server.app().get("/admin/incidentes",
                     ((IncidenteController) FactoryController.controller("incidentes"))::index,
                     admin);
+
+
             Server.app().get("/aperturaIncidentes", ((IncidenteController) FactoryController.controller("incidentes"))::aperturaIncidentes);
             Server.app().post("/aperturaIncidente", ((IncidenteController) FactoryController.controller("incidentes"))::abrirIncidente);
             Server.app().get("/incidentes", ((IncidenteController) FactoryController.controller("incidentes"))::indexIncidentes);
-            //Server.app().get("/cerrarIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::cerrarIncidente);
             Server.app().post("/cerrarIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::cerrarIncidente);
             Server.app().get("/revisionIncidente/{id}", ((IncidenteController) FactoryController.controller("incidentes"))::revisionIncidente);
 
 
             Server.app().get("/comunidades", ((ComunidadController) FactoryController.controller("comunidad"))::indexComunidades);
             Server.app().post("/comunidad/delete/{id}", ((ComunidadController) FactoryController.controller("comunidad"))::eliminarComunidad);
-
             Server.app().get("/comunidad/{id}", ((ComunidadController) FactoryController.controller("comunidad"))::mostrarComunidad);
-
             Server.app().post("/comunidad/{comunidadId}/expulsar/{miembroId}", ((ComunidadController) FactoryController.controller("comunidad"))::expulsarMiembro);
-
-
             Server.app().post("/comunidad/{comunidadId}/ascender/{miembroId}", ((ComunidadController) FactoryController.controller("comunidad"))::ascenderAAdmin);
             Server.app().post("/comunidad/removerAdmin", ((ComunidadController) FactoryController.controller("comunidad"))::removerAdmin);
-
             Server.app().post("/comunidad/join/{comunidadId}", ((ComunidadController) FactoryController.controller("comunidad"))::joinComunidad);
-
             Server.app().post("/comunidad/addInteres", ((ComunidadController) FactoryController.controller("comunidad"))::addInteres);
             Server.app().post("/comunidad/removerInteres", ((ComunidadController) FactoryController.controller("comunidad"))::removerInteres);
 

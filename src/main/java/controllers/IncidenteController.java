@@ -29,62 +29,23 @@ public class IncidenteController {
         this.repositorioDeIncidentes = repo;
         this.repositorioUsuario = repositorioUsuario;
     }
-/*
-    public void index(Context context){
-        Map<String, Object> model = new HashMap<>();
-        List<Incidente> incidentes = this.repositorioDeIncidentes.findAll();
-        model.put("incidentes", incidentes);
-        model.put("username", context.cookie("username"));
-        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
-        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
-        context.render("layout_comun.hbs", model);
-    }
 
-    public void indexUser(Context context){
-        Map<String, Object> model = new HashMap<>();
-        List<Incidente> incidentes = this.repositorioDeIncidentes.findAllOpen();
-        model.put("incidentes", incidentes);
-        model.put("username", context.cookie("username"));
-        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
-        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
-        context.render("layout_comun.hbs", model);
-    }*/
 public void index(Context context){
     Map<String, Object> model = new HashMap<>();
     List<Incidente> incidentes = this.repositorioDeIncidentes.findAll();
     model.put("incidentes", incidentes);
     model.put("username", context.cookie("username"));
     Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
-    model.put("UserId",context.cookie("id"));
     NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-    model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+    navBarVisualizer.colocarItems(user.getRoles(), model);
 
-
-
-    try {
-        // Configura el loader para buscar plantillas en el directorio /templates
-        Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-
-        // Compila el contenido del partial 'incidentes_template' y pásalo como 'body'
-        Template template = handlebars.compile("incidente_template");
-        String bodyContent = template.apply(model);
-        model.put("body", bodyContent);
-    } catch (IOException e) {
-        e.printStackTrace();
-        // Es importante manejar esta excepción adecuadamente
-        context.status(500).result("Error al procesar la plantilla de incidentes.");
-        return; // Sal del método aquí si no quieres procesar más el request debido al error
-    }
-
-    // Renderiza la plantilla común con el contenido incluido
-    context.render("layout_comun.hbs", model);
+    context.render("incidentes.hbs", model);
 }
+
+
 public void indexIncidentes(Context context) {
     Map<String, Object> model = new HashMap<>();
     List<Incidente> incidentes = this.repositorioDeIncidentes.findAllOpen();
-
     int userId = Integer.parseInt(context.cookie("id"));
     model.put("UserId",context.cookie("id"));
 
@@ -98,32 +59,12 @@ public void indexIncidentes(Context context) {
                 .toList();
 
     }
-
     model.put("incidentes",incidentes);
-
     model.put("username", context.cookie("username"));
     Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
     NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-    model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
-
-
-    try {
-        // Configura el loader para buscar plantillas en el directorio /templates
-        Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-
-        // Compila el contenido del partial 'incidentes_template' y pásalo como 'body'
-        Template template = handlebars.compile("incidentesUser_template");
-        String bodyContent = template.apply(model);
-        model.put("body", bodyContent);
-    } catch (IOException e) {
-        e.printStackTrace();
-        // Es importante manejar esta excepción adecuadamente
-        context.status(500).result("Error al procesar la plantilla de incidentes.");
-        return; // Sal del método aquí si no quieres procesar más el request debido al error
-    }
-
-    // Renderiza la plantilla común con el contenido incluido
-    context.render("layout_comun.hbs", model);
+    navBarVisualizer.colocarItems(user.getRoles(), model);
+    context.render("incidentesUser.hbs", model);
 }
 
 
@@ -138,7 +79,8 @@ public void indexIncidentes(Context context) {
         model.put("prestaciones", prestacionDeServicios);
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
+
         context.render("aperturaIncidente.hbs", model);
     }
 
@@ -168,7 +110,7 @@ public void indexIncidentes(Context context) {
         model.put("incidente", incidente);
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
         context.render("revisionIncidente.hbs", model);
     }
 

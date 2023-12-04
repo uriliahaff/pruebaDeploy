@@ -34,29 +34,13 @@ public class ComunidadController {
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         model.put("UserId",context.cookie("id"));
 
-        CommonController.fillNav(model, user);
-
         List<Comunidad> comunidades = repositorioComunidad.findAll();
         model.put("comunidades", comunidades);
         model.put("editarComunidad", user.tienePermiso("editarComunidad")); // RolX es el rol necesario
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        navBarVisualizer.colocarItems(user.getRoles(), model);
 
-        try {
-            // Configura el loader para buscar plantillas en el directorio /templates
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-
-            // Compila el contenido del partial 'incidentes_template' y pásalo como 'body'
-            Template template = handlebars.compile("Comunidades");
-            String bodyContent = template.apply(model);
-            model.put("body", bodyContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Es importante manejar esta excepción adecuadamente
-            context.status(500).result("Error al procesar la plantilla de incidentes.");
-            return; // Sal del método aquí si no quieres procesar más el request debido al error
-        }
-
-        // Renderiza la plantilla común con el contenido incluido
-        context.render("layout_comun.hbs", model);
+        context.render("comunidades.hbs", model);
     }
 
     public void eliminarComunidad(Context context) {
@@ -71,7 +55,7 @@ public class ComunidadController {
         Comunidad comunidad = repositorioComunidad.find(comunidadId);
 
         if (comunidad == null) {
-            context.status(404).result("Comunidad no encontrada");
+            context.redirect("/");
             return;
         }
 
@@ -96,11 +80,8 @@ public class ComunidadController {
             miembroMap.put("id", miembro.getId());
             miembroMap.put("correoElectronico", miembro.getCorreoElectronico());
             miembroMap.put("telefono", miembro.getTelefono());
-
             boolean esAdmin = comunidad.hasAdmin(miembro.getUsuario().getId());
             miembroMap.put("MiembroNoEsAdmin", !esAdmin); // El opuesto de esAdmin
-
-
             listaDeMiembros.add(miembroMap);
         }
 
@@ -112,25 +93,9 @@ public class ComunidadController {
                 .collect(Collectors.toList()));
 
         NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
-        model.put("itemsNav", navBarVisualizer.itemsNav(user.getRoles()));
+        navBarVisualizer.colocarItems(user.getRoles(), model);
 
-
-        try {
-            // Configura el loader para buscar plantillas en el directorio /templates
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-
-            // Compila el contenido del partial 'detalle_comunidad' y pásalo como 'body'
-            Template template = handlebars.compile("comunidad_detalle");
-            String bodyContent = template.apply(model);
-            model.put("body", bodyContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            context.status(500).result("Error al procesar la plantilla.");
-            return;
-        }
-
-        // Renderiza la plantilla común con el contenido incluido
-        context.render("layout_comun.hbs", model);
+        context.render("comunidadDetalle.hbs", model);
     }
 
 
