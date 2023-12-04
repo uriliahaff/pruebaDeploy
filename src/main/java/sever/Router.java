@@ -17,12 +17,13 @@ public class Router {
 
             Server.app().get("/", ((LoginController) FactoryController.controller("login"))::admin);
             Server.app().get("/login", ((LoginController) FactoryController.controller("login"))::index);
-            Server.app().get("/signin", ((LoginController) FactoryController.controller("login"))::registro);
-
-
-            Server.app().get("/logout", ((LoginController) FactoryController.controller("login"))::logout);
             Server.app().post("/login", ((LoginController) FactoryController.controller("login"))::loginAttempt);
-            Server.app().post("/signin", ((LoginController) FactoryController.controller("login"))::signinAttempt);
+            Server.app().get("/logout", ((LoginController) FactoryController.controller("login"))::logout);
+            Server.app().get("/signin", ((SignInController) FactoryController.controller("signIn"))::renderSignInMember);
+            Server.app().get("/signinOrganismo", ((SignInController) FactoryController.controller("signIn"))::renderSignInOrganismoDeControl);
+            Server.app().get("/signinEntidad", ((SignInController) FactoryController.controller("signIn"))::renderSignInEntidadPrestadora);
+            Server.app().post("/registrarUsuario", ((SignInController) FactoryController.controller("signIn"))::processSignInRedirect);
+
 
 
             Server.app().get("/cargaEntidades",
@@ -51,6 +52,11 @@ public class Router {
             Server.app().post("/eliminarUsuario/{id}",
                     ((UsuariosController) FactoryController.controller("usuarios"))::delete,
                     admin);
+
+
+            Server.app().get("/admin/servicios", ((ServicioController) FactoryController.controller("servicios"))::indexServicios,
+                    admin);
+            Server.app().post("/admin/crearServicio", ((ServicioController) FactoryController.controller("servicios"))::crearServicio);
 
 
             Server.app().get("/rankings",
@@ -83,18 +89,6 @@ public class Router {
             Server.app().post("/comunidad/addInteres", ((ComunidadController) FactoryController.controller("comunidad"))::addInteres);
             Server.app().post("/comunidad/removerInteres", ((ComunidadController) FactoryController.controller("comunidad"))::removerInteres);
 
-
-
-            Server.app().get("/servicios", ((ServicioController) FactoryController.controller("servicios"))::indexServicios);
-            Server.app().post("/crearServicio", ((ServicioController) FactoryController.controller("servicios"))::crearServicio);
-
-            Server.app().get("/organismoDeControl", ((EntidadesOrganismosController) FactoryController.controller("organismos"))::indexOrganismos);
-            Server.app().post("/cargarMasivaDeOrganismosDeControl", ((EntidadesOrganismosController) FactoryController.controller("organismos"))::cargarMasivaOrganismos);
-
-            Server.app().get("/registrar", ((SignInController) FactoryController.controller("signIn"))::renderSignInMember);
-            Server.app().get("/registrarOrganismo", ((SignInController) FactoryController.controller("signIn"))::renderSignInOrganismoDeControl);
-            Server.app().get("/registrarEntidad", ((SignInController) FactoryController.controller("signIn"))::renderSignInEntidadPrestadora);
-            Server.app().post("/registrarUsuario", ((SignInController) FactoryController.controller("signIn"))::processSignInRedirect);
 
             Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil);
             //Server.app().get("/perfil", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil); // MAS SEGURO

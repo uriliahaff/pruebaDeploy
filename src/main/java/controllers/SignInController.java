@@ -166,18 +166,7 @@ public class SignInController {
             context.sessionAttribute("error", null); // Limpiar el mensaje de error de la sesión
         }
 
-        try {
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-            Template template = handlebars.compile("signIn_Miembro");
-            String bodyContent = template.apply(model);
-            model.put("extra", bodyContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            context.status(500).result("Error al procesar la plantilla.");
-            return;
-        }
-
-        context.render("signIn_comon.hbs", model);
+        context.render("signInMiembro.hbs", model);
     }
 
     public void renderSignInOrganismoDeControl(Context context)
@@ -191,19 +180,8 @@ public class SignInController {
         }
         model.put("servicios", repositorioServicio.findAll());
 
-        try {
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-            Template template = handlebars.compile("signIn_OrganismoDeControl");
-            String bodyContent = template.apply(model);
-            model.put("extra", bodyContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            context.status(500).result("Error al procesar la plantilla.");
-            return;
-        }
 
-
-        context.render("signIn_comon.hbs", model);
+        context.render("signInOrganismo.hbs", model);
     }
 
     public void renderSignInEntidadPrestadora(Context context)
@@ -215,23 +193,8 @@ public class SignInController {
             model.put("error", error);
             context.sessionAttribute("error", null);
         }
-        model.put("servicios", repositorioServicio.findAll());
-
-
         model.put("entidades", repositorioEntidad.findAll());
 
-        try {
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-            Template template = handlebars.compile("signIn_EntidadPrestadora");
-            String bodyContent = template.apply(model);
-            model.put("extra", bodyContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            context.status(500).result("Error al procesar la plantilla.");
-            return;
-        }
-
-
-        context.render("signIn_comon.hbs", model);
+        context.render("signInEntidad.hbs", model);
     }
 }

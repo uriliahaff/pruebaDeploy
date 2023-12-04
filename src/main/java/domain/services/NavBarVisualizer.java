@@ -36,6 +36,11 @@ public class NavBarVisualizer {
                             "                            <a class=\"nav-link\" href=\"/admin/incidentes\">\n" +
                             "                                <i class=\"fas fa-fw fa-list\"></i>\n" +
                             "                                <span>Incidentes</span></a>\n" +
+                            "                        </li>")
+                    .append("<li class=\"nav-item \">\n" +
+                            "                            <a class=\"nav-link\" href=\"/admin/servicios\">\n" +
+                            "                                <i class=\"fas fa-fw fa-person-booth\"></i>\n" +
+                            "                                <span>Servicios</span></a>\n" +
                             "                        </li>");
         }
         return navItems.toString();

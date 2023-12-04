@@ -1,3 +1,6 @@
+{{#partial "contenido" }}
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 <h1 class="h3 mb-2 text-gray-800">Servicios</h1>
 <p class="mb-4">Listado de servicios registrados en el sistema.</p>
 <div class="card shadow mb-4">
@@ -35,7 +38,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Crear Nuevo Servicio</h6>
     </div>
     <div class="card-body">
-        <form action="/crearServicio" method="POST">
+        <form action="/admin/crearServicio" method="POST">
             <div class="form-group">
                 <label for="nombreServicio">Nombre del Servicio</label>
                 <input type="text" class="form-control" id="nombreServicio" name="nombre" required>
@@ -50,3 +53,5 @@
 </div>
 
 </div>
+{{/partial}}
+{{> base }}

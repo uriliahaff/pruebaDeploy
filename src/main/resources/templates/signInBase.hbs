@@ -28,26 +28,7 @@
                     <h3>Registrarse</h3>
                 </div>
                 <div class="card-body">
-                    <!-- Verificar si hay un mensaje de error -->
-                    <!--script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const urlParams = new URLSearchParams(window.location.search);
-                            const error = urlParams.get('error');
 
-                            if (error) {
-                                let mensajeError = '';
-                                if (error === 'usuarioExiste') {
-                                    mensajeError = 'El nombre de usuario ya existe. Por favor, elige otro.';
-                                } else if (error === 'contrasenaInsegura') {
-                                    mensajeError = 'La contraseña no es segura. Por favor, elige una más fuerte.';
-                                }
-                                const errorDiv = document.createElement('div');
-                                errorDiv.className = 'alert alert-danger';
-                                errorDiv.textContent = mensajeError;
-                                document.querySelector('.card-body').prepend(errorDiv);
-                            }
-                        });
-                    <-script-->
                     {{#if error}}
                     <div class="alert alert-danger">"{{error}}"</div>
                     {{/if}}
@@ -62,7 +43,7 @@
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
 
-                        {{{extra}}}
+                                            {{#block "extra"}} {{/block}}
                         <button type="submit" class="btn btn-primary">Registrar Usuario</button>
                     </form>
                 </div>

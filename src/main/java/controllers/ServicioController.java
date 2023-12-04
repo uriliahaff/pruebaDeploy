@@ -29,29 +29,11 @@ public class ServicioController
         model.put("username", context.cookie("username"));
         Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
 
-        if(!user.usuarioTieneRol("admin"))
-            context.redirect("/");
-        CommonController.fillNav(model,user);
-        try {
-            // Configura el loader para buscar plantillas en el directorio /templates
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
+        model.put("servicios",repositorioServicio.findAll());
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        navBarVisualizer.colocarItems(user.getRoles(), model);
 
-            // Compila el contenido del partial 'incidentes_template' y pásalo como 'body'
-            model.put("servicios",repositorioServicio.findAll());
-            Template template = handlebars.compile("servicios");
-            String bodyContent = template.apply(model);
-            model.put("body", bodyContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Es importante manejar esta excepción adecuadamente
-            context.status(500).result("Error al procesar la plantilla de incidentes.");
-            return; // Sal del método aquí si no quieres procesar más el request debido al error
-        }
-
-
-
-        // Renderiza la plantilla común con el contenido incluido
-        context.render("layout_comun.hbs", model);
+        context.render("servicios.hbs", model);
     }
 
     public void crearServicio(Context context)
@@ -60,7 +42,7 @@ public class ServicioController
         String descripcion = context.formParam("descripcion");
 
         repositorioServicio.save(new Servicio(nombre,descripcion));
-        context.redirect("/servicios");
+        context.redirect("/admin/servicios");
     }
 
 
