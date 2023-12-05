@@ -23,12 +23,12 @@ public class NavBarVisualizer {
                             "                    <span>Usuarios</span></a>\n" +
                             "            </li>")
                     .append("<li class=\"nav-item\">\n")
-                    .append("    <a class=\"nav-link\" href=\"/cargaEntidades\">\n")
+                    .append("    <a class=\"nav-link\" href=\"/admin/cargaEntidades\">\n")
                     .append("        <i class=\"fas fa-fw fa-building\"></i>\n")
                     .append("        <span>Entidades Prestadoras</span></a>\n")
                     .append("</li>")
                     .append("<li class=\"nav-item \">\n" +
-                            "                <a class=\"nav-link\" href=\"/cargaOrganismos\">\n" +
+                            "                <a class=\"nav-link\" href=\"/admin/cargaOrganismos\">\n" +
                             "                    <i class=\"fas fa-fw fa-building\"></i>\n" +
                             "                    <span>Organismos de Control</span></a>\n" +
                             "            </li>")

@@ -25,16 +25,16 @@ public class Router {
             Server.app().post("/registrarUsuario", ((SignInController) FactoryController.controller("signIn"))::processSignInRedirect);
 
 
-            Server.app().get("/cargaEntidades",
+            Server.app().get("/admin/cargaEntidades",
                     ((EntidadesOrganismosController) FactoryController.controller("entidades"))::indexEntidades,
                     admin);
-            Server.app().get("/cargaOrganismos",
+            Server.app().get("/admin/cargaOrganismos",
                     ((EntidadesOrganismosController) FactoryController.controller("organismos"))::indexOrganismos,
                     admin);
-            Server.app().post("/cargarCSVEntidades",
+            Server.app().post("/admin/cargarCSVEntidades",
                     ((EntidadesOrganismosController) FactoryController.controller("entidades"))::cargarMasivaEntidades,
                     admin);
-            Server.app().post("/cargarCSVOrganismos",
+            Server.app().post("/admin/cargarCSVOrganismos",
                     ((EntidadesOrganismosController) FactoryController.controller("organismos"))::cargarMasivaOrganismos
                     ,admin);
 
