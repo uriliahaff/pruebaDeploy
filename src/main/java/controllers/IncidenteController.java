@@ -18,6 +18,9 @@ import io.javalin.http.Context;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.time.format.DateTimeFormatter;
+
+import static java.util.stream.Collectors.toList;
 
 public class IncidenteController {
 
@@ -33,11 +36,29 @@ public class IncidenteController {
 public void index(Context context){
     Map<String, Object> model = new HashMap<>();
     List<Incidente> incidentes = this.repositorioDeIncidentes.findAll();
-    model.put("incidentes", incidentes);
     model.put("username", context.cookie("username"));
     Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
     NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
     navBarVisualizer.colocarItems(user.getRoles(), model);
+
+    // Formatear la fecha de inicio
+    List<String> fechasInicioFormateadas = incidentes.stream()
+            .map(incidente -> incidente.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+            .toList();
+// Formatear la fecha de fin
+    List<String> fechasFinFormateadas = incidentes.stream()
+            .map(incidente -> incidente.getFechaCierre() != null ? incidente.getFechaCierre().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : null)
+            .toList();
+    for (int i = 0; i < fechasInicioFormateadas.size(); i++) {
+        String fechaInicioFormateada = fechasInicioFormateadas.get(i);
+        String fechaFinFormateada = fechasFinFormateadas.get(i);
+        Incidente incidente = incidentes.get(i);
+        incidente.setFechaInicioFormateada(fechaInicioFormateada);
+        incidente.setFechaFinFormateada(fechaFinFormateada);
+
+    }
+    model.put("incidentes", incidentes);
+
 
     context.render("incidentes.hbs", model);
 }
@@ -62,6 +83,9 @@ public void indexIncidentes(Context context) {
     model.put("incidentes",incidentes);
     model.put("username", context.cookie("username"));
     Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+
+
+
     NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
     navBarVisualizer.colocarItems(user.getRoles(), model);
     context.render("incidentesUser.hbs", model);

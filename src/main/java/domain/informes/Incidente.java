@@ -75,6 +75,11 @@ public class Incidente {
     @Setter
     private LocalDateTime fechaCierre;
 
+    @Transient
+    private String fechaInicioFormateada;
+    @Transient
+    private String fechaFinFormateada;
+
     // Getters y Setters
     public List<Comunidad> getComunidadesAfectadas() {
         return comunidadesAfectadas;
@@ -143,4 +148,19 @@ public class Incidente {
         return fechaCierre == null;
     }
 
+    public String getFechaFinFormateada() {
+        return fechaFinFormateada;
+    }
+
+    public void setFechaFinFormateada(String fechaFinFormateada) {
+        this.fechaFinFormateada = fechaFinFormateada;
+    }
+
+    public String getFechaInicioFormateada() {
+        return fechaInicioFormateada;
+    }
+
+    public void setFechaInicioFormateada(String fechaInicioFormateada) {
+        this.fechaInicioFormateada = fechaInicioFormateada;
+    }
 }
