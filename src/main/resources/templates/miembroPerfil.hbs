@@ -1,3 +1,6 @@
+{{#partial "contenido" }}
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 <h1 class="h3 mb-2 text-gray-800">{{miembro.nombre}} {{miembro.apellido}}</h1>
 <p class="mb-4">Correo Electrónico: {{miembro.correoElectronico}}</p>
 <p class="mb-4">Teléfono: {{miembro.telefono}}</p>
@@ -206,3 +209,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 </script>
+{{/partial}}
+{{> base }}

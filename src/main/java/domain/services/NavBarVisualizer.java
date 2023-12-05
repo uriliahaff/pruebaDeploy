@@ -19,7 +19,7 @@ public class NavBarVisualizer {
                             "            </div>" +
                             "<li class=\"nav-item\">\n" +
                             "                <a class=\"nav-link\" href=\"/admin/usuarios\">\n" +
-                            "                    <i class=\"fas fa-fw fa-users\"></i>\n" +
+                            "                    <i class=\"fas fa-fw fa-user-friends\"></i>\n" +
                             "                    <span>Usuarios</span></a>\n" +
                             "            </li>")
                     .append("<li class=\"nav-item\">\n")
@@ -41,6 +41,16 @@ public class NavBarVisualizer {
                             "                            <a class=\"nav-link\" href=\"/admin/servicios\">\n" +
                             "                                <i class=\"fas fa-fw fa-person-booth\"></i>\n" +
                             "                                <span>Servicios</span></a>\n" +
+                            "                        </li>")
+                    .append("<li class=\"nav-item \">\n" +
+                            "                            <a class=\"nav-link\" href=\"/admin/roles\">\n" +
+                            "                                <i class=\"fas fa-fw fa-users\"></i>\n" +
+                            "                                <span>Roles</span></a>\n" +
+                            "                        </li>")
+                    .append("<li class=\"nav-item \">\n" +
+                            "                            <a class=\"nav-link\" href=\"/admin/georef\">\n" +
+                            "                                <i class=\"fas fa-fw fa-compass\"></i>\n" +
+                            "                                <span>GEOREF</span></a>\n" +
                             "                        </li>");
         }
         return navItems.toString();

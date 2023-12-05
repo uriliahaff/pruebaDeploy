@@ -1,3 +1,6 @@
+{{#partial "contenido" }}
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 <h1 class="h3 mb-2 text-gray-800">Roles</h1>
 <p class="mb-4">Listado de roles y sus permisos.</p>
 
@@ -13,7 +16,7 @@
         <li>
             {{permiso.descripcion}}
             <!-- Formulario para borrar permiso -->
-            <form action="/rol/{{rol.id}}/borrarPermiso/{{permiso.id}}" method="POST" style="display: inline;">
+            <form action="/admin/rol/{{rol.id}}/borrarPermiso/{{permiso.id}}" method="POST" style="display: inline;">
                 <button type="submit" class="btn btn-small btn-danger">Borrar</button>
             </form>
         </li>
@@ -21,7 +24,7 @@
     </ul>
 
     <!-- Formulario para agregar nuevo permiso -->
-    <form action="/rol/{{rol.id}}/agregarPermiso" method="POST">
+    <form action="/admin/rol/{{rol.id}}/agregarPermiso" method="POST">
         <div class="form-group">
             <label for="permisoDropdown-{{rol.id}}">Agregar Permiso:</label>
             <select class="form-control" id="permisoDropdown-{{rol.id}}" name="permisoId">
@@ -42,7 +45,7 @@
     <h6 class="m-0 font-weight-bold text-primary">Crear Nuevo Rol</h6>
 </div>
 <div class="card-body">
-    <form action="/rol/crearRol" method="POST">
+    <form action="/admin/rol/crearRol" method="POST">
         <div class="form-group">
             <label for="nuevoRolNombre">Nombre del Rol:</label>
             <input type="text" class="form-control" id="nuevoRolNombre" name="nuevoRolNombre" required>
@@ -51,4 +54,5 @@
     </form>
 </div>
 </div>
-
+{{/partial}}
+{{> base }}

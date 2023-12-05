@@ -25,7 +25,6 @@ public class Router {
             Server.app().post("/registrarUsuario", ((SignInController) FactoryController.controller("signIn"))::processSignInRedirect);
 
 
-
             Server.app().get("/cargaEntidades",
                     ((EntidadesOrganismosController) FactoryController.controller("entidades"))::indexEntidades,
                     admin);
@@ -72,6 +71,21 @@ public class Router {
                     admin);
 
 
+            Server.app().get("/admin/roles", ((RolController) FactoryController.controller("rol"))::indexRoles,
+                    admin);
+            Server.app().post("/admin/rol/crearRol", ((RolController) FactoryController.controller("rol"))::crearRol,
+                    admin);
+            Server.app().post("/admin/rol/{id}/agregarPermiso", ((RolController) FactoryController.controller("rol"))::addPermiso,
+                    admin);
+            Server.app().post("/admin/rol/{id}/borrarPermiso/{permisoId}", ((RolController) FactoryController.controller("rol"))::borrarPermiso,
+                    admin);
+
+            Server.app().get("/admin/georef", ((GEOREFController) FactoryController.controller("georef"))::index,
+                    admin);
+            Server.app().post("/admin/georef", ((GEOREFController) FactoryController.controller("georef"))::actualizar
+                    ,admin);
+
+
             Server.app().get("/aperturaIncidentes", ((IncidenteController) FactoryController.controller("incidentes"))::aperturaIncidentes);
             Server.app().post("/aperturaIncidente", ((IncidenteController) FactoryController.controller("incidentes"))::abrirIncidente);
             Server.app().get("/incidentes", ((IncidenteController) FactoryController.controller("incidentes"))::indexIncidentes);
@@ -90,32 +104,21 @@ public class Router {
             Server.app().post("/comunidad/removerInteres", ((ComunidadController) FactoryController.controller("comunidad"))::removerInteres);
 
 
-            Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil);
-            //Server.app().get("/perfil", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil); // MAS SEGURO
-
+            //Server.app().get("/perfil/{id}", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfil);
+            Server.app().get("/perfil", ((PerfilController) FactoryController.controller("perfil"))::redirectPerfilPropio); // MAS SEGURO
             Server.app().post("/perfil/{id}/addLugarInteres", ((PerfilController) FactoryController.controller("perfil"))::addLugarDeInteres);
             Server.app().post("/perfil/{id}/addService", ((PerfilController) FactoryController.controller("perfil"))::addServicioDeInteres);
             Server.app().post("/perfil/{idMiembro}/agregarHorario", ((PerfilController) FactoryController.controller("perfil"))::agregarHorario);
             Server.app().post("/perfil/{idMiembro}/borrarHorario", ((PerfilController) FactoryController.controller("perfil"))::borrarHorario);
             Server.app().post("/perfil/{idMiembro}/updateNotificationPreferences", ((PerfilController) FactoryController.controller("perfil"))::guardarMedioPreferido);
 
-            Server.app().get("/entidades", ((EntidadController) FactoryController.controller("entidad"))::indexEntidades);
+            //Server.app().get("/entidades", ((EntidadController) FactoryController.controller("entidad"))::indexEntidades); SE PUEDE USAR LA DE cargarENTIDADES
             Server.app().get("/entidad/{id}", ((EntidadController) FactoryController.controller("entidad"))::indexEntidad);
             Server.app().post("/entidad/{id}/crearEstablecimiento", ((EntidadController) FactoryController.controller("entidad"))::crearEstablecimiento);
             Server.app().post("/entidades/crearEntidad", ((EntidadController) FactoryController.controller("entidad"))::crearEntidad);
 
             Server.app().get("/establecimiento/{id}", ((EstablecimientoController) FactoryController.controller("establecimiento"))::indexEstablecimiento);
             Server.app().post("/establecimiento/{id}/agregarServicio", ((EstablecimientoController) FactoryController.controller("establecimiento"))::addPrestacion);
-
-            Server.app().get("/roles", ((RolController) FactoryController.controller("rol"))::indexRols);
-            Server.app().post("/rol/crearRol", ((RolController) FactoryController.controller("rol"))::crearRol);
-            Server.app().post("/rol/{id}/agregarPermiso", ((RolController) FactoryController.controller("rol"))::addPermiso);
-            Server.app().post("/rol/{id}/borrarPermiso/{permisoId}", ((RolController) FactoryController.controller("rol"))::borrarPermiso);
-
-            Server.app().get("/georef", ((GEOREFController) FactoryController.controller("georef"))::index);
-            Server.app().post("/georef", ((GEOREFController) FactoryController.controller("georef"))::actualizar);
-
-
         });
 
         //  Server.app().get("/entidadesPrestadoras", new EntidadesPrestadorasController()::index);

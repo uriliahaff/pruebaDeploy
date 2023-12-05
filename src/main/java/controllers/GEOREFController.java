@@ -3,22 +3,37 @@ package controllers;
 import domain.Repositorios.RepositorioDireccion;
 import domain.Repositorios.RepositorioEntidadPrestadoraOrganismoControl;
 import domain.Repositorios.RepositorioUsuario;
+import domain.Usuarios.Comunidades.Comunidad;
+import domain.Usuarios.Usuario;
+import domain.services.NavBarVisualizer;
 import domain.services.georef.ServicioGeoref;
 import domain.services.georef.entities.*;
 import io.javalin.http.Context;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GEOREFController {
 
     private RepositorioDireccion repoGEOREF;
+    private RepositorioUsuario repositorioUsuario;
 
-    public GEOREFController(RepositorioDireccion repoGEOREF){
+    public GEOREFController(RepositorioDireccion repoGEOREF, RepositorioUsuario repoUser){
         this.repoGEOREF = repoGEOREF;
+        this.repositorioUsuario = repoUser;
     }
     public void index(Context context){
+        Map<String, Object> model = new HashMap<>();
+        model.put("username", context.cookie("username"));
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
+        model.put("UserId",context.cookie("id"));
 
-        context.render("georef.hbs");
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        navBarVisualizer.colocarItems(user.getRoles(), model);
+
+        context.render("georef.hbs", model);
     }
 
     public void actualizar(Context context) throws IOException {
@@ -43,7 +58,7 @@ public class GEOREFController {
           //  repoGEOREF.saveProvincia(provinciaNueva); // ERROR ACA "detached"
         }
 
-        context.redirect("/georef");
+        context.redirect("/admin/georef");
     }
 
     public void limpiarDatos(){

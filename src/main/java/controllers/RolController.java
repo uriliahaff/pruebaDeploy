@@ -8,6 +8,7 @@ import domain.Repositorios.RepositorioUsuario;
 import domain.Usuarios.Permiso;
 import domain.Usuarios.Rol;
 import domain.Usuarios.Usuario;
+import domain.services.NavBarVisualizer;
 import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,10 +22,11 @@ public class RolController
 {
     private RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
     private RepositorioRol repositorioRol = new RepositorioRol();
-    public void indexRols(Context context)
+    public void indexRoles(Context context)
     {
         Map<String,Object> model = new HashMap<>();
         model.put("UserId",context.cookie("id"));
+        Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
         List<Rol> roles = repositorioRol.findAllRoles();
         roles.size();
         roles.forEach(rol -> rol.getPermisos().size());
@@ -32,29 +34,13 @@ public class RolController
 
         roles.forEach(rol -> rol.getPermisos().forEach(permiso -> permiso.getDescripcion()));
         model.put("roles",roles);
-
         model.put("permisosDisponibles",permisos);
-
         model.put("UserId", context.cookie("id"));
 
+        NavBarVisualizer navBarVisualizer = new NavBarVisualizer();
+        navBarVisualizer.colocarItems(user.getRoles(), model);
 
-        try {
-            // Configura el loader para buscar plantillas en el directorio /templates
-            Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
-
-            // Compila el contenido del partial 'incidentes_template' y pásalo como 'body'
-            Template template = handlebars.compile("roles");
-            String bodyContent = template.apply(model);
-            model.put("body", bodyContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Es importante manejar esta excepción adecuadamente
-            context.status(500).result("Error al procesar la plantilla de incidentes.");
-            return; // Sal del método aquí si no quieres procesar más el request debido al error
-        }
-
-        // Renderiza la plantilla común con el contenido incluido
-        context.render("layout_comun.hbs", model);
+        context.render("roles.hbs", model);
     }
 
     public void addPermiso(Context context)
