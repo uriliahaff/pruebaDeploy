@@ -2,7 +2,7 @@ package domain.services.georef.entities;
 
 import javax.persistence.*;
 
-@Entity (name = "provincia")
+@Entity //(name = "provincia")
 public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +24,10 @@ public class Provincia {
 
     public String getNombre() {
         return nombre;
+    }
+    public Provincia setId(int id)
+    {
+        this.setId(id);
+        return this;
     }
 }

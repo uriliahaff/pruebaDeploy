@@ -8,6 +8,8 @@ public class Localidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
+
     @Column(nullable = false)
     private String nombre;
 
@@ -24,5 +26,10 @@ public class Localidad {
 
     public Localidad(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Localidad setId(int id) {
+        this.id = id;
+        return this;
     }
 }

@@ -41,21 +41,38 @@ public class GEOREFController {
         ListadoDeProvincias provinciasNuevas = servicio.listadoDeProvincias();
 
         for(Provincia provinciaNueva:provinciasNuevas.provincias){
-
+            Provincia provincia = repoGEOREF.findProvincia(provinciaNueva.getId());
+            if (provincia != null) {
+                System.out.println(provincia.getNombre());
+                // Actualizar la provincia existente
+                repoGEOREF.updateProvincia(new Provincia(provinciaNueva.getNombre()).setId(provinciaNueva.getId()));
+            } else {
+                // Guardar nueva provincia
+                repoGEOREF.saveProvincia(new Provincia(provinciaNueva.getNombre()));
+            }
             ListadoDeMunicipios municipiosNuevos = servicio.listadoDeMunicipiosDeProvincia(provinciaNueva.getId());
-            //ListadoDeLocalidades localidadesNuevas = servicio.listadoDeLocalidadesDeProvincia(provinciaNueva.getId()); // NOSE porque no funciona
 
             for(Municipio municipioNuevo: municipiosNuevos.municipios){
+                if(repoGEOREF.findMunicipio(municipioNuevo.getId()) != null)
+                    repoGEOREF.updateMunicipio(new Municipio(municipioNuevo.getNombre()).setId(municipioNuevo.getId()));
+                else
+                    repoGEOREF.saveMunicipio(new Municipio(municipioNuevo.getNombre())); // ERROR ACA "detached"
 
-                //repoGEOREF.saveMunicipio(municipioNuevo); // ERROR ACA "detached"
+                System.out.println(provinciaNueva.getId());
+                ListadoDeLocalidades localidadesNuevas = servicio.listadoDeLocalidadesDeProvincia(municipioNuevo.getId()); // NOSE porque no funciona
+                for(Localidad localidadNueva: localidadesNuevas.localidades){
+                    if(repoGEOREF.findLocalidad(localidadNueva.getId()) != null)
+                        repoGEOREF.updateLocalidad(new Localidad(localidadNueva.getNombre()).setId(localidadNueva.getId()));
+                    else
+                        repoGEOREF.saveLocalidad(localidadNueva); // ERROR ACA "detached"
 
+                }
             }
 
             /*for(Localidad localidadNueva: localidadesNuevas.localidades){
 
             }*/
 
-          //  repoGEOREF.saveProvincia(provinciaNueva); // ERROR ACA "detached"
         }
 
         context.redirect("/admin/georef");

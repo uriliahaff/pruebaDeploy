@@ -81,7 +81,7 @@ public void indexIncidentes(Context context) {
 
     }
 
-    // Formatear la fecha de inicio
+    /*/ Formatear la fecha de inicio
     List<String> fechasInicioFormateadas = incidentes.stream()
             .map(incidente -> incidente.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
             .toList();
@@ -90,7 +90,10 @@ public void indexIncidentes(Context context) {
         Incidente incidente = incidentes.get(i);
         incidente.setFechaInicioFormateada(fechaInicioFormateada);
     }
+*/
 
+    incidentes.forEach(incidente -> incidente.setFechaInicioFormateada(incidente.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+    incidentes.stream().filter(incidente -> !incidente.estaAbierto()).forEach(incidente -> incidente.setFechaFinFormateada(incidente.getFechaInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
     model.put("incidentes",incidentes);
     model.put("username", context.cookie("username"));
     Usuario user = repositorioUsuario.findUsuarioById(Integer.parseInt(context.cookie("id")));
