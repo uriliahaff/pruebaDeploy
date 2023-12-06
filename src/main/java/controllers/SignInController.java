@@ -187,14 +187,12 @@ public class SignInController {
     public void renderSignInEntidadPrestadora(Context context)
     {
         Map<String, Object> model = new HashMap<>();
-
         String error = context.sessionAttribute("error");
         if (error != null) {
             model.put("error", error);
             context.sessionAttribute("error", null);
         }
         model.put("entidades", repositorioEntidad.findAll());
-
         context.render("signInEntidad.hbs", model);
     }
 }
