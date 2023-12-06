@@ -3,6 +3,7 @@ package sever;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
+import domain.other.EntityManagerProvider;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.function.Consumer;
 
 import com.github.jknack.handlebars.io.TemplateLoader;
 
+import javax.persistence.EntityManagerFactory;
 
 
 public class Server {

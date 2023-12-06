@@ -52,7 +52,9 @@ public class AuthMidddleware {
         if (userIdCookie != null && !userIdCookie.isEmpty()) {
             RepositorioUsuario repo = new RepositorioUsuario();
             Usuario user = repo.findUsuarioById(Integer.parseInt(userIdCookie));
-            return user.getRoles();
+            if(user!=null){
+                return user.getRoles();
+            }
         }
         // Manejo adecuado cuando la cookie "id" es nula o vacía
         return Collections.emptyList(); // o null, dependiendo de tu lógica

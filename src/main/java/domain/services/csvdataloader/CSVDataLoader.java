@@ -17,7 +17,7 @@ public class CSVDataLoader {
     public List<EntidadPrestadora> leerArchivoEntidades(InputStream inputStream) {
         List<EntidadPrestadora> entidadesPrestadoras = new ArrayList<>();
         RepositorioEntidad repositorioEntidad = new RepositorioEntidad();
-        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+       // RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             CSVReader csvReader = new CSVReader(reader);
             List<String[]> records = csvReader.readAll();
@@ -40,7 +40,7 @@ public class CSVDataLoader {
                 // Crea un objeto EntidadPrestadora y agrégalo a la lista
                 EntidadPrestadora entidadPrestadora = new EntidadPrestadora();
                entidadPrestadora.setEntidad(repositorioEntidad.findEntidadById(entidad_id));
-                entidadPrestadora.setUsuario(repositorioUsuario.findUsuarioById(usuario_id));
+                //entidadPrestadora.setUsuario(repositorioUsuario.findUsuarioById(usuario_id));
                 entidadPrestadora.setNombre(nombre);
                 entidadPrestadora.setDescripcion(descripcion);
                 entidadPrestadora.setCorreoElectronicoResponsable(mail);
@@ -61,7 +61,7 @@ public class CSVDataLoader {
     public List<OrganismoDeControl> leerArchivoOrganismo(InputStream inputStream) {
         List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
         RepositorioServicio repositorioServicio = new RepositorioServicio();
-        RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
+        //RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             CSVReader csvReader = new CSVReader(reader);
             List<String[]> records = csvReader.readAll();
@@ -84,7 +84,7 @@ public class CSVDataLoader {
                 // Crea un objeto EntidadPrestadora y agrégalo a la lista
                 OrganismoDeControl organismoDeControl = new OrganismoDeControl();
                 organismoDeControl.setServicio(repositorioServicio.findServicioById(servicio_id));
-                organismoDeControl.setUsuario(repositorioUsuario.findUsuarioById(usuario_id));
+                //organismoDeControl.setUsuario(repositorioUsuario.findUsuarioById(usuario_id));
                 organismoDeControl.setNombre(nombre);
                 organismoDeControl.setDescripcion(descripcion);
                 organismoDeControl.setCorreoElectronicoResponsable(mail);

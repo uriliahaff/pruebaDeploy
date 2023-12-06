@@ -11,14 +11,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepositorioUsuario {
+public class RepositorioUsuario{
 
     private static EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();;
 
 
-    /*public RepositorioUsuario() {
-        this.entityManager = EntityManagerProvider.getInstance().getEntityManager();
-    }*/
+
 
     // Métodos generales para guardar y actualizar
     private <T> void saveEntity(T entity) {

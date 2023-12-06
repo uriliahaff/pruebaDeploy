@@ -4,6 +4,8 @@ import controllers.*;
 import domain.Usuarios.Rol;
 import io.javalin.http.Context;
 
+import javax.persistence.EntityManagerFactory;
+
 public class Router {
 
     public static void init() {
@@ -122,6 +124,7 @@ public class Router {
 
             Server.app().get("/establecimiento/{id}", ((EstablecimientoController) FactoryController.controller("establecimiento"))::indexEstablecimiento);
             Server.app().post("/establecimiento/{id}/agregarServicio", ((EstablecimientoController) FactoryController.controller("establecimiento"))::addPrestacion);
+
         });
 
         //  Server.app().get("/entidadesPrestadoras", new EntidadesPrestadorasController()::index);

@@ -5,6 +5,8 @@ import domain.Repositorios.RepositorioEntidadPrestadoraOrganismoControl;
 import domain.Repositorios.RepositorioIncidente;
 import domain.Repositorios.RepositorioUsuario;
 
+import javax.persistence.EntityManagerFactory;
+
 public class FactoryController {
 
     public static Object controller(String nombre){
