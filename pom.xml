@@ -87,7 +87,11 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.14</version>
+    </dependency>
     <!-- hsqldb -->
     <dependency>
       <groupId>org.hsqldb</groupId>
