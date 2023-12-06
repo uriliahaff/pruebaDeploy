@@ -36,8 +36,8 @@ public class OrganismoDeControlController
         }
         model.put("isAdmin",isAdmin);
 
-        CommonController.fillNav(model,user);
-        try {
+        //CommonController.fillNav(model,user);
+        /*try {
             // Configura el loader para buscar plantillas en el directorio /templates
             Handlebars handlebars = new Handlebars().with(new ClassPathTemplateLoader("/templates", ".hbs"));
 
@@ -54,7 +54,8 @@ public class OrganismoDeControlController
         }
         model.put("servicios", repositorioServicio.findAll());
         // Renderiza la plantilla común con el contenido incluido
-        context.render("layout_comun.hbs", model);
+        context.render("layout_comun.hbs", model);*/
+        context.render("organismoDeControl.hbs", model);
     }
 
     public void cargarMasivaDeOrganismosDeControl(Context context) {

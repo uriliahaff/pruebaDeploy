@@ -28,7 +28,7 @@
                                         <tr>
                                             <td>{{this.descripcion}}</td>
                                             <td>{{this.servicioAfectado.servicio.nombre}} - {{this.servicioAfectado.establecimiento.nombre}}</td>
-                                            <td>{{this.fechaInicio}}</td>
+                                            <td>{{this.fechaInicioFormateada}}</td>
                                             <td>
                                             <form action="/cerrarIncidente/{{this.id}}" method="POST">
                                                    <button type="submit" class="btn btn-danger">Cerrar Incidente</button>

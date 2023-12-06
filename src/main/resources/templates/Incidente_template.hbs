@@ -43,8 +43,8 @@
                             {{#if this.fechaCierre}} <span class="badge badge-success" style="background-color:#28a745;">Cerrado</span>{{else}}<span class="badge badge-success" style="background-color:#dc3545;">Abierto</span>{{/if}}
 
                         </td>
-                        <td>{{this.fechaInicio}}</td>
-                        <td>{{#if this.fechaCierre}}{{this.fechaCierre}}{{else}}-{{/if}}</td>
+                        <td>{{this.fechaInicioFormateada}}</td>
+                        <td>{{#if this.fechaCierre}}{{this.fechaFinFormateada}}{{else}}-{{/if}}</td>
                     </tr>
                     {{/each}}
 
