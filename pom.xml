@@ -75,12 +75,7 @@
       <artifactId>twilio</artifactId>
       <version>9.8.0</version>
     </dependency>
-    <dependency>
-          <groupId>org.jetbrains</groupId>
-          <artifactId>annotations</artifactId>
-          <version>RELEASE</version>
-          <scope>compile</scope>
-      </dependency>
+
     <!--Nose pero esta en el ejemplo-->
     <dependency>
       <groupId>commons-cli</groupId>
